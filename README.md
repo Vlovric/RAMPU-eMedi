@@ -1,7 +1,5 @@
 # eMedi
 
-Aplikacija za prijavljivanje korisnika kod doktora opće ili privatne medicine.
-
 ## Projektni tim
 
 Ime i prezime | E-mail adresa (FOI) | JMBAG | Github korisničko ime | Seminarska grupa
