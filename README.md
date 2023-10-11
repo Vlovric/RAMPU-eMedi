@@ -1,43 +1,47 @@
-# Inicijalne upute za prijavu projekta iz Razvoja aplikacija za mobilne i pametne uređaje
+# eMedi
 
-Poštovane kolegice i kolege, 
-
-čestitamo vam jer ste uspješno prijavili svoj projektni tim na kolegiju Razvoj aplikacija za mobilne i pametne uređaje, te je za vas automatski kreiran repozitorij koji ćete koristiti za verzioniranje vašega koda i za jednostavno dokumentiranje istoga.
-
-Ovaj dokument (README.md) predstavlja **osobnu iskaznicu vašeg projekta**. Vaš prvi zadatak je **prijaviti vlastiti projektni prijedlog** na način da ćete prijavu vašeg projekta, sukladno uputama danim u ovom tekstu, napisati upravo u ovaj dokument, umjesto ovoga teksta.
-
-Za upute o sintaksi koju možete koristiti u ovom dokumentu i kod pisanje vaše projektne dokumentacije pogledajte [ovaj link](https://guides.github.com/features/mastering-markdown/).
-Sav programski kod potrebno je verzionirati u glavnoj **master** grani i **obvezno** smjestiti u mapu Software. Sve artefakte (npr. slike) koje ćete koristiti u vašoj dokumentaciju obvezno verzionirati u posebnoj grani koja je već kreirana i koja se naziva **master-docs** i smjestiti u mapu Documentation.
-
-Nakon vaše prijave bit će vam dodijeljen mentor s kojim ćete tijekom semestra raditi na ovom projektu. Mentor će vam slati povratne informacije kroz sekciju Discussions također dostupnu na GitHubu vašeg projekta. A sada, vrijeme je da prijavite vaš projekt. Za prijavu vašeg projektnog prijedloga molimo vas koristite **predložak** koji je naveden u nastavku, a započnite tako da kliknete na *olovku* u desnom gornjem kutu ovoga dokumenta :) 
-
-# Naziv projekta
-(u redak iznad navedite kratki proizvoljni naziv projekta prikladan akademskoj zajednici, a ovaj tekst kao i uvodni tekst iznad obrišite)
+Aplikacija za prijavljivanje korisnika kod doktora opće ili privatne medicine.
 
 ## Projektni tim
-(svi članovi tima moraju biti iz iste seminarske grupe)
 
 Ime i prezime | E-mail adresa (FOI) | JMBAG | Github korisničko ime | Seminarska grupa
 ------------  | ------------------- | ----- | --------------------- | ----------------
-Ime i prezime | mojaadresa@foi.hr | 000000000 | githubuser | G01
-Ime i prezime | ... | ... | ... | ...
+David Matijanić | dmatijani21@student.foi.hr | 0016153844 | dmatijani | G02
+Viktor Lovrić | vlovric21@student.foi.hr | 0016154953 | vlovric21 | G02
+Domagoj Hegedušić | dhegedusi21@student.foi.hr | 0016153732 | dhegedusi21 | G02
+Magdalena Markovinović  | mmarkovin21@student.foi.hr | 0016155896 | mmarkoovin21 | G02
 
 ## Opis domene
-Umjesto ovih uputa opišite domenu ili problem koji pokrivate vašim projektom. Domena može biti proizvoljna, ali obratite pozornost da sukladno ishodima učenja, domena omogući primjenu zahtijevanih koncepata kako je to navedeno u sljedećem poglavlju. Priložite odgovarajuće skice gdje je to prikladno.
+
+Problemska domena ove aplikacije primarno se fokusira na prijavljivanje pacijenta kod doktora ili specijalista. Aplikaciju koriste i pacijenti i doktori, no u ovom projektu obradit će se samo strana pacijenta. Dokument će obuhvaćati specifikacije potrebne pacijentima kako bi se nesmetano registrirali, prijavili u aplikaciju, pronašli određenog doktora ili specijalista po imenu ili karakteristikama, pratili svoje posjete doktoru i pratili propisane lijekove. Ova aplikacija pokrivat će perspektivu pacijenata te će sve funkcionalnosti biti usmjerene prema tome. 
 
 ## Specifikacija projekta
-Umjesto ovih uputa opišite zahtjeve za funkcionalnošću mobilne aplikacije ili aplikacije za pametne uređaje. Pobrojite osnovne funkcionalnosti i za svaku naznačite ime odgovornog člana tima. Opišite osnovnu buduću arhitekturu programskog proizvoda. Obratite pozornost da mobilne aplikacije često zahtijevaju pozadinske servise. Također uzmite u obzir da bi svaki član tima trebao biti odgovoran za otprilike 3 funkcionalnosti, te da bi opterećenje članova tima trebalo biti ujednačeno. Priložite odgovarajuće dijagrame i skice gdje je to prikladno. Funkcionalnosti sustava bobrojite u tablici ispod koristeći predložak koji slijedi:
+
+Ovim dokumentom opisuju se jasne i detaljne specifikacije aplikativnog rješenja po kojima se implementira sama mobilna aplikacija. Aplikativno rješenje trebalo bi zamijeniti portal "najdoktor" koji se pokazao nepraktičnim za korištenje i proširiti na njega.
+
+### Funkcionalnosti sustava:
 
 Oznaka | Naziv | Kratki opis | Odgovorni član tima
 ------ | ----- | ----------- | -------------------
-F01 | Login | Za pristup dnevniku potrebnba je autentikacija korisnika pomoću login funkcionalnosti. Korisnik se logira s podacima koji su mu dodijeljeni prilikom ... | Zlatko Stapić
-F02 | Pregled dnevnika | .... | ...
+F01 | Registracija | Kako bi mogli iskoristiti sve mogućnosti aplikacije, potrebno je da se korisnik registrira s jedinstvenim osobnim podacima koji ga identificiraju. To su podatci poput imena, prezimena, korisničkog imena, email-a, lozinke i ostalih osobnih podataka. | Magdalena Markovinović
+F02 | Prijava | Za pristup svim funkcionalnostima aplikacije potrebna je prethodna prijava registriranog korisnika s potrebnim podacima koji su email i lozinka. | Magdalena Markovinović
+F03 | Pretraživanje i filtriranje doktora po određenim kriterijima | Korisnici aplikacije imaju mogućnost pretraživanja doktora prema njihovom nazivu. Doktori se mogu filtrirati po mnogo kategorija, što uključuje specijalizaciju, lokaciju, recenzijama | Magdalena Markovinović
+F04 | Pregled podataka o liječnicima | Korisnici mogu vidjeti sve bitne podatke o liječnicima te informacije koje su im potrebne. To uključuje radno vrijeme, adresu, telefonski broj, adresu elektroničke pošte, specijalizaciju, usluge koje pruža i slično. | Viktor Lovrić
+F05 | Prijava razloga pregleda | Nakon pregledavanja informacija o određenom doktoru, korisnici se mogu prijaviti kod istog. Ispunjavanjem polja za informacije o razlogu pregleda i pritiskom na gumb prijave, poslat će se zahtjev doktoru kojeg doktor treba prihvatiti ili odbiti. Prihvaćanje zahtjeva ovisi isključivo o doktoru i analizi razloga pregleda. U svrhu ovog projekta implementacija prijave razloga pregleda napravit će se na način da se svaki korisnikov zahtjev odobrava nakon fiksnog vremena te se o tome obavještava korisnika. | Viktor Lovrić
+F06 | Rezervacija termina pregleda | Kada je pacijent prijavljen kod doktora, ima mogućnost prijave termina pregleda. Pacijent za termin pregled prvo odabire dan te vremenski period unutar tog dana. Dani i vremenski periodi mogu biti ili dostupni ili nedostupni ovisno o zauzetosti doktora. | David Matijanić
+F07 | Pregled povijesti posjeta | Korisnik može pregledavati svoju povijest posjeta liječniku i vidjeti kakve lijekove je u tom posjetu dobio na recept. | David Matijanić
+F08 | Uređivanje podataka o korisniku | Korisnik može mijenjati svoje osobne podatke u aplikaciji. | David Matijanić
+F09 | Pisanje i pregled recenzija | Korisnici mogu pregledavati i ostavljati recenzije doktorima kod kojih su bili na pregledu. Recenzije sadrže ocjenu od 1 do 5 sa opcionalnim komentarom.| Domagoj Hegedušić
+F10 | Obavještavanje korisnika | Korisnik će od aplikacije zaprimiti obavijest fiksno vrijeme koje odabere u postavkama aplikacije prije rezerviranog termina kod doktora. Korisnik će također dobivati obavijesti kada mu je prijava kod doktora odobrena. | Domagoj Hegedušić
+F11 | Pristupačni način za slabovidne osobe | Aplikacija omogućava niz funkcija koje će osobama sa slabijim ili oštećenim vidom pomoći pri upotrebi. Funkcije se odnose na povećanje slova, promjenu fonta za osobe sa poteškoćom u čitanju i promjenu boja za osobe s daltonizmom. | Domagoj Hegedušić
+F12 | Odjava i brisanje računa | Korisnik ima mogućnost odjave iz aplikacije i mogućnost brisanje svog korisničkog računa. | Viktor Lovrić
 
 ## Tehnologije i oprema
-Umjesto ovih uputa jasno popišite sve tehnologije, alate i opremu koju ćete koristiti pri implementaciji vašeg rješenja. Vaše rješenje može biti implementirano u bilo kojoj tehnologiji za razvoj mobilnih aplikacija ili aplikacija za pametne uređaje osim u hibridnim web tehnologijama kao što su React Native ili HTML+CSS+JS. Tehnologije koje ćete koristiti bi trebale biti javno dostupne, a ako ih ne budemo obrađivali na vježbama u vašoj dokumentaciji ćete morati navesti način preuzimanja, instaliranja i korištenja onih tehnologija koje su neopbodne kako bi se vaš programski proizvod preveo i pokrenuo. Pazite da svi alati koje ćete koristiti moraju imati odgovarajuću licencu. Što se tiče zahtjeva nastavnika, obvezno je koristiti git i GitHub za verzioniranje programskog koda, GitHub Wiki za pisanje jednostavne dokumentacije sukladno uputama mentora, a projektne zadatke je potrebno planirati i pratiti u alatu GitHub projects.
+
+Za razvijanje aplikacije eMedi koristit ćemo sljedeće tehnologije: Android uređaj, git i GitHub za verzioniranje programskog koda, GitHub Wiki za pisanje jednostavne dokumentacije i alat GitHub projects.
+
+Za razvijanje aplikacije eMedi koristit će se primarno Android Studio i programski jezik Kotlin. Za verzioniranje programskog koda koristit će se git i GitHub te GitHub Wiki za pisanje dokumentacije. Projektni zadaci bit će pisani i praćeni u GitHub Projects. Za bazu podataka bit će korišten SQL.
 
 ## Baza podataka i web server
-Nastavnici vam mogu pripremiti MySQL bazu podataka i web server na kojem možete postaviti jednostavne php web servise. Ako želite da vam pripremimo ove sustave obavezno to navedite umjesto ovog teksta s napomenom "Trebamo bazu podataka i pristup serveru za PHP skripte". Alternativno, možete koristiti bilo koji online dostupan sustav kao i studentske licence na pojedinim platformama kao što su Heroku ili Azure.
 
-## .gitignore
-Uzmite u obzir da je u mapi Software .gitignore konfiguriran za nekoliko tehnologija, ali samo ako će projekti biti smješteni direktno u mapu Software ali ne i u neku pod mapu. Nakon odabira konačne tehnologije i projekta obavezno dopunite/premjestite gitignore kako bi vaš projekt zadovoljavao kriterije koji su opisani u ReadMe.md dokumentu dostupnom u mapi Software.
+Trebamo bazu podataka i pristup serveru za PHP skripte.
