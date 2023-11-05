@@ -19,6 +19,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setTabLayoutAndViewpager()
+    }
+
+    private fun setTabLayoutAndViewpager() {
         val mainPagerAdapter = MainPagerAdapter(supportFragmentManager, lifecycle)
         mainPagerAdapter.addFragment(MainPagerAdapter.FragmentItem(R.string.doctors, DoctorsFragment::class))
         mainPagerAdapter.addFragment(MainPagerAdapter.FragmentItem(R.string.appointments, AppointmentsFragment::class))
