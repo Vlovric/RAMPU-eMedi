@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/health_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_baseline_healing_24"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="56dp" />
+    <TextView
+        android:id="@+id/txt_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="eMedi"
+        android:textSize="36dp"
+        android:layout_below="@id/health_icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"/>
+
+    <EditText
+        android:id="@+id/tv_username_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Korisničko ime"
+        android:layout_below="@+id/txt_logo"
+        android:layout_marginTop="32dp"
+        android:padding="8dp" />
+
+    <EditText
+        android:id="@+id/txt_username_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Lozinka"
+        android:inputType="textPassword"
+        android:layout_below="@+id/tv_username_edit"
+        android:layout_marginTop="16dp"
+        android:padding="8dp" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Prijavi se"
+        android:backgroundTint="@color/medi_blue"
+        android:layout_below="@+id/txt_username_edit"
+        android:layout_marginTop="32dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Don't have an account? Register."
+        android:gravity="center"
+        android:layout_below="@+id/btn_login"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:textColorLink="@color/medi_blue"
+        android:clickable="true" />
+
+</RelativeLayout>
