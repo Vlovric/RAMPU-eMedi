@@ -27,7 +27,7 @@
         android:id="@+id/tv_username_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Korisničko ime"
+        android:hint="@string/username"
         android:layout_below="@+id/txt_logo"
         android:layout_marginTop="32dp"
         android:padding="8dp" />
@@ -36,7 +36,7 @@
         android:id="@+id/txt_username_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Lozinka"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:layout_below="@+id/tv_username_edit"
         android:layout_marginTop="16dp"
@@ -46,20 +46,33 @@
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Prijavi se"
+        android:text="@string/log_in"
         android:backgroundTint="@color/medi_blue"
         android:layout_below="@+id/txt_username_edit"
         android:layout_marginTop="32dp" />
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Don't have an account? Register."
         android:gravity="center"
+        android:orientation="horizontal"
         android:layout_below="@+id/btn_login"
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
-        android:textColorLink="@color/medi_blue"
-        android:clickable="true" />
+        android:layout_marginBottom="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Don't have an account? "
+            android:textColorLink="@color/medi_blue" />
+        <TextView
+            android:id="@+id/link_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/register"
+            android:textColor="@color/medi_blue"
+            android:textColorLink="@color/medi_blue"
+            android:clickable="true" />
+    </LinearLayout>
 
 </RelativeLayout>
