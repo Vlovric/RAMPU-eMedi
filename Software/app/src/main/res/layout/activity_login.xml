@@ -24,7 +24,7 @@
         android:layout_marginTop="8dp"/>
 
     <EditText
-        android:id="@+id/tv_username_edit"
+        android:id="@+id/et_username_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/username"
@@ -33,12 +33,12 @@
         android:padding="8dp" />
 
     <EditText
-        android:id="@+id/txt_username_edit"
+        android:id="@+id/et_password_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:layout_below="@+id/tv_username_edit"
+        android:layout_below="@+id/et_username_edit"
         android:layout_marginTop="16dp"
         android:padding="8dp" />
 
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:text="@string/log_in"
         android:backgroundTint="@color/medi_blue"
-        android:layout_below="@+id/txt_username_edit"
+        android:layout_below="@+id/et_password_edit"
         android:layout_marginTop="32dp" />
 
     <LinearLayout
