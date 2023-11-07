@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DoctorInformationActivity">
+    tools:context="DoctorInformationActivity">
 
 
     <ImageView
@@ -120,7 +120,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
-        android:text="Location"
+        android:text="Contact"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -137,12 +137,12 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_static_contact" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/tv_static_telephone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Address:"
+        android:text="Telephone:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_static_email" />
 
