@@ -1,13 +1,16 @@
 package hr.foi.rampu.emedi.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import hr.foi.rampu.emedi.DoctorInformationActivity
 import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.adapters.DoctorsAdapter
 import hr.foi.rampu.emedi.helpers.MockDataDoctor
@@ -15,12 +18,21 @@ import hr.foi.rampu.emedi.helpers.MockDataDoctor
 class DoctorsFragment : Fragment() {
     private val mockDoctors = MockDataDoctor.getDemoData()
     private lateinit var recyclerView: RecyclerView
+    private lateinit var button : Button
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mockDoctors.forEach{ Log.i("MOCK_DOCTOR", it.name)}
-        return inflater.inflate(R.layout.fragment_doctors, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_doctors, container, false)
+        button = rootView.findViewById(R.id.btn_doctor)
+        button.setOnClickListener{
+            Log.i("OnClick", "Usao u onclick")
+            val intent = Intent(requireContext(), DoctorInformationActivity::class.java)
+            val doctorNameSurname = mockDoctors[0].name + mockDoctors[0].surname
+            intent.putExtra("doctorNameSurname", doctorNameSurname)
+            startActivity(intent)
+        }
+        return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

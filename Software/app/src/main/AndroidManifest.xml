@@ -21,6 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".DoctorInformationActivity"
+            android:label="Doctor Information Activity">
+            <!-- Optional intent filters if you want to specify how this activity can be launched -->
+        </activity>
     </application>
 
 </manifest>
