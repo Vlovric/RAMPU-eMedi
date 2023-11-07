@@ -4,7 +4,7 @@ import hr.foi.rampu.emedi.entities.User
 import java.util.Date
 
 object MockDataUser {
-    fun getDemoData(): List<User> = listOf(
+    val userList = mutableListOf<User>(
         User("Pero",
             "Perić",
             Date(1990, 5, 15),
@@ -22,4 +22,10 @@ object MockDataUser {
             "korisnik2",
             "lozinka2")
     )
+    fun getDemoData(): List<User> = listOf(
+    )
+
+    /*fun addUser(user: User) {
+        users.add(user)
+    }*/
 }
