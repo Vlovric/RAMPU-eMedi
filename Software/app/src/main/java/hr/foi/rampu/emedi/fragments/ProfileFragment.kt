@@ -8,17 +8,23 @@ import android.view.ViewGroup
 import android.widget.TextView
 import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.entities.User
+import hr.foi.rampu.emedi.helpers.ProfileChangeHelper
 import java.util.Date
 
+enum class ProfileState {
+    Viewing,
+    Editing
+}
+
 class ProfileFragment : Fragment() {
-    val loggedUser = User("Ivan", // Potrebno dodati logiku i povezati sa logiranjem
-        "Ivic",
+    val loggedUser = User("Ana", // Potrebno dodati logiku i povezati sa logiranjem
+        "Novak",
         Date(),
-        "ivan.ivic@mail.hr",
-        "123 456-7890",
+        "ananovak@ideposta.net",
+        "091 512-1024",
         "Ulica Grada Sela 123",
-        "admin",
-        "test")
+        "anovak",
+        "test123456")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +35,7 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        view.findViewById<TextView>(R.id.tv_user_name_and_surname).text = loggedUser.name + " " + loggedUser.surname
+        val profileState = ProfileState.Viewing
+        val profileChangeHelper = ProfileChangeHelper(view, loggedUser)
     }
 }

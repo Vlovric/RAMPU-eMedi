@@ -24,7 +24,7 @@
         android:orientation="horizontal"
         android:padding="12dp">
         <TextView
-            android:id="@+id/tv_user_name_and_surname"
+            android:id="@+id/tv_name_and_surname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -47,6 +47,7 @@
             android:layout_height="44dp"
             android:src="@drawable/ic_baseline_edit_note_24"
             android:layout_gravity="center_vertical"
+            android:id="@+id/iv_edit_profile"
             android:contentDescription="@string/edit_button"/>
         <ImageView
             android:layout_width="44dp"
@@ -54,7 +55,8 @@
             android:src="@drawable/ic_baseline_done_24"
             android:layout_gravity="center_vertical"
             app:tint="@color/positive_green"
-            android:contentDescription="@string/edit_button"/>
+            android:id="@+id/iv_save_changes"
+            android:contentDescription="@string/save_changes"/>
     </LinearLayout>
 
     <ImageView
@@ -73,14 +75,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:labelFor="@id/tv_label_username"
+            android:labelFor="@id/tv_username"
             android:textSize="16sp"
             android:text="Username:" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:id="@+id/tv_label_username"
+            android:id="@+id/tv_username"
             tools:text="ivanivic200"/>
     </LinearLayout>
 
@@ -96,14 +98,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:labelFor="@id/tv_label_email"
+                android:labelFor="@id/tv_email"
                 android:textSize="16sp"
                 android:text="@string/e_mail_address" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:id="@+id/tv_label_email"
+                android:id="@+id/tv_email"
                 tools:text="myemail@email.com"/>
         </LinearLayout>
         <View
@@ -132,14 +134,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:labelFor="@id/tv_label_telephone_number"
+                android:labelFor="@id/tv_telephone_number"
                 android:textSize="16sp"
                 android:text="@string/telephone_number" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:id="@+id/tv_label_telephone_number"
+                android:id="@+id/tv_telephone_number"
                 tools:text="123 456-7890"/>
         </LinearLayout>
         <View
@@ -168,14 +170,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:labelFor="@id/tv_label_address"
+                android:labelFor="@id/tv_address"
                 android:textSize="16sp"
                 android:text="@string/address" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:id="@+id/tv_label_address"
+                android:id="@+id/tv_address"
                 tools:text="This street 1 2 3"/>
         </LinearLayout>
         <View
