@@ -3,20 +3,15 @@ package hr.foi.rampu.emedi.entities
 import java.util.Date
 
 /*
-Ime(string)
-Prezime(string)
-Datum rođenja(date)
-e-mail(string)
-broj telefona (double)
-Adresa (Ulica, kućni broj, grad)
-Korisničko ime(string)
-Lozinka (string)
-posjete_lječniku(List<Posjeta>) - KASNIJE
-RECENZIJE - KASNIJE
+DODATI:
+List<Posjeta> - KASNIJE
+List<Recenzija> RECENZIJE - KASNIJE
+Slika - PROFILNA (razmisliti kako upload)
  */
 
 data class User(
     val name: String,
+    val surname: String,
     val birthDate: Date,
     val email: String,
     val telephoneNumber: String,
