@@ -11,8 +11,7 @@ class DoctorInformationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_doctor_information)
 
         val doctorNameSurname = intent.getStringExtra("doctorNameSurname")
-        Log.i("OnClick", "Usao u drugu aktivnost")
-        val textView = findViewById<TextView>(R.id.tv_doctor_name_surname)
-        textView.text = doctorNameSurname
+        //val textView = findViewById<TextView>(R.id.tv_doctor_name_surname)
+        //textView.text = doctorNameSurname
     }
 }
