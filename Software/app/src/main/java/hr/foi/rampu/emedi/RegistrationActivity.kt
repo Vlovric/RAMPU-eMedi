@@ -1,5 +1,6 @@
 package hr.foi.rampu.emedi
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -28,10 +29,8 @@ class RegistrationActivity : AppCompatActivity() {
 
         val birthDate = findViewById<EditText>(R.id.et_birthdate_edit)
 
-        // Logika za registraciju
         val btnRegister = findViewById<Button>(R.id.btn_register)
         btnRegister.setOnClickListener{
-            //Dohvaćanje podataka iz tekstualnih polja
             val firstName = findViewById<EditText>(R.id.et_firstname_edit).text.toString()
             val lastName = findViewById<EditText>(R.id.et_lastname_edit).text.toString()
             val email = findViewById<EditText>(R.id.et_email_edit).text.toString()
@@ -40,8 +39,13 @@ class RegistrationActivity : AppCompatActivity() {
             val username = findViewById<EditText>(R.id.tv_register_username_edit).text.toString()
             val password = findViewById<EditText>(R.id.et_register_password_edit).text.toString()
             val newUser = User(firstName, lastName, sdfDate.parse(birthDate.text.toString()), email, phoneNumber, address, username, password)
+
             MockDataUser.userList.add(newUser)
             Log.i("USERADDED", "User count: ${MockDataUser.userList.count()}")
+
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
         birthDate.setOnFocusChangeListener{ view, hasFocus ->
             if(hasFocus) {
