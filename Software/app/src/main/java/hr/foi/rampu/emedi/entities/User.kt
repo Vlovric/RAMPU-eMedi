@@ -10,12 +10,12 @@ Slika - PROFILNA (razmisliti kako upload)
  */
 
 data class User(
-    val name: String,
-    val surname: String,
-    val birthDate: Date,
-    val email: String,
-    val telephoneNumber: String,
-    val address: String,
-    val username: String,
-    val password: String
+    var name: String,
+    var surname: String,
+    var birthDate: Date,
+    var email: String,
+    var telephoneNumber: String,
+    var address: String,
+    var username: String,
+    var password: String
 )

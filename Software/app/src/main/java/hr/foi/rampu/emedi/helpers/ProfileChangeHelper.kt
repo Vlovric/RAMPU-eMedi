@@ -1,10 +1,17 @@
 package hr.foi.rampu.emedi.helpers
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.app.ProgressDialog.show
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.entities.User
 import hr.foi.rampu.emedi.fragments.ProfileState
@@ -39,6 +46,51 @@ class ProfileChangeHelper(private val view: View, private val user: User) {
             adjustElementsByState(profileState)
             writeUserDataToTextViews()
         }
+
+        emailAddressChangeText.setOnClickListener {
+            buildDialog(user.email, "electronic mail") { newEmail ->
+                user.email = newEmail
+                adjustElementsByState(profileState)
+                writeUserDataToTextViews()
+            }
+        }
+        telephoneNumberChangeText.setOnClickListener {
+            buildDialog(user.telephoneNumber, "phone number") { newPhoneNumber ->
+                user.telephoneNumber = newPhoneNumber
+                adjustElementsByState(profileState)
+                writeUserDataToTextViews()
+            }
+        }
+        addressChangeText.setOnClickListener {
+            buildDialog(user.address, "address") { newAddress ->
+                user.address = newAddress
+                adjustElementsByState(profileState)
+                writeUserDataToTextViews()
+            }
+        }
+    }
+
+    private fun buildDialog(text: String, propertyName: String, positiveAction: (String) -> Unit) {
+        val textChangeDialogView = LayoutInflater
+            .from(view.context)
+            .inflate(R.layout.text_change_dialog, null)
+
+        val newTextField = textChangeDialogView.findViewById<EditText>(R.id.et_new_text)
+        val errorMessage = textChangeDialogView.findViewById<TextView>(R.id.tv_error_message)
+
+        newTextField.setText(text)
+        errorMessage.text = ""
+
+        newTextField.afterTextChanged { /* Implementirati provjeru unesenog polja */ }
+
+        AlertDialog.Builder(view.context)
+            .setView(textChangeDialogView)
+            .setTitle(view.context.getString(R.string.change_in_dialog, propertyName))
+            .setPositiveButton("Save changes") { _, _ ->
+                positiveAction(newTextField.text.toString())
+            }
+            .show()
+
     }
 
     private fun adjustElementsByState(state: ProfileState) {
@@ -68,5 +120,19 @@ class ProfileChangeHelper(private val view: View, private val user: User) {
         emailAddressText.text = user.email
         telephoneNumberText.text = user.telephoneNumber
         addressText.text = user.address
+    }
+
+    private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+        this.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(editable: Editable?) {
+                afterTextChanged.invoke(editable.toString())
+            }
+        })
     }
 }

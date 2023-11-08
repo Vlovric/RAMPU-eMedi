@@ -14,4 +14,7 @@
     <string name="log_out">Log out</string>
     <string name="editing">Editing</string>
     <string name="save_changes">Save changes</string>
+    <string name="change_text">Change text:</string>
+    <string name="error">Error!</string>
+    <string name="change_in_dialog">Change %1$s:</string>
 </resources>
