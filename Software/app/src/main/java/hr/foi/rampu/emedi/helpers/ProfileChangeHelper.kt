@@ -3,7 +3,9 @@ package hr.foi.rampu.emedi.helpers
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.ProgressDialog.show
+import android.graphics.Color
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +14,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.entities.User
 import hr.foi.rampu.emedi.fragments.ProfileState
@@ -30,9 +33,12 @@ class ProfileChangeHelper(private val view: View, private val user: User) {
     private val emailAddressChangeText: TextView = view.findViewById(R.id.tv_change_email)
     private val telephoneNumberChangeText: TextView = view.findViewById(R.id.tv_change_telephone_number)
     private val addressChangeText: TextView = view.findViewById(R.id.tv_change_address)
+    
+    private val defaultTextColor: Int = addressText.currentTextColor
+
+    var profileState: ProfileState = ProfileState.Viewing
 
     init {
-        var profileState: ProfileState = ProfileState.Viewing
         adjustElementsByState(profileState)
         writeUserDataToTextViews()
 
@@ -48,47 +54,71 @@ class ProfileChangeHelper(private val view: View, private val user: User) {
         }
 
         emailAddressChangeText.setOnClickListener {
-            buildDialog(user.email, "electronic mail") { newEmail ->
-                user.email = newEmail
-                adjustElementsByState(profileState)
-                writeUserDataToTextViews()
-            }
+            buildDialog(user.email, "electronic mail",
+                { newEmail ->
+                    user.email = newEmail
+                    adjustElementsByState(profileState)
+                    writeUserDataToTextViews()
+                }, { stringToCheck ->
+                    emailAddressCheck(stringToCheck)
+                }
+            )
         }
         telephoneNumberChangeText.setOnClickListener {
-            buildDialog(user.telephoneNumber, "phone number") { newPhoneNumber ->
-                user.telephoneNumber = newPhoneNumber
-                adjustElementsByState(profileState)
-                writeUserDataToTextViews()
-            }
+            buildDialog(user.telephoneNumber, "phone number",
+                { newPhoneNumber ->
+                    user.telephoneNumber = newPhoneNumber
+                    adjustElementsByState(profileState)
+                    writeUserDataToTextViews()
+                }, { stringToCheck ->
+                    telephoneNumberCheck(stringToCheck)
+                }
+            )
         }
         addressChangeText.setOnClickListener {
-            buildDialog(user.address, "address") { newAddress ->
-                user.address = newAddress
-                adjustElementsByState(profileState)
-                writeUserDataToTextViews()
-            }
+            buildDialog(user.address, "address",
+                { newAddress ->
+                    user.address = newAddress
+                    adjustElementsByState(profileState)
+                    writeUserDataToTextViews()
+                }, { _ -> "" }
+            )
         }
     }
 
-    private fun buildDialog(text: String, propertyName: String, positiveAction: (String) -> Unit) {
+    private fun buildDialog(text: String, propertyName: String, positiveAction: (String) -> Unit, errorCheck: (String) -> String) {
         val textChangeDialogView = LayoutInflater
             .from(view.context)
             .inflate(R.layout.text_change_dialog, null)
 
         val newTextField = textChangeDialogView.findViewById<EditText>(R.id.et_new_text)
+        if (propertyName == "phone number") newTextField.inputType = InputType.TYPE_CLASS_NUMBER
         val errorMessage = textChangeDialogView.findViewById<TextView>(R.id.tv_error_message)
 
         newTextField.setText(text)
         errorMessage.text = ""
+        var hasError = false
+        var errorText = ""
 
-        newTextField.afterTextChanged { /* Implementirati provjeru unesenog polja */ }
+        newTextField.afterTextChanged {
+            errorText = errorCheck.invoke(it)
+            Log.i("TEST", errorText)
+            errorMessage.text = errorText
+            hasError = errorText.isNotBlank()
+            errorMessage.visibility = if (hasError) View.VISIBLE else View.INVISIBLE
+        }
 
         AlertDialog.Builder(view.context)
             .setView(textChangeDialogView)
             .setTitle(view.context.getString(R.string.change_in_dialog, propertyName))
             .setPositiveButton("Save changes") { _, _ ->
-                positiveAction(newTextField.text.toString())
+                if (hasError) {
+                    Snackbar.make(view, errorText, Snackbar.LENGTH_SHORT).show()
+                } else {
+                    positiveAction.invoke(newTextField.text.toString())
+                }
             }
+            .setNegativeButton("Cancel") { _, _ -> }
             .show()
 
     }
@@ -119,7 +149,13 @@ class ProfileChangeHelper(private val view: View, private val user: User) {
         usernameText.text = user.username
         emailAddressText.text = user.email
         telephoneNumberText.text = user.telephoneNumber
-        addressText.text = user.address
+        if (user.address.isBlank()) {
+            addressText.text = view.context.getString(R.string.no_address)
+            addressText.setTextColor(Color.parseColor("#989898"))
+        } else {
+            addressText.text = user.address
+            addressText.setTextColor(defaultTextColor)
+        }
     }
 
     private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
@@ -134,5 +170,37 @@ class ProfileChangeHelper(private val view: View, private val user: User) {
                 afterTextChanged.invoke(editable.toString())
             }
         })
+    }
+
+    private fun emailAddressCheck(text: String): String {
+        if (text.isBlank()) {
+            return "Email address can't be blank!"
+        }
+
+        if (!Regex("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}\$").matches(text)) {
+            return "Not a valid email address!"
+        }
+
+        return ""
+    }
+
+    private fun telephoneNumberCheck(text: String): String {
+        if (text.isBlank()) {
+            return "Telephone number can't be blank!"
+        }
+
+        if (text.length < 3) {
+            return "Too short!"
+        }
+
+        if (text.length > 20) {
+            return "Too long!"
+        }
+
+        if (!Regex("^\\d+\$").matches(text)) {
+            return "Not a telephone number!"
+        }
+
+        return ""
     }
 }

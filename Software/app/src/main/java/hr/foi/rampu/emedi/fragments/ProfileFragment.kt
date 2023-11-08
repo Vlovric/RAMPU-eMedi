@@ -21,7 +21,7 @@ class ProfileFragment : Fragment() {
         "Novak",
         Date(),
         "ananovak@ideposta.net",
-        "091 512-1024",
+        "0915121024",
         "Ulica Grada Sela 123",
         "anovak",
         "test123456")

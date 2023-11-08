@@ -17,4 +17,5 @@
     <string name="change_text">Change text:</string>
     <string name="error">Error!</string>
     <string name="change_in_dialog">Change %1$s:</string>
+    <string name="no_address">no address</string>
 </resources>
