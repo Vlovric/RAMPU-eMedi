@@ -18,6 +18,8 @@ import com.google.android.material.snackbar.Snackbar
 import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.entities.User
 import hr.foi.rampu.emedi.fragments.ProfileState
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class ProfileChangeHelper(private val view: View, private val user: User) {
     private val nameAndSurname: TextView = view.findViewById(R.id.tv_name_and_surname)
@@ -26,6 +28,7 @@ class ProfileChangeHelper(private val view: View, private val user: User) {
     private val saveChangesButton: ImageView = view.findViewById(R.id.iv_save_changes)
 
     private val usernameText: TextView = view.findViewById(R.id.tv_username)
+    private val birthDateText: TextView = view.findViewById(R.id.tv_birth_date)
     private val emailAddressText: TextView = view.findViewById(R.id.tv_email)
     private val telephoneNumberText: TextView = view.findViewById(R.id.tv_telephone_number)
     private val addressText: TextView = view.findViewById(R.id.tv_address)
@@ -35,6 +38,7 @@ class ProfileChangeHelper(private val view: View, private val user: User) {
     private val addressChangeText: TextView = view.findViewById(R.id.tv_change_address)
     
     private val defaultTextColor: Int = addressText.currentTextColor
+    private val sdfDate = SimpleDateFormat("dd.MM.yyyy.", Locale.US)
 
     var profileState: ProfileState = ProfileState.Viewing
 
@@ -147,6 +151,7 @@ class ProfileChangeHelper(private val view: View, private val user: User) {
     private fun writeUserDataToTextViews() {
         nameAndSurname.text = "${user.name} ${user.surname}"
         usernameText.text = user.username
+        birthDateText.text = sdfDate.format(user.birthDate).toString()
         emailAddressText.text = user.email
         telephoneNumberText.text = user.telephoneNumber
         if (user.address.isBlank()) {

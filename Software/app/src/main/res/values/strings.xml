@@ -18,4 +18,6 @@
     <string name="error">Error!</string>
     <string name="change_in_dialog">Change %1$s:</string>
     <string name="no_address">no address</string>
+    <string name="username">Username:</string>
+    <string name="birth_date">Birth date:</string>
 </resources>
