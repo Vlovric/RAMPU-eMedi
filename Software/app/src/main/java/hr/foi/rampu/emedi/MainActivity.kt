@@ -3,7 +3,6 @@ package hr.foi.rampu.emedi
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -23,6 +22,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setTabLayoutAndViewpager()
+        // Add login check
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
     }
 
     private fun setTabLayoutAndViewpager() {
@@ -41,7 +43,5 @@ class MainActivity : AppCompatActivity() {
             tab.setText(mainPagerAdapter.fragmentItems[position].titleRes)
         }.attach()
     }
-    // Add login check
-    val intent = Intent(this, LoginActivity::class.java)
-    startActivity(intent)
+
 }
