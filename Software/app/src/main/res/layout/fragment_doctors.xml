@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".fragments.DoctorsFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/doctors" />
+    <!-- TODO: Update blank fragment layout -->
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_doctors"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <!--Ovo je privremeno rjesenje-->
+    <Button
+        android:id="@+id/btn_doctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ivo Ivić"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="300dp" />
 </FrameLayout>
