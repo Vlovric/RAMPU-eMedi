@@ -8,12 +8,12 @@ import java.util.Date
 * List<Recenzija> RECENZIJE - KASNIJE
 * */
 data class User(
-    val name: String,
-    val surname: String,
-    val birthDate: Date,
-    val emali: String,
-    val telephoneNumber: String,
-    val address: String,
-    val username: String,
-    val password: String
+    var name: String,
+    var surname: String,
+    var birthDate: Date,
+    var emali: String,
+    var telephoneNumber: String,
+    var address: String,
+    var username: String,
+    var password: String
 )
