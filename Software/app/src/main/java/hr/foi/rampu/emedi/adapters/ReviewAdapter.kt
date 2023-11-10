@@ -3,6 +3,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.RatingBar
 import android.widget.TextView
 import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.entities.Review
@@ -25,12 +26,12 @@ class ReviewAdapter(private val context: Context, private val reviews: List<Revi
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val rowView = inflater.inflate(R.layout.single_review, parent, false)
 
-        val textViewGrade = rowView.findViewById<TextView>(R.id.textViewGrade)
+        val ratingBar = rowView.findViewById<RatingBar>(R.id.ratingBar)
         val textViewDescription = rowView.findViewById<TextView>(R.id.textViewDescription)
 
         val review = getItem(position) as Review
 
-        textViewGrade.text = "Grade: ${review.grade}"
+        ratingBar.rating = review.grade.toFloat()
         textViewDescription.text = "Description: ${review.description}"
 
         return rowView
