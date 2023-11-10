@@ -41,4 +41,7 @@ class MainActivity : AppCompatActivity() {
             tab.setText(mainPagerAdapter.fragmentItems[position].titleRes)
         }.attach()
     }
+    // Add login check
+    val intent = Intent(this, LoginActivity::class.java)
+    startActivity(intent)
 }
