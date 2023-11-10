@@ -7,11 +7,13 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import hr.foi.rampu.emedi.adapters.MainPagerAdapter
+import hr.foi.rampu.emedi.entities.User
 import hr.foi.rampu.emedi.fragments.AppointmentsFragment
 import hr.foi.rampu.emedi.fragments.DoctorsFragment
 import hr.foi.rampu.emedi.fragments.HomeFragment
 import hr.foi.rampu.emedi.fragments.ProfileFragment
 import hr.foi.rampu.emedi.fragments.SettingsFragment
+import java.util.Date
 
 class MainActivity : AppCompatActivity() {
     lateinit var tabLayout: TabLayout
@@ -20,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
 
         setTabLayoutAndViewpager()
         // Add login check
