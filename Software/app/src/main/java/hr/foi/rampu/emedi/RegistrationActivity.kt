@@ -53,6 +53,8 @@ class RegistrationActivity : AppCompatActivity() {
                 view.clearFocus()
             }
         }
+
+
     }
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed() // Deprecated je zato što treba naći neku noviju metodu
