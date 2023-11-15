@@ -23,25 +23,25 @@ class DoctorInformationActivity : AppCompatActivity() {
         val doctorTelephone = intent.getStringExtra("doctorTelephone")
 
         // Initialize TextViews
-        val tvName = findViewById<TextView>(R.id.tv_static_name)
-        val tvSurname = findViewById<TextView>(R.id.tv_static_surname)
-        val tvSpecialization = findViewById<TextView>(R.id.tv_static_specialization)
-        val tvYearsEmployed = findViewById<TextView>(R.id.tv_static_years_employed)
-        val tvJobDescription = findViewById<TextView>(R.id.tv_static_job_description)
-        val tvClinicName = findViewById<TextView>(R.id.tv_static_clinic_name)
-        val tvAddress = findViewById<TextView>(R.id.tv_static_address)
-        val tvEmail = findViewById<TextView>(R.id.tv_static_email)
-        val tvTelephone = findViewById<TextView>(R.id.tv_static_telephone)
+        val tvName = findViewById<TextView>(R.id.tv_dynamic_name)
+        val tvSurname = findViewById<TextView>(R.id.tv_dynamic_surname)
+        val tvSpecialization = findViewById<TextView>(R.id.tv_dynamic_specialization)
+        val tvYearsEmployed = findViewById<TextView>(R.id.tv_dynamic_years)
+        val tvJobDescription = findViewById<TextView>(R.id.tv_dynamic_job_description)
+        val tvClinicName = findViewById<TextView>(R.id.tv_dynamic_clinic_name)
+        val tvAddress = findViewById<TextView>(R.id.tv_dynamic_address)
+        val tvEmail = findViewById<TextView>(R.id.tv_dynamic_email)
+        val tvTelephone = findViewById<TextView>(R.id.tv_dynamic_telephone)
 
         // Set the text of TextViews with the retrieved data
-        tvName.text = "Name: $doctorName"
-        tvSurname.text = "Surname: $doctorSurname"
-        tvSpecialization.text = "Specialization: $doctorSpecialization"
-        tvYearsEmployed.text = "Years employed: $doctorYears"
-        tvJobDescription.text = "Job description: $doctorDescription"
-        tvClinicName.text = "Clinic name: $doctorClinic"
-        tvAddress.text = "Address: $doctorAddress"
-        tvEmail.text = "Email: $doctorEmail"
-        tvTelephone.text = "Telephone: $doctorTelephone"
+        tvName.text = "$doctorName"
+        tvSurname.text = "$doctorSurname"
+        tvSpecialization.text = "$doctorSpecialization"
+        tvYearsEmployed.text = "$doctorYears"
+        tvJobDescription.text = "$doctorDescription"
+        tvClinicName.text = "$doctorClinic"
+        tvAddress.text = "$doctorAddress"
+        tvEmail.text = "$doctorEmail"
+        tvTelephone.text = "$doctorTelephone"
     }
 }
