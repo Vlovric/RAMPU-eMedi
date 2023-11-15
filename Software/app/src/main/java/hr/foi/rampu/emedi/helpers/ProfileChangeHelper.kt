@@ -2,7 +2,9 @@ package hr.foi.rampu.emedi.helpers
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.PendingIntent.getActivity
 import android.app.ProgressDialog.show
+import android.content.Intent
 import android.graphics.Color
 import android.text.Editable
 import android.text.InputType
@@ -10,14 +12,22 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import com.google.android.material.snackbar.Snackbar
+import hr.foi.rampu.emedi.LoginActivity
+import hr.foi.rampu.emedi.MainActivity
 import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.entities.User
+import hr.foi.rampu.emedi.fragments.ProfileFragment
 import hr.foi.rampu.emedi.fragments.ProfileState
+import hr.foi.rampu.emedi.helpers.InputCheckHelper.emailAddressCheck
+import hr.foi.rampu.emedi.helpers.InputCheckHelper.telephoneNumberCheck
+import kotlinx.coroutines.Dispatchers.Main
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -175,38 +185,6 @@ class ProfileChangeHelper(private val view: View, private val user: User) {
                 afterTextChanged.invoke(editable.toString())
             }
         })
-    }
-
-    private fun emailAddressCheck(text: String): String {
-        if (text.isBlank()) {
-            return "Email address can't be blank!"
-        }
-
-        if (!Regex("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}\$").matches(text)) {
-            return "Not a valid email address!"
-        }
-
-        return ""
-    }
-
-    private fun telephoneNumberCheck(text: String): String {
-        if (text.isBlank()) {
-            return "Telephone number can't be blank!"
-        }
-
-        if (text.length < 3) {
-            return "Too short!"
-        }
-
-        if (text.length > 20) {
-            return "Too long!"
-        }
-
-        if (!Regex("^\\d+\$").matches(text)) {
-            return "Not a telephone number!"
-        }
-
-        return ""
     }
 
 
