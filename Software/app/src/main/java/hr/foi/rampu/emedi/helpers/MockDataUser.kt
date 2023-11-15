@@ -25,6 +25,17 @@ object MockDataUser {
     fun getDemoData(): List<User> = listOf(
     )
 
+    fun getDummyUser(): User {
+        return User("Test",
+            "Testić",
+            Date(),
+            "testtestic@posta.hr",
+            "1231231231",
+            "",
+            "",
+            "")
+    }
+
     /*fun addUser(user: User) {
         users.add(user)
     }*/

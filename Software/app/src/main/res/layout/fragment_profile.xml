@@ -232,6 +232,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_gravity="center_horizontal"
+        android:id="@+id/btn_logout"
         android:backgroundTint="@color/color_primary"
         android:text="@string/log_out" />
 
