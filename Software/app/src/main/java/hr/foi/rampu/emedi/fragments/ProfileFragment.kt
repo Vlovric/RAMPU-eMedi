@@ -9,6 +9,8 @@ import android.widget.TextView
 import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.entities.User
 import hr.foi.rampu.emedi.helpers.ProfileChangeHelper
+import hr.foi.rampu.emedi.helpers.UserSession
+import hr.foi.rampu.emedi.helpers.UserSession.loggedUser
 import java.util.Date
 
 enum class ProfileState {
@@ -17,15 +19,6 @@ enum class ProfileState {
 }
 
 class ProfileFragment : Fragment() {
-    val loggedUser = User("Ana", // Potrebno dodati logiku i povezati sa logiranjem
-        "Novak",
-        Date(),
-        "ananovak@ideposta.net",
-        "0915121024",
-        "Ulica Grada Sela 123",
-        "anovak",
-        "test123456")
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,6 +29,8 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val profileState = ProfileState.Viewing
-        val profileChangeHelper = ProfileChangeHelper(view, loggedUser)
+        if (UserSession.loggedUser != null) {
+            val profileChangeHelper = ProfileChangeHelper(view, UserSession.loggedUser)
+        }
     }
 }

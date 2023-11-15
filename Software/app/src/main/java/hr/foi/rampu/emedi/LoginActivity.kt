@@ -28,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
 
             if (loggedInUser != null) {
                 UserSession.loggedIn = true
+                UserSession.loggedUser = loggedInUser
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
