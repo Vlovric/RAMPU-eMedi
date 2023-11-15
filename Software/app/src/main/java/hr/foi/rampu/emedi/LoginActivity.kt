@@ -1,5 +1,6 @@
 package hr.foi.rampu.emedi
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,10 +9,19 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import android.window.OnBackInvokedDispatcher
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
+import androidx.activity.addCallback
 import hr.foi.rampu.emedi.helpers.MockDataUser
 import hr.foi.rampu.emedi.helpers.UserSession
 
 class LoginActivity : AppCompatActivity() {
+    private val onBackPressedCallback: OnBackPressedCallback = object: OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -47,10 +57,12 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        linkRegistration.setOnClickListener{
+        linkRegistration.setOnClickListener {
             val intent = Intent(this, RegistrationActivity::class.java)
             startActivity(intent)
 
         }
+
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 }
