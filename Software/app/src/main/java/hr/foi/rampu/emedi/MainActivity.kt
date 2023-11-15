@@ -13,6 +13,7 @@ import hr.foi.rampu.emedi.fragments.DoctorsFragment
 import hr.foi.rampu.emedi.fragments.HomeFragment
 import hr.foi.rampu.emedi.fragments.ProfileFragment
 import hr.foi.rampu.emedi.fragments.SettingsFragment
+import hr.foi.rampu.emedi.helpers.UserSession
 import java.util.Date
 
 class MainActivity : AppCompatActivity() {
@@ -23,12 +24,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
         setTabLayoutAndViewpager()
-        // Add login check
-        val intent = Intent(this, LoginActivity::class.java)
-        startActivity(intent)
+        if(UserSession.loggedIn == false){
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setTabLayoutAndViewpager() {
