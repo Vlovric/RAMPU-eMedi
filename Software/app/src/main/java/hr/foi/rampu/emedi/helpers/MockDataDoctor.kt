@@ -1,6 +1,7 @@
 package hr.foi.rampu.emedi.helpers
 
-import hr.foi.rampu.emedi.entities.Doctor
+import Doctor
+
 
 object MockDataDoctor {
     fun getDemoData(): List<Doctor> = listOf(

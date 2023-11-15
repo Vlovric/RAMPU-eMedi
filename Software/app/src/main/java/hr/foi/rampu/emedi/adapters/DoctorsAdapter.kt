@@ -1,12 +1,12 @@
 package hr.foi.rampu.emedi.adapters
 
+import Doctor
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import hr.foi.rampu.emedi.R
-import hr.foi.rampu.emedi.entities.Doctor
 
 class DoctorsAdapter(private val doctorsList : List<Doctor>) : RecyclerView.Adapter<DoctorsAdapter.TaskViewHolder>() {
     //doctor_list.xml je sta se sve prikazuje za svakog doktora u listi, tamo doradit kak se sta prikazuje i ovdje bindat to iz mock/baze

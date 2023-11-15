@@ -257,15 +257,27 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_dynamic_email" />
 
     <Button
-        android:id="@+id/btn_reviews"
+        android:id="@+id/btn_add_review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Prikaži i dodaj recenziju"
+        android:text="Add review"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.924"
+        app:layout_constraintHorizontal_bias="0.852"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.803" />
+        app:layout_constraintVertical_bias="0.787" />
+
+    <Button
+        android:id="@+id/btn_show_reviews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show reviews"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.851"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.881" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
