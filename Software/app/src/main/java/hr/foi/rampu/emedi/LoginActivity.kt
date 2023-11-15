@@ -26,6 +26,9 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        UserSession.loggedIn = false
+        UserSession.loggedUser = MockDataUser.getDummyUser()
+
         val linkRegistration = findViewById<TextView>(R.id.link_register)
         val loginButton = findViewById<Button>(R.id.btn_login)
 

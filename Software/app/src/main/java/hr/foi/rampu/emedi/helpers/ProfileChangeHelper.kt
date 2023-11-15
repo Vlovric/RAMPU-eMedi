@@ -2,7 +2,9 @@ package hr.foi.rampu.emedi.helpers
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.PendingIntent.getActivity
 import android.app.ProgressDialog.show
+import android.content.Intent
 import android.graphics.Color
 import android.text.Editable
 import android.text.InputType
@@ -10,16 +12,22 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import com.google.android.material.snackbar.Snackbar
+import hr.foi.rampu.emedi.LoginActivity
+import hr.foi.rampu.emedi.MainActivity
 import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.entities.User
+import hr.foi.rampu.emedi.fragments.ProfileFragment
 import hr.foi.rampu.emedi.fragments.ProfileState
 import hr.foi.rampu.emedi.helpers.InputCheckHelper.emailAddressCheck
 import hr.foi.rampu.emedi.helpers.InputCheckHelper.telephoneNumberCheck
+import kotlinx.coroutines.Dispatchers.Main
 import java.text.SimpleDateFormat
 import java.util.Locale
 
