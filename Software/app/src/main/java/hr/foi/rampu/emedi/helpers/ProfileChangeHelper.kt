@@ -18,6 +18,8 @@ import com.google.android.material.snackbar.Snackbar
 import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.entities.User
 import hr.foi.rampu.emedi.fragments.ProfileState
+import hr.foi.rampu.emedi.helpers.InputCheckHelper.emailAddressCheck
+import hr.foi.rampu.emedi.helpers.InputCheckHelper.telephoneNumberCheck
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -175,38 +177,6 @@ class ProfileChangeHelper(private val view: View, private val user: User) {
                 afterTextChanged.invoke(editable.toString())
             }
         })
-    }
-
-    private fun emailAddressCheck(text: String): String {
-        if (text.isBlank()) {
-            return "Email address can't be blank!"
-        }
-
-        if (!Regex("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}\$").matches(text)) {
-            return "Not a valid email address!"
-        }
-
-        return ""
-    }
-
-    private fun telephoneNumberCheck(text: String): String {
-        if (text.isBlank()) {
-            return "Telephone number can't be blank!"
-        }
-
-        if (text.length < 3) {
-            return "Too short!"
-        }
-
-        if (text.length > 20) {
-            return "Too long!"
-        }
-
-        if (!Regex("^\\d+\$").matches(text)) {
-            return "Not a telephone number!"
-        }
-
-        return ""
     }
 
 
