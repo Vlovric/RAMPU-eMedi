@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import hr.foi.rampu.emedi.helpers.MockDataUser
+import hr.foi.rampu.emedi.helpers.UserSession
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +27,7 @@ class LoginActivity : AppCompatActivity() {
                 MockDataUser.userList.find { it.username == username && it.password == password }
 
             if (loggedInUser != null) {
+                UserSession.loggedIn = true
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
