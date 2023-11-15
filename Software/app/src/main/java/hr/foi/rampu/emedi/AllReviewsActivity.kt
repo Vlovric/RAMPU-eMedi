@@ -1,5 +1,6 @@
 package hr.foi.rampu.emedi
 
+import Doctor
 import ReviewAdapter
 import android.content.Intent
 import android.os.Bundle
@@ -14,6 +15,7 @@ class AllReviewsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.all_reviews)
+        val receivedDoctor = intent.getParcelableExtra<Doctor>("doctor")
 
         val allReviews = Review.getAllReviews()
 

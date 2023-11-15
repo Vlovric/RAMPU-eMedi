@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class DoctorInformationActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor_information)
@@ -19,8 +20,6 @@ class DoctorInformationActivity : AppCompatActivity() {
         }
 
         val receivedDoctor = intent.getParcelableExtra<Doctor>("doctor")
-
-
         // inicijaliziram textview-ove
         val tvName = findViewById<TextView>(R.id.tv_dynamic_name)
         val tvSurname = findViewById<TextView>(R.id.tv_dynamic_surname)
@@ -45,7 +44,9 @@ class DoctorInformationActivity : AppCompatActivity() {
     }
 
     private fun checkReviews() {
+        val receivedDoctor = intent.getParcelableExtra<Doctor>("doctor")
         val intent = Intent(this, AllReviewsActivity::class.java)
+        intent.putExtra("doctor", receivedDoctor)
         startActivity(intent)
     }
 }
