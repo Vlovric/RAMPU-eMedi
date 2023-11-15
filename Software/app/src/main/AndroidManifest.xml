@@ -13,6 +13,21 @@
         android:theme="@style/Theme.EMedi"
         tools:targetApi="31">
         <activity
+            android:name=".RegistrationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddReviewActivity"
+            android:exported="false"
+            />
+        <activity
+            android:name=".DoctorInformationActivity"
+            android:label="Doctor Information Activity">
+            <!-- Optional intent filters if you want to specify how this activity can be launched -->
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
