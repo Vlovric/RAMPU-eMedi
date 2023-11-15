@@ -1,11 +1,15 @@
 package hr.foi.rampu.emedi
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import hr.foi.rampu.emedi.R
 
 class DoctorInformationActivity : AppCompatActivity() {
+
+    lateinit var button : Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor_information)
@@ -43,5 +47,11 @@ class DoctorInformationActivity : AppCompatActivity() {
         tvAddress.text = "$doctorAddress"
         tvEmail.text = "$doctorEmail"
         tvTelephone.text = "$doctorTelephone"
+
+        button = findViewById(R.id.btn_reviews)
+        button.setOnClickListener{
+            val intent = Intent(this, AddReviewActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
