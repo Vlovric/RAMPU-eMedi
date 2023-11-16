@@ -28,6 +28,7 @@
         android:id="@+id/submitButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:backgroundTint="@color/medi_blue"
         android:text="Submit Review" />
 
 </LinearLayout>
