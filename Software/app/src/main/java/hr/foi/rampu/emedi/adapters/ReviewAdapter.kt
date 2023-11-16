@@ -6,7 +6,6 @@ import android.widget.BaseAdapter
 import android.widget.RatingBar
 import android.widget.TextView
 import hr.foi.rampu.emedi.R
-import hr.foi.rampu.emedi.entities.Review
 
 class ReviewAdapter(private val context: Context, private val reviews: List<Review>) : BaseAdapter() {
 

@@ -1,4 +1,4 @@
-import hr.foi.rampu.emedi.entities.Review
+
 
 object MockDataDoctor {
     fun getDemoData(): List<Doctor> {

@@ -26,8 +26,9 @@ class AllReviewsActivity : AppCompatActivity() {
         listViewReviews.adapter = adapter
     }
 
-    fun addReviewBtnClicked(view: View)  {
+    fun addReviewBtnClicked(view: View) {
         val intent = Intent(this, AddReviewActivity::class.java)
+        intent.putExtra("doctor", currentDoctor)
         startActivity(intent)
     }
 }
