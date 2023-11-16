@@ -1,6 +1,5 @@
 import android.os.Parcel
 import android.os.Parcelable
-import hr.foi.rampu.emedi.entities.Review
 
 data class Doctor(
     val name : String,
