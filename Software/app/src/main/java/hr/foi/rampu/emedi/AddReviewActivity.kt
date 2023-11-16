@@ -8,7 +8,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.RatingBar
 import androidx.appcompat.app.AppCompatActivity
-import hr.foi.rampu.emedi.entities.Review
 
 class AddReviewActivity : AppCompatActivity() {
     private lateinit var ratingBar: RatingBar
