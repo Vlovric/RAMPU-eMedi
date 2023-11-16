@@ -1,5 +1,6 @@
 package hr.foi.rampu.emedi.fragments
 
+import Doctor
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import hr.foi.rampu.emedi.DoctorInformationActivity
 import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.adapters.DoctorsAdapter
-import hr.foi.rampu.emedi.helpers.MockDataDoctor
 
 class DoctorsFragment : Fragment() {
     private val mockDoctors = MockDataDoctor.getDemoData()
@@ -26,17 +26,12 @@ class DoctorsFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_doctors, container, false)
         button = rootView.findViewById(R.id.btn_doctor)
         button.setOnClickListener{
-            //tu treba parcelable interface napravit u klasi Doctor
+
             val intent = Intent(requireContext(), DoctorInformationActivity::class.java)
-            intent.putExtra("doctorName", mockDoctors[0].name)
-            intent.putExtra("doctorSurname", mockDoctors[0].surname)
-            intent.putExtra("doctorSpecialization", mockDoctors[0].specialization)
-            intent.putExtra("doctorYears", mockDoctors[0].yearsEmployed)
-            intent.putExtra("doctorDescription", mockDoctors[0].jobDescription)
-            intent.putExtra("doctorClinic", mockDoctors[0].clinicName)
-            intent.putExtra("doctorAddress", mockDoctors[0].address)
-            intent.putExtra("doctorEmail", mockDoctors[0].email)
-            intent.putExtra("doctorTelephone", mockDoctors[0].telephone)
+           // val intent = Intent(this, DoctorInformationActivity::class.java)
+            intent.putExtra("doctor", mockDoctors[0])
+            startActivity(intent)
+
             startActivity(intent)
         }
         return rootView

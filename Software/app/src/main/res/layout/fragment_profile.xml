@@ -16,7 +16,7 @@
         android:text="@string/profile"
         android:padding="5dp"
         android:textColor="@color/white"
-        android:background="@color/color_primary"/>
+        android:background="@color/medi_blue"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -232,7 +232,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_gravity="center_horizontal"
-        android:backgroundTint="@color/color_primary"
+        android:id="@+id/btn_logout"
+        android:backgroundTint="@color/medi_blue"
         android:text="@string/log_out" />
 
 </LinearLayout>

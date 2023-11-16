@@ -1,10 +1,9 @@
-package hr.foi.rampu.emedi.helpers
 
-import hr.foi.rampu.emedi.entities.Doctor
 
 object MockDataDoctor {
-    fun getDemoData(): List<Doctor> = listOf(
-        Doctor("Ivo",
+    fun getDemoData(): List<Doctor> {
+        val doctor1 = Doctor(
+            "Ivo",
             "Ivić",
             "Ginekolog",
             10,
@@ -12,8 +11,11 @@ object MockDataDoctor {
             "Klinika1",
             "Adresa1",
             "email1",
-            "telefon1"),
-        Doctor("Marija",
+            "telefon1",
+        )
+
+        val doctor2 = Doctor(
+            "Marija",
             "Marić",
             "Kardiolog",
             15,
@@ -21,6 +23,9 @@ object MockDataDoctor {
             "Klinika2",
             "Adresa2",
             "email2",
-            "telefon2")
-    )
+            "telefon2",
+        )
+
+        return listOf(doctor1, doctor2)
+    }
 }
