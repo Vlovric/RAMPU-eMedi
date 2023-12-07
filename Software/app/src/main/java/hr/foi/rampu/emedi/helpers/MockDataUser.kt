@@ -1,10 +1,12 @@
 package hr.foi.rampu.emedi.helpers
 
+import hr.foi.rampu.emedi.database.AppDatabase
+import hr.foi.rampu.emedi.database.UsersDAO
 import hr.foi.rampu.emedi.entities.User
 import java.util.Date
 
 object MockDataUser {
-    val userList = mutableListOf<User>(
+    val userList = arrayOf<User>(
         User(1,
             "Pero",
             "Perić",
@@ -24,8 +26,42 @@ object MockDataUser {
             "korisnik2",
             "lozinka2")
     )
-    fun getDemoData(): List<User> = listOf(
-    )
+
+    fun loadUsers() {
+        val usersDAO = AppDatabase.getInstance().getUsersDao()
+
+        if (usersDAO.getAllUsers().isEmpty()) {
+            usersDAO.insertUser(*userList)
+        }
+    }
+
+    fun getUsers(): List<User> {
+        val users = AppDatabase.getInstance().getUsersDao().getAllUsers()
+        return users.toList()
+    }
+
+    fun insertUser(user: User) {
+        val usersDAO = AppDatabase.getInstance().getUsersDao()
+        usersDAO.insertUser(user)
+    }
+
+    fun getUserCount(): Int {
+        return AppDatabase.getInstance().getUsersDao().getAllUsers().count()
+    }
+
+    fun getNewUserId(): Int {
+        val usersDAO = AppDatabase.getInstance().getUsersDao()
+        val allUsers = usersDAO.getAllUsers()
+        var newId = allUsers.count()
+
+        for (user in allUsers) {
+            if (user.id > newId) {
+                newId = user.id
+            }
+        }
+
+        return ++newId
+    }
 
     fun getDummyUser(): User {
         return User(3,

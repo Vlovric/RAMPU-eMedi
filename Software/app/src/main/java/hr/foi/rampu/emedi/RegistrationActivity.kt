@@ -54,7 +54,7 @@ class RegistrationActivity : AppCompatActivity() {
             val passwordButton = password.text.toString()
 
 
-            val newUser = User(MockDataUser.userList.count()+3, // PROMIJENI OVO - DA SE CITA IZ DAO
+            val newUser = User(MockDataUser.getNewUserId(),
                 firstNameButton,
                 lastNameButton,
                 sdfDate.parse(birthDate.text.toString()),
@@ -65,8 +65,8 @@ class RegistrationActivity : AppCompatActivity() {
                 passwordButton
             )
 
-            MockDataUser.userList.add(newUser)
-            Log.i("USERADDED", "User count: ${MockDataUser.userList.count()}")
+            MockDataUser.insertUser(newUser)
+            Log.i("USERADDED", "User count: ${MockDataUser.getUserCount()}")
 
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

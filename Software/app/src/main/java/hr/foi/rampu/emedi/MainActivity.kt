@@ -8,12 +8,15 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import hr.foi.rampu.emedi.adapters.MainPagerAdapter
+import hr.foi.rampu.emedi.database.AppDatabase
+import hr.foi.rampu.emedi.database.AppDatabase_Impl
 import hr.foi.rampu.emedi.entities.User
 import hr.foi.rampu.emedi.fragments.AppointmentsFragment
 import hr.foi.rampu.emedi.fragments.DoctorsFragment
 import hr.foi.rampu.emedi.fragments.HomeFragment
 import hr.foi.rampu.emedi.fragments.ProfileFragment
 import hr.foi.rampu.emedi.fragments.SettingsFragment
+import hr.foi.rampu.emedi.helpers.MockDataUser
 import hr.foi.rampu.emedi.helpers.UserSession
 import java.util.Date
 
@@ -30,6 +33,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
+
+        AppDatabase.buildInstance(applicationContext)
+        MockDataUser.loadUsers()
     }
 
     private fun setTabLayoutAndViewpager() {
