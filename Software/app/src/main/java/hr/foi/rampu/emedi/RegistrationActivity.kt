@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 class RegistrationActivity : AppCompatActivity() {
-    private var registrationHelper : RegistrationActivityHelper? = null;
+    private var registrationHelper : RegistrationActivityHelper? = null
     private val sdfDate = SimpleDateFormat("dd.MM.yyyy.", Locale.US)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,12 +39,30 @@ class RegistrationActivity : AppCompatActivity() {
         val address = findViewById<EditText>(R.id.et_address_edit)
         val username = findViewById<EditText>(R.id.et_register_username_edit)
         val password = findViewById<EditText>(R.id.et_register_password_edit)
-        // EditText objekti za unos
+        // Textview objekti za greške
+        val firstNameErr = findViewById<TextView>(R.id.tv_firstname)
+        val lastNameErr = findViewById<TextView>(R.id.tv_lastname)
+        val addressErr = findViewById<TextView>(R.id.tv_adrress)
+        val emailErr = findViewById<TextView>(R.id.tv_email)
+        val phoneErr = findViewById<TextView>(R.id.tv_phone)
+        val usernameErr = findViewById<TextView>(R.id.tv_username)
+        val passwordErr = findViewById<TextView>(R.id.tv_password_edit)
+        // Provjere unosa
+        var firstNameValid = false
+        var lastNameValid = false
+        var addressValid = false
+        var emailValid = false
+        var phoneNumberValid = false
+        var usernameValid = false
+        var passwordValid = false
 
 
         val btnRegister = findViewById<Button>(R.id.btn_register)
         btnRegister.setOnClickListener{
-            // EditText objekti za unos
+            if(!firstNameValid || !lastNameValid || !addressValid || !emailValid || !phoneNumberValid || ! usernameValid || !passwordValid){
+                return@setOnClickListener
+            }
+
             val firstNameButton = firstName.text.toString()
             val lastNameButton = lastName.text.toString()
             val emailButton = email.text.toString()
@@ -70,45 +88,85 @@ class RegistrationActivity : AppCompatActivity() {
             }
         }
         firstName.afterTextChanged {
-            val firstNameErr = findViewById<TextView>(R.id.tv_firstname)
             val errorMessage = InputCheckHelper.checkFirstname(firstName.text.toString())
-            if (firstName.text.isBlank()) {
-                firstNameErr.visibility = View.VISIBLE;
-                firstNameErr.text = errorMessage;
+            if(errorMessage != ""){
+                firstNameErr.visibility = View.VISIBLE
+                firstNameErr.text = errorMessage
+                firstNameValid = false
             } else {
-                firstNameErr.visibility = View.INVISIBLE;
+                firstNameErr.visibility = View.INVISIBLE
+                firstNameValid = true
             }
         }
         lastName.afterTextChanged {
-            val lastNameErr = findViewById<TextView>(R.id.tv_lastname)
             val errorMessage = InputCheckHelper.checkLastname(lastName.text.toString())
-            if (lastName.text.isBlank()) {
-                lastNameErr.visibility = View.VISIBLE;
-                lastNameErr.text = errorMessage;
+            if (errorMessage != "") {
+                lastNameErr.visibility = View.VISIBLE
+                lastNameErr.text = errorMessage
+                lastNameValid = false
             } else {
-                lastNameErr.visibility = View.INVISIBLE;
+                lastNameErr.visibility = View.INVISIBLE
+                lastNameValid = true
             }
         }
         address.afterTextChanged {
-            val addressErr = findViewById<TextView>(R.id.tv_adrress)
             val errorMessage = InputCheckHelper.checkAddress(address.text.toString())
-            if (address.text.isBlank()) {
-                addressErr.visibility = View.VISIBLE;
-                addressErr.text = errorMessage;
+            if (errorMessage != "") {
+                addressErr.visibility = View.VISIBLE
+                addressErr.text = errorMessage
+                addressValid = false
             } else {
-                addressErr.visibility = View.INVISIBLE;
+                addressErr.visibility = View.INVISIBLE
+                addressValid = true
             }
         }
-        /*email.emailAfterTextChanged {
-            val emailErr = findViewById<TextView>(R.id.tv_email)
-            val errorMessage = InputCheckHelper.emailAddressCheck(lastName.text.toString())
-            if (lastName.text.isBlank()) {
-                emailErr.visibility = View.VISIBLE;
-                emailErr.text = errorMessage;
-            } else {
-                emailErr.visibility = View.INVISIBLE;
+        email.afterTextChanged {
+            val errorMessage = InputCheckHelper.emailAddressCheck(email.text.toString())
+            if(errorMessage != ""){
+                emailErr.visibility = View.VISIBLE
+                emailErr.text = errorMessage
+                emailValid = false
+            }else{
+                emailErr.visibility = View.INVISIBLE
+                emailValid = true
             }
-        }*/
+
+        }
+        phoneNumber.afterTextChanged {
+            val errorMessage = InputCheckHelper.telephoneNumberCheck(phoneNumber.text.toString())
+            if(errorMessage != ""){
+                phoneErr.visibility = View.VISIBLE
+                phoneErr.text = errorMessage
+                phoneNumberValid = false
+            }else{
+                phoneErr.visibility = View.INVISIBLE
+                phoneNumberValid = true
+            }
+
+        }
+        username.afterTextChanged {
+            val errorMessage = InputCheckHelper.checkUsername(username.text.toString())
+            if(errorMessage != ""){
+                usernameErr.visibility = View.VISIBLE
+                usernameErr.text = errorMessage
+                usernameValid = false
+            }else{
+                usernameErr.visibility = View.INVISIBLE
+                usernameValid = true
+            }
+
+        }
+        password.afterTextChanged {
+            val errorMessage = InputCheckHelper.checkPassword(password.text.toString())
+            if(errorMessage != ""){
+                passwordErr.visibility = View.VISIBLE
+                passwordErr.text = errorMessage
+                passwordValid = false
+            }else{
+                passwordErr.visibility = View.INVISIBLE
+                passwordValid = true
+            }
+        }
     }
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed() // Deprecated je zato što treba naći neku noviju metodu

@@ -35,8 +35,4 @@ object MockDataUser {
             "",
             "")
     }
-
-    /*fun addUser(user: User) {
-        users.add(user)
-    }*/
 }

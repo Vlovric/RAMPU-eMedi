@@ -58,10 +58,9 @@ object InputCheckHelper {
         if (text.length > 20) {
             return "Password is too long!"
         }
-        if (!Regex("^(?=.*\\d)(?=.*[#$%]).+\$").matches(text)) {
-            return "Not a telephone number!"
+        if (!Regex("^(?=.*\\d)(?=.*[#$%&?!_]).+\$").matches(text)) {
+            return "Password must use letters, numbers and special characters!"
         }
-
         return ""
     }
 
@@ -91,14 +90,4 @@ object InputCheckHelper {
             }
         })
     }
-    /*fun EditText.emailAfterTextChanged(emailAfterTextChanged: (String) -> Unit) {
-        this.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(editable: Editable?) {
-                emailAfterTextChanged.invoke(editable.toString())
-            }
-        })
-    }*/
 }
