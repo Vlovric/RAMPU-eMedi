@@ -5,7 +5,8 @@ import java.util.Date
 
 object MockDataUser {
     val userList = mutableListOf<User>(
-        User("Pero",
+        User(1,
+            "Pero",
             "Perić",
             Date(1990, 5, 15),
             "email1@example.com",
@@ -13,7 +14,8 @@ object MockDataUser {
             "Adresa 1",
             "ja",
             "ti"),
-        User("Vedran",
+        User(2,
+            "Vedran",
             "Galić",
             Date(1985, 8, 20),
             "email2@example.com",
@@ -26,7 +28,8 @@ object MockDataUser {
     )
 
     fun getDummyUser(): User {
-        return User("Test",
+        return User(3,
+            "Test",
             "Testić",
             Date(),
             "testtestic@posta.hr",

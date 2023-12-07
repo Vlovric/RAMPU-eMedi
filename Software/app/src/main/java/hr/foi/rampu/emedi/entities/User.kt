@@ -1,5 +1,10 @@
 package hr.foi.rampu.emedi.entities
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import hr.foi.rampu.emedi.converters.DateConverter
 import java.util.Date
 
 /*
@@ -9,10 +14,13 @@ List<Recenzija> RECENZIJE - KASNIJE
 Slika - PROFILNA (razmisliti kako upload)
  */
 
+@Entity(tableName="user")
+@TypeConverters(DateConverter::class)
 data class User(
+    @PrimaryKey(autoGenerate = true) val id: Int,
     var name: String,
     var surname: String,
-    var birthDate: Date,
+    @ColumnInfo(name="birth_date") var birthDate: Date,
     var email: String,
     var telephoneNumber: String,
     var address: String,
