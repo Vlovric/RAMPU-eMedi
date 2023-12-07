@@ -14,7 +14,7 @@ List<Recenzija> RECENZIJE - KASNIJE
 Slika - PROFILNA (razmisliti kako upload)
  */
 
-@Entity(tableName="user")
+@Entity(tableName="users")
 @TypeConverters(DateConverter::class)
 data class User(
     @PrimaryKey(autoGenerate = true) val id: Int,
