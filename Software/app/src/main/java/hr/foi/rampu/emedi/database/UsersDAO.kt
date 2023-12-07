@@ -14,6 +14,9 @@ interface UsersDAO {
     @Query("SELECT * FROM users")
     fun getAllUsers(): List<User>
 
+    @Query("SELECT * FROM users WHERE username = :username AND password = :password")
+    fun getUserByCredentials(username: String, password: String): User
+
     @Insert(onConflict = REPLACE)
     fun insertUser(vararg user: User): List<Long>
 }

@@ -1,7 +1,6 @@
 package hr.foi.rampu.emedi.helpers
 
 import hr.foi.rampu.emedi.database.AppDatabase
-import hr.foi.rampu.emedi.database.UsersDAO
 import hr.foi.rampu.emedi.entities.User
 import java.util.Date
 
@@ -47,6 +46,14 @@ object MockDataUser {
 
     fun getUserCount(): Int {
         return AppDatabase.getInstance().getUsersDao().getAllUsers().count()
+    }
+
+    fun findUserByCredentials(username: String, password: String): User {
+        return AppDatabase.getInstance().getUsersDao().getUserByCredentials(username, password)
+    }
+
+    fun getUserById(id: Int): User {
+        return AppDatabase.getInstance().getUsersDao().getUser(id)
     }
 
     fun getNewUserId(): Int {

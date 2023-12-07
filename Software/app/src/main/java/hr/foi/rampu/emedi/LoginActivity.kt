@@ -36,8 +36,9 @@ class LoginActivity : AppCompatActivity() {
             val username = findViewById<EditText>(R.id.et_username_edit).text.toString()
             val password = findViewById<EditText>(R.id.et_password_edit).text.toString()
             // Ovom iteracijom kroz listu korisnika provjeravam nalaze li se ti korisnički podatci u klasi MockDataUser
-            val loggedInUser =
-                MockDataUser.getUsers().find { it.username == username && it.password == password }
+            //val loggedInUser =
+                //MockDataUser.getUsers().find { it.username == username && it.password == password }
+            val loggedInUser = MockDataUser.findUserByCredentials(username, password)
 
             if (loggedInUser != null) {
                 UserSession.loggedIn = true
