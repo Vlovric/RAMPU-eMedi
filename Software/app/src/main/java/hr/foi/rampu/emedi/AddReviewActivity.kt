@@ -1,13 +1,13 @@
 package hr.foi.rampu.emedi
 
-import Doctor
-import Review
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RatingBar
 import androidx.appcompat.app.AppCompatActivity
+import hr.foi.rampu.emedi.entities.Doctor
+import hr.foi.rampu.emedi.entities.Review
 
 class AddReviewActivity : AppCompatActivity() {
     private lateinit var ratingBar: RatingBar
@@ -34,7 +34,7 @@ class AddReviewActivity : AppCompatActivity() {
         val userGrade = ratingBar.rating.toInt()
         val userDescription = editTextReview.text.toString()
 
-        val userReview = Review(userGrade, userDescription, currentDoctor)
+        val userReview = Review(999, userGrade, userDescription, currentDoctor.id)
         Review.addReview(userReview)
 
         val intent = Intent(this, AllReviewsActivity::class.java)

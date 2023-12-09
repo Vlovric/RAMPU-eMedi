@@ -4,15 +4,19 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import hr.foi.rampu.emedi.entities.Doctor
+import hr.foi.rampu.emedi.entities.Review
 import hr.foi.rampu.emedi.entities.User
 
 @Database(
-    version=1,
-    entities=[User::class],
+    version=2,
+    entities=[User::class, Doctor::class, Review::class],
     exportSchema=false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getUsersDao(): UsersDAO
+    abstract fun getDoctorsDao(): DoctorsDAO
+    abstract fun getReviewsDao(): ReviewsDAO
 
     companion object {
         @Volatile

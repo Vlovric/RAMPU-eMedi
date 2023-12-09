@@ -1,8 +1,9 @@
-
+import hr.foi.rampu.emedi.entities.Doctor
 
 object MockDataDoctor {
     fun getDemoData(): List<Doctor> {
         val doctor1 = Doctor(
+            1,
             "Ivo",
             "Ivić",
             "Ginekolog",
@@ -15,6 +16,7 @@ object MockDataDoctor {
         )
 
         val doctor2 = Doctor(
+            2,
             "Marija",
             "Marić",
             "Kardiolog",

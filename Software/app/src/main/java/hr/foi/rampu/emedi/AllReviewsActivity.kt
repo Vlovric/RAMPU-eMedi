@@ -1,12 +1,13 @@
 package hr.foi.rampu.emedi
 
-import Doctor
 import ReviewAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import hr.foi.rampu.emedi.entities.Doctor
+import hr.foi.rampu.emedi.entities.Review
 
 class AllReviewsActivity : AppCompatActivity() {
     private lateinit var listViewReviews: ListView
