@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         AppDatabase.buildInstance(applicationContext)
         MockDataUser.loadUsers()
+        MockDataDoctor.loadDoctors()
     }
 
     private fun setTabLayoutAndViewpager() {

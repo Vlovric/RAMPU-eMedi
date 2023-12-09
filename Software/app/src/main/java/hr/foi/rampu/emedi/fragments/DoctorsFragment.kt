@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import hr.foi.rampu.emedi.DoctorInformationActivity
 import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.adapters.DoctorsAdapter
+import hr.foi.rampu.emedi.database.AppDatabase
 
 class DoctorsFragment : Fragment() {
     private val mockDoctors = MockDataDoctor.getDemoData()
@@ -28,7 +29,8 @@ class DoctorsFragment : Fragment() {
 
             val intent = Intent(requireContext(), DoctorInformationActivity::class.java)
            // val intent = Intent(this, DoctorInformationActivity::class.java)
-            intent.putExtra("doctor", mockDoctors[0])
+            val whichDoctor = AppDatabase.getInstance().getDoctorsDao().getDoctor(mockDoctors[0].id)
+            intent.putExtra("doctor", whichDoctor)
             startActivity(intent)
 
             startActivity(intent)

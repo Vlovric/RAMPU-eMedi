@@ -1,8 +1,9 @@
+import hr.foi.rampu.emedi.database.AppDatabase
 import hr.foi.rampu.emedi.entities.Doctor
 
 object MockDataDoctor {
-    fun getDemoData(): List<Doctor> {
-        val doctor1 = Doctor(
+    val doctorList = arrayOf<Doctor>(
+        Doctor(
             1,
             "Ivo",
             "Ivić",
@@ -13,9 +14,8 @@ object MockDataDoctor {
             "Adresa1",
             "email1",
             "telefon1",
-        )
-
-        val doctor2 = Doctor(
+        ),
+        Doctor(
             2,
             "Marija",
             "Marić",
@@ -27,7 +27,18 @@ object MockDataDoctor {
             "email2",
             "telefon2",
         )
+    )
 
-        return listOf(doctor1, doctor2)
+    fun loadDoctors() {
+        val doctorsDAO = AppDatabase.getInstance().getDoctorsDao()
+
+        if (doctorsDAO.getAllDoctors().isEmpty()) {
+            doctorsDAO.insertDoctor(*doctorList)
+        }
+    }
+
+    fun getDemoData(): List<Doctor> {
+        val doctors = AppDatabase.getInstance().getDoctorsDao().getAllDoctors()
+        return doctors.toList()
     }
 }
