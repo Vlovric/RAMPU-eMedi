@@ -3,6 +3,7 @@ package hr.foi.rampu.emedi
 import ReviewAdapter
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,9 @@ class AllReviewsActivity : AppCompatActivity() {
         setContentView(R.layout.all_reviews)
 
         currentDoctor = intent.getParcelableExtra<Doctor>("doctor")!!
+        if (currentDoctor != null) {
+            Log.i("DOBIVEN DOKTOR", currentDoctor.id.toString())
+        }
 
         val allReviews = Review.getReviewsForDoctor(currentDoctor)
 

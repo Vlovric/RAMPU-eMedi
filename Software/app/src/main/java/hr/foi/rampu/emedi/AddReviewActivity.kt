@@ -34,7 +34,7 @@ class AddReviewActivity : AppCompatActivity() {
         val userGrade = ratingBar.rating.toInt()
         val userDescription = editTextReview.text.toString()
 
-        val userReview = Review(999, userGrade, userDescription, currentDoctor.id)
+        val userReview = Review(Review.getNewReviewId(), userGrade, userDescription, currentDoctor.id)
         Review.addReview(userReview)
 
         val intent = Intent(this, AllReviewsActivity::class.java)

@@ -32,8 +32,6 @@ class DoctorsFragment : Fragment() {
             val whichDoctor = AppDatabase.getInstance().getDoctorsDao().getDoctor(mockDoctors[0].id)
             intent.putExtra("doctor", whichDoctor)
             startActivity(intent)
-
-            startActivity(intent)
         }
         return rootView
     }

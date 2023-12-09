@@ -33,10 +33,24 @@ data class Review(
     }
 
     companion object {
-        private val reviews: MutableList<Review> = mutableListOf()
+        //private val reviews: MutableList<Review> = mutableListOf()
+
+        fun getNewReviewId(): Int {
+            val reviewsDAO = AppDatabase.getInstance().getReviewsDao()
+            val allReviews = reviewsDAO.getAllReviews()
+            var newId = allReviews.count()
+
+            for (review in allReviews) {
+                if (review.id > newId) {
+                    newId = review.id
+                }
+            }
+
+            return ++newId
+        }
 
         fun addReview(review: Review) {
-            reviews.add(review)
+            AppDatabase.getInstance().getReviewsDao().insertReview(review)
         }
 
         fun getReviewsForDoctor(doctor: Doctor): List<Review> {
