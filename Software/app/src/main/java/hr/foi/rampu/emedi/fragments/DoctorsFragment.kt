@@ -24,7 +24,6 @@ class DoctorsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_doctors, container, false)
-        button = rootView.findViewById(R.id.btn_doctor)
         return rootView
     }
 

@@ -12,8 +12,12 @@ class DoctorsAdapter(private val doctorsList : List<Doctor>, private val clickLi
     //doctor_list.xml je sta se sve prikazuje za svakog doktora u listi, tamo doradit kak se sta prikazuje i ovdje bindat to iz mock/baze
     inner class TaskViewHolder(view: View, clickAtPosition : (Int) -> Unit) : RecyclerView.ViewHolder(view){
         private val doctorNameSurname : TextView
+        private val doctorSpecialisation : TextView
+        private val doctorYearsOfExpiriance : TextView
         init{ //koji sve elementi postoje za koje prikazujemo
             doctorNameSurname = view.findViewById(R.id.tv_doctor_name)
+            doctorSpecialisation = view.findViewById(R.id.tv_dynamic_specialization)
+            doctorYearsOfExpiriance = view.findViewById(R.id.tv_dynamic_years)
 
             view.setOnClickListener {
                 clickAtPosition(adapterPosition)
@@ -21,6 +25,8 @@ class DoctorsAdapter(private val doctorsList : List<Doctor>, private val clickLi
         }
         fun bind(doctor: Doctor){ //ovdje ide koji se podatci bindaju na element koji se prikazuje
             doctorNameSurname.text = doctor.name + " " + doctor.surname
+            doctorSpecialisation.text = doctor.specialization
+            doctorYearsOfExpiriance.text = "Godine iskustva: " + doctor.yearsEmployed.toString()
         }
     }
 

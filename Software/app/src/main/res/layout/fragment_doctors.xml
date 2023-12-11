@@ -6,9 +6,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.DoctorsFragment">
 
+    <EditText
+        android:id="@+id/et_username_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Serach doctors..."
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="32dp"
+        android:padding="8dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_doctors"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"/>
+
 </FrameLayout>

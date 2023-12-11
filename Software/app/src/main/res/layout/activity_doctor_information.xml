@@ -245,13 +245,13 @@
 
     <TextView
         android:id="@+id/tv_dynamic_telephone"
-        android:textColor="@color/medi_blue"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="2dp"
+        android:layout_height="11dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text=""
+        android:textColor="@color/medi_blue"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tv_static_telephone"
         app:layout_constraintTop_toBottomOf="@+id/tv_dynamic_email" />
 
