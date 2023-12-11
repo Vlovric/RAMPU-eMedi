@@ -261,7 +261,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="128dp"
-        android:layout_marginTop="398dp"
+        android:layout_marginTop="432dp"
         android:onClick="checkReviews"
         android:text="Reviews"
         app:backgroundTint="@color/medi_blue"
@@ -272,11 +272,11 @@
         android:id="@+id/btn_booking"
         android:layout_width="107dp"
         android:layout_height="51dp"
-        android:layout_marginTop="512dp"
+        android:layout_marginTop="544dp"
         android:text="Booking"
         app:backgroundTint="@color/medi_blue"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.637"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toEndOf="@+id/btn_reviews"
         app:layout_constraintTop_toTopOf="parent" />
 
