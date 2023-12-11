@@ -16,6 +16,12 @@ class DoctorInformationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor_information)
 
+        val btnBooking : Button = findViewById(R.id.btn_booking)
+        btnBooking.setOnClickListener{
+            val intent = Intent(this, BookingActivity::class.java)
+            startActivity(intent)
+        }
+
         val btnCheckReviews: Button = findViewById(R.id.btn_reviews)
         btnCheckReviews.setOnClickListener {
             checkReviews()

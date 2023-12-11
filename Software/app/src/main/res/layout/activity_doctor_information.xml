@@ -145,113 +145,114 @@
         android:text="Telephone:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_static_email" />
+
     <TextView
         android:id="@+id/tv_dynamic_name"
-        android:textColor="@color/medi_blue"
-        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
-        android:textSize="20dp"
         android:text=""
+        android:textColor="@color/medi_blue"
+        android:textSize="20dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tv_static_name"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_dynamic_surname"
-        android:textColor="@color/medi_blue"
-        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:text=""
+        android:textColor="@color/medi_blue"
         android:textSize="20dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tv_static_surname"
         app:layout_constraintTop_toBottomOf="@+id/tv_dynamic_name" />
 
     <TextView
         android:id="@+id/tv_dynamic_specialization"
-        android:textColor="@color/medi_blue"
-        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
         android:text=""
+        android:textColor="@color/medi_blue"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tv_static_specialization"
         app:layout_constraintTop_toBottomOf="@+id/tv_dynamic_surname" />
 
     <TextView
         android:id="@+id/tv_dynamic_years"
-        android:textColor="@color/medi_blue"
-        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="90dp"
         android:text=""
+        android:textColor="@color/medi_blue"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tv_static_years_employed"
         app:layout_constraintTop_toBottomOf="@+id/tv_static_specialization" />
 
     <TextView
         android:id="@+id/tv_dynamic_job_description"
-        android:textColor="@color/medi_blue"
-        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
         android:text=""
+        android:textColor="@color/medi_blue"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tv_static_job_description"
         app:layout_constraintTop_toBottomOf="@+id/tv_dynamic_years" />
 
     <TextView
         android:id="@+id/tv_dynamic_clinic_name"
-        android:textColor="@color/medi_blue"
-        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="72dp"
         android:text=""
+        android:textColor="@color/medi_blue"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tv_static_clinic_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_dynamic_job_description" />
 
     <TextView
         android:id="@+id/tv_dynamic_address"
-        android:textColor="@color/medi_blue"
-        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
         android:text=""
+        android:textColor="@color/medi_blue"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tv_static_address"
         app:layout_constraintTop_toBottomOf="@+id/tv_dynamic_clinic_name" />
 
     <TextView
         android:id="@+id/tv_dynamic_email"
-        android:textColor="@color/medi_blue"
-        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text=""
+        android:textColor="@color/medi_blue"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tv_static_email"
         app:layout_constraintTop_toBottomOf="@+id/tv_static_contact" />
 
     <TextView
         android:id="@+id/tv_dynamic_telephone"
-        android:textColor="@color/medi_blue"
-        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text=""
+        android:textColor="@color/medi_blue"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tv_static_telephone"
         app:layout_constraintTop_toBottomOf="@+id/tv_dynamic_email" />
 
@@ -259,11 +260,24 @@
         android:id="@+id/btn_reviews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="398dp"
+        android:onClick="checkReviews"
         android:text="Reviews"
         app:backgroundTint="@color/medi_blue"
-        app:layout_constraintTop_toBottomOf="@+id/tv_static_telephone"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_static_specialization" />
+
+    <Button
+        android:id="@+id/btn_booking"
+        android:layout_width="107dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="512dp"
+        android:text="Booking"
+        app:backgroundTint="@color/medi_blue"
         app:layout_constraintEnd_toEndOf="parent"
-        android:onClick="checkReviews" />
+        app:layout_constraintHorizontal_bias="0.637"
+        app:layout_constraintStart_toEndOf="@+id/btn_reviews"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
