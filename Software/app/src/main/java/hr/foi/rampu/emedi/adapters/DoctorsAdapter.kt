@@ -8,12 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.entities.Doctor
 
-class DoctorsAdapter(private val doctorsList : List<Doctor>) : RecyclerView.Adapter<DoctorsAdapter.TaskViewHolder>() {
+class DoctorsAdapter(private val doctorsList : List<Doctor>, private val clickListener : (Doctor) -> Unit) : RecyclerView.Adapter<DoctorsAdapter.TaskViewHolder>() {
     //doctor_list.xml je sta se sve prikazuje za svakog doktora u listi, tamo doradit kak se sta prikazuje i ovdje bindat to iz mock/baze
-    inner class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view){
+    inner class TaskViewHolder(view: View, clickAtPosition : (Int) -> Unit) : RecyclerView.ViewHolder(view){
         private val doctorNameSurname : TextView
         init{ //koji sve elementi postoje za koje prikazujemo
             doctorNameSurname = view.findViewById(R.id.tv_doctor_name)
+
+            view.setOnClickListener {
+                clickAtPosition(adapterPosition)
+            }
         }
         fun bind(doctor: Doctor){ //ovdje ide koji se podatci bindaju na element koji se prikazuje
             doctorNameSurname.text = doctor.name + " " + doctor.surname
@@ -22,7 +26,10 @@ class DoctorsAdapter(private val doctorsList : List<Doctor>) : RecyclerView.Adap
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val doctorView = LayoutInflater.from(parent.context).inflate(R.layout.doctor_list, parent, false)
-        return TaskViewHolder(doctorView)
+
+        return TaskViewHolder(doctorView){
+            clickListener(doctorsList[it])
+        }
     }
 
     override fun getItemCount() = doctorsList.size
