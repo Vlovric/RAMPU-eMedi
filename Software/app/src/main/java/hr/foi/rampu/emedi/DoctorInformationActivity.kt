@@ -21,7 +21,6 @@ class DoctorInformationActivity : AppCompatActivity() {
             val intent = Intent(this, BookingActivity::class.java)
             startActivity(intent)
         }
-
         val btnCheckReviews: Button = findViewById(R.id.btn_reviews)
         btnCheckReviews.setOnClickListener {
             checkReviews()
