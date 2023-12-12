@@ -56,4 +56,10 @@ class MainActivity : AppCompatActivity() {
         }.attach()
     }
 
+        companion object {
+            var textSize: Float = 12f
+        }
+
+
+
 }

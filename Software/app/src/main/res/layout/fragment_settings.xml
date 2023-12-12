@@ -1,14 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SettingsFragment">
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <Button
+        android:id="@+id/btnFontSize"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/settings" />
+        android:layout_height="wrap_content"
+        android:text="Veličina fonta"
+        android:layout_margin="10dp"
+        android:background="@drawable/settings_background"/>
 
-</FrameLayout>
+    <Button
+        android:id="@+id/btnFontStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Izgled fonta"
+        android:layout_margin="10dp"
+        android:background="@drawable/settings_background"/>
+
+    <Button
+        android:id="@+id/btnAppColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Boja aplikacije"
+        android:layout_margin="10dp"
+        android:background="@drawable/settings_background"/>
+
+    <SeekBar
+        android:id="@+id/fontSizeSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:max="25"
+        android:progress="12" />
+</LinearLayout>
