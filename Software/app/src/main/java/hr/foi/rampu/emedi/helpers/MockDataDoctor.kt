@@ -12,8 +12,8 @@ object MockDataDoctor {
             "Ginekolog",
             "Klinika1",
             "Adresa1",
-            "email1",
-            "telefon1",
+            "iivic@",
+            "012340087",
         ),
         Doctor(
             2,

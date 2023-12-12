@@ -20,7 +20,7 @@ object MockDataSpecialization {
         "Internistička onkologija",
         "Javnozdravstvena medicina",
         "Kardiologija",
-        "Kardiotorakalna kirurgija (smjer kardijalna kirurgija/smjer torakalna kirurgija)",
+        "Kardiotorakalna kirurgija",
         "Klinička farmakologija s toksikologijom",
         "Klinička mikrobiologija",
         "Klinička radiologija",
