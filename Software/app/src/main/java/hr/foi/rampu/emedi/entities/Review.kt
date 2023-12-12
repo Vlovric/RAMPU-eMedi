@@ -8,6 +8,7 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import hr.foi.rampu.emedi.database.AppDatabase
 import hr.foi.rampu.emedi.entities.Doctor
+import java.math.RoundingMode
 
 @Entity(
     tableName="reviews",
@@ -57,8 +58,15 @@ data class Review(
             return AppDatabase.getInstance().getReviewsDao().getReviewsForDoctor(doctor.id)
         }
 
-        /*fun getReviewsForDoctor(doctor: Doctor): List<Review> {
-            return reviews.filter { it.doctor == doctor }
-        }*/
+        fun getAverageRatingForDoctor(doctor: Doctor): Float {
+            var sum = 0f
+            val avg: Float
+            val reviewsList = AppDatabase.getInstance().getReviewsDao().getReviewsForDoctor(doctor.id)
+            reviewsList.forEach {
+                sum += it.grade
+            }
+            avg = sum / reviewsList.size
+            return avg
+        }
     }
 }
