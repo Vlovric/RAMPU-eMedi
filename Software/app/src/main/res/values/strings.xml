@@ -32,4 +32,6 @@
     <string name="adress">Adress</string>
     <string name="register">Register</string>
     <string name="required">Required</string>
+    <string name="appointment_time">Appointment time</string>
+    <string name="choose_an_avalible_date_and_time_slot">Choose an avalible date and time slot.</string>
 </resources>

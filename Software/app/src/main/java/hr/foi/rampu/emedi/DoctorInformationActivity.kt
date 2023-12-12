@@ -3,9 +3,11 @@ package hr.foi.rampu.emedi
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import hr.foi.rampu.emedi.database.AppDatabase
 import hr.foi.rampu.emedi.entities.Doctor
@@ -19,6 +21,11 @@ class DoctorInformationActivity : AppCompatActivity() {
         val btnCheckReviews: Button = findViewById(R.id.btn_reviews)
         btnCheckReviews.setOnClickListener {
             checkReviews()
+        }
+
+        val btnAddAppointment: Button = findViewById(R.id.btn_add_appointment)
+        btnAddAppointment.setOnClickListener {
+            showNewAppointmentDialog()
         }
 
         val receivedDoctor = intent.getParcelableExtra<Doctor>("doctor")
@@ -43,6 +50,16 @@ class DoctorInformationActivity : AppCompatActivity() {
         tvAddress.text = receivedDoctor?.address.orEmpty()
         tvEmail.text = receivedDoctor?.email.orEmpty()
         tvTelephone.text = receivedDoctor?.telephone.orEmpty()
+    }
+
+    private fun showNewAppointmentDialog() {
+        val newAppointmentDialog = LayoutInflater
+            .from(this)
+            .inflate(R.layout.new_appointment_dialog, null)
+
+        AlertDialog.Builder(this)
+            .setView(newAppointmentDialog)
+            .show()
     }
 
     private fun checkReviews() {
