@@ -2,6 +2,7 @@ package hr.foi.rampu.emedi.helpers
 
 object MockDataSpecialization {
     val specializationList = arrayOf(
+        "Select item",
         "Abdominalna kirurgija",
         "Alergologija i klinička imunologija",
         "Anesteziologija, reanimatologija i intenzivna medicina",

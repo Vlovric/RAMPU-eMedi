@@ -2,6 +2,7 @@ package hr.foi.rampu.emedi.helpers
 
 object MockDataCity {
     val cityList  = arrayOf(
+        "Select item",
         "Dugo Selo",
         "Ivanić-Grad",
         "Jastrebarsko",
