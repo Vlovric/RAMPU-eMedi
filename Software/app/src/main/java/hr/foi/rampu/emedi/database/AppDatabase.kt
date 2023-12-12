@@ -10,7 +10,7 @@ import hr.foi.rampu.emedi.entities.Review
 import hr.foi.rampu.emedi.entities.User
 
 @Database(
-    version=3,
+    version=4,
     entities=[User::class, Doctor::class, Review::class, Appointment::class],
     exportSchema=false
 )

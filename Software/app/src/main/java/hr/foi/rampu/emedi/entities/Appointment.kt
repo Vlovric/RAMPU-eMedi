@@ -27,10 +27,16 @@ data class Appointment (
     @ColumnInfo(name="appointment_date") val appointmentDate: Date, // Koristiti samo datum
     @ColumnInfo(name="appointment_start_time") val appointmentStartTime: Date, // Koristiti samo vrijeme
     @ColumnInfo(name="appointment_end_time") val appointmentEndTime: Date, // koristiti samo vrijeme
-    @ColumnInfo(name="doctor_id", index=true) val doctorId: Int
+    @ColumnInfo(name="doctor_id", index=true) val doctorId: Int,
+    @ColumnInfo(name="user_id", index=true) val userId: Int
 ) {
     @delegate:Ignore
     val doctor: Doctor by lazy {
         AppDatabase.getInstance().getDoctorsDao().getDoctor(doctorId)
+    }
+
+    @delegate:Ignore
+    val user: User by lazy {
+        AppDatabase.getInstance().getUsersDao().getUser(userId)
     }
 }
