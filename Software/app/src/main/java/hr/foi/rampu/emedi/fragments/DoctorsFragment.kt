@@ -20,7 +20,7 @@ import hr.foi.rampu.emedi.adapters.DoctorsAdapter
 import hr.foi.rampu.emedi.database.AppDatabase
 
 class DoctorsFragment : Fragment() {
-    private val mockDoctors = MockDataDoctor.getDemoData()
+//    private val mockDoctors = MockDataDoctor.getDemoData()
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchTextBox : EditText
     private lateinit var errorMessage : TextView
@@ -33,6 +33,7 @@ class DoctorsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        errorMessage = view.findViewById(R.id.tv_error_message)
         recyclerView = view.findViewById(R.id.rv_doctors)
         searchTextBox = view.findViewById(R.id.tv_search_doctor)
         recyclerView.adapter = DoctorsAdapter(MockDataDoctor.getDemoData()){
@@ -56,18 +57,20 @@ class DoctorsFragment : Fragment() {
     }
     private fun getDoctorsByName(name: String) {
         val doctorsList = if (name.isNotBlank()) {
-             doctorsDAO.getDoctorByName(name)
+             doctorsDAO.getDoctorByName("$name%")
         } else {
             doctorsDAO.getAllDoctors()
         }
-        /*if(doctorsList.isEmpty()){
-            errorMessage.text = "Nije pronađen niti jedan doktor s tim imenom!"
-        }else{*/
+        if(doctorsList.isNotEmpty()) {
             recyclerView.adapter = DoctorsAdapter(doctorsList) { doctor ->
                 val intent = Intent(requireContext(), DoctorInformationActivity::class.java)
                 intent.putExtra("doctor", doctor)
                 startActivity(intent)
             }
-//        }
+        } else {
+            recyclerView.adapter = DoctorsAdapter(emptyList()) {
+            }
+            errorMessage.text = "Nije pronađen niti jedan doktor s tim imenom!"
+        }
     }
 }
