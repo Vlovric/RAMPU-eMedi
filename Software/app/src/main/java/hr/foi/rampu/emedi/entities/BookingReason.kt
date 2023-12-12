@@ -40,4 +40,7 @@ data class BookingReason(
     val user : User by lazy{
         AppDatabase.getInstance().getUsersDao().getUser(userId)
     }
+    override fun toString(): String {
+        return "BookingReason(id=$id, symptoms=$symptoms, duration=$duration, history=$history, urgency=$urgency, additional=$additional, doctorId=$doctorId, userId=$userId)"
+    }
 }

@@ -16,9 +16,12 @@ class DoctorInformationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor_information)
 
+        val receivedDoctor = intent.getParcelableExtra<Doctor>("doctor")
+
         val btnBooking : Button = findViewById(R.id.btn_booking)
         btnBooking.setOnClickListener{
             val intent = Intent(this, BookingActivity::class.java)
+            intent.putExtra("doctor", receivedDoctor)
             startActivity(intent)
         }
         val btnCheckReviews: Button = findViewById(R.id.btn_reviews)
@@ -26,7 +29,6 @@ class DoctorInformationActivity : AppCompatActivity() {
             checkReviews()
         }
 
-        val receivedDoctor = intent.getParcelableExtra<Doctor>("doctor")
         // inicijaliziram textview-ove
         val tvName = findViewById<TextView>(R.id.tv_dynamic_name)
         val tvSurname = findViewById<TextView>(R.id.tv_dynamic_surname)
