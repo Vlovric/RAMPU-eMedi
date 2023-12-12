@@ -67,9 +67,11 @@ class DoctorsFragment : Fragment() {
                 intent.putExtra("doctor", doctor)
                 startActivity(intent)
             }
+            errorMessage.visibility = View.GONE
         } else {
             recyclerView.adapter = DoctorsAdapter(emptyList()) {
             }
+            errorMessage.visibility = View.VISIBLE
             errorMessage.text = "Nije pronađen niti jedan doktor s tim imenom!"
         }
     }
