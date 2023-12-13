@@ -19,6 +19,9 @@
 
     <ListView
         android:id="@+id/lv_all_appointments"
+        android:layout_margin="16dp"
+        android:divider="@color/white"
+        android:dividerHeight="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" />

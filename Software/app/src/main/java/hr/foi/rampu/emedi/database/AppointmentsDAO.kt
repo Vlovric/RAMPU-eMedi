@@ -15,6 +15,9 @@ interface AppointmentsDAO {
     @Query("SELECT * FROM appointment")
     fun getAllAppointments(): List<Appointment>
 
+    @Query("SELECT * FROM appointment WHERE user_id = :userId")
+    fun getAppointmentsForUser(userId: Int): List<Appointment>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAppointment(vararg appointment: Appointment): List<Long>
 }
