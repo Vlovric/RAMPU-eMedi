@@ -51,7 +51,6 @@ class DoctorInformationActivity : AppCompatActivity() {
             showNewAppointmentDialog()
         }
 
-        val receivedDoctor = intent.getParcelableExtra<Doctor>("doctor")
         // inicijaliziram textview-ove
         val tvName = findViewById<TextView>(R.id.tv_dynamic_name)
         val tvSurname = findViewById<TextView>(R.id.tv_dynamic_surname)
