@@ -1,5 +1,6 @@
 package hr.foi.rampu.emedi.helpers
 
+import android.util.Log
 import hr.foi.rampu.emedi.database.AppDatabase
 import hr.foi.rampu.emedi.entities.User
 import java.util.Date
@@ -41,6 +42,7 @@ object MockDataUser {
 
     fun insertUser(user: User) {
         val usersDAO = AppDatabase.getInstance().getUsersDao()
+        Log.i("TEST", "Do ovdje sam dosao")
         usersDAO.insertUser(user)
     }
 

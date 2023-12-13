@@ -291,16 +291,6 @@
             android:layout_gravity="center_horizontal"
             app:backgroundTint="@color/medi_blue"
             />
-
-        <Button
-            android:id="@+id/btn_add_appointment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add appointment"
-            android:layout_gravity="center_horizontal"
-            app:backgroundTint="@color/medi_blue"
-            android:visibility="gone"
-            />
     </LinearLayout>
 
 

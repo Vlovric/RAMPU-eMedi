@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.TextView
 import hr.foi.rampu.emedi.BookingsActivity
 import hr.foi.rampu.emedi.R
+import hr.foi.rampu.emedi.database.AppDatabase
 import hr.foi.rampu.emedi.entities.BookingReason
 import hr.foi.rampu.emedi.entities.Doctor
 
@@ -50,8 +51,19 @@ class BookingReasonAdapter(private val parentActivity: BookingsActivity, private
         }
 
         val btnAddAppointment = rowView.findViewById<Button>(R.id.btn_choose_date_and_time)
+
+        val appointmentForBooking = AppDatabase.getInstance().getAppointmentsDao().getAppointmentForBooking(bookingReason.id)
+        if (appointmentForBooking.isEmpty()) {
+            rowView.findViewById<TextView>(R.id.tv_booking_appointment).visibility = View.GONE
+        } else {
+            rowView.findViewById<TextView>(R.id.tv_booking_message).visibility = View.GONE
+            btnAddAppointment.visibility = View.GONE
+
+            // Ovdje staviti prikaz termina
+        }
+
         btnAddAppointment.setOnClickListener {
-            parentActivity.testMessage(bookingReason)
+            parentActivity.showNewAppointmentDialog(bookingReason)
         }
 
         return rowView

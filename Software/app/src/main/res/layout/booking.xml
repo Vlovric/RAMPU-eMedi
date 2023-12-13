@@ -103,6 +103,24 @@
             tools:text="paa nema se tu šta za reći, boli i to je to"/>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_booking_appointment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        tools:text="Booking appointment: blabla"/>
+
+    <TextView
+        android:id="@+id/tv_booking_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/negative_red"
+        android:layout_gravity="center"
+        android:text="Booking is approved, but no time is selected." />
+
     <Button
         android:id="@+id/btn_choose_date_and_time"
         android:layout_width="wrap_content"
@@ -110,6 +128,7 @@
         android:text="Choose a date and time"
         android:backgroundTint="@color/medi_blue"
         android:layout_gravity="center"
-        android:layout_margin="4dp"/>
+        android:layout_margin="4dp"
+        />
 
 </LinearLayout>

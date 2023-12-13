@@ -8,6 +8,9 @@ import hr.foi.rampu.emedi.entities.BookingReason
 
 @Dao
 interface BookingReasonsDAO {
+    @Query("SELECT * FROM bookingReasons WHERE id = :id")
+    fun getBookingReason(id: Int): BookingReason
+
     @Query("SELECT COUNT(*) FROM bookingReasons")
     fun getBookingReasonCount(): Int
 
