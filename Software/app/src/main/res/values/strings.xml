@@ -32,4 +32,14 @@
     <string name="adress">Adress</string>
     <string name="register">Register</string>
     <string name="required">Required</string>
+    <string name="appointment_time">Appointment time</string>
+    <string name="choose_an_avalible_date_and_time_slot">Choose an avalible date and time slot.</string>
+    <string name="date">Date</string>
+    <string name="start_time">Start time</string>
+    <string name="end_time">End time</string>
+    <string name="save_appointment_time">Save appointment time</string>
+    <string name="close">Close</string>
+    <string name="end_time_must_be_after_start_time">End time must be after start time!</string>
+    <string name="date_is_not_chosen">Date is not chosen!</string>
+    <string name="time_is_not_chosen">Time is not chosen!</string>
 </resources>

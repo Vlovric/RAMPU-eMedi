@@ -5,13 +5,14 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import hr.foi.rampu.emedi.entities.BookingReason
+import hr.foi.rampu.emedi.entities.Appointment
 import hr.foi.rampu.emedi.entities.Doctor
 import hr.foi.rampu.emedi.entities.Review
 import hr.foi.rampu.emedi.entities.User
 
 @Database(
-    version=3,
-    entities=[User::class, Doctor::class, Review::class, BookingReason::class],
+    version=6,
+    entities=[User::class, Doctor::class, Review::class, BookingReason::class, Appointment::class],
     exportSchema=false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -19,6 +20,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun getDoctorsDao(): DoctorsDAO
     abstract fun getReviewsDao(): ReviewsDAO
     abstract fun getBookingReasonsDao(): BookingReasonsDAO
+    abstract fun getAppointmentsDao(): AppointmentsDAO
 
     companion object {
         @Volatile
