@@ -151,9 +151,11 @@ class DoctorsFragment : Fragment() {
         }
         val doctorsList = doctorsDAO.getAllDoctors()
         filteredList = doctorsList.filter {
+            val doctorsRating = Review.getAverageRatingForDoctor(it)
+
             it.address.contains(cityFilter ?: "") &&
-            it.specialization.contains(specializationFilter ?: "")
-//            (review!!.toFloat()..(review!!.toFloat() + 0.5).toFloat()).contains(Review.getAverageRatingForDoctor(it))
+            it.specialization.contains(specializationFilter ?: "") &&
+            (if (reviewFilter == null) true else (doctorsRating >= reviewFilter.toFloat() - 0.5f && doctorsRating <= reviewFilter.toFloat() + 0.5f))
         }
         return filteredList
     }
