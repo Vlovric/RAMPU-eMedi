@@ -7,8 +7,6 @@ import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import hr.foi.rampu.emedi.MainActivity
-import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.helpers.TextSizeUtility
 
 class SettingsActivity : AppCompatActivity() {
@@ -31,13 +29,15 @@ class SettingsActivity : AppCompatActivity() {
         // Load the saved font size from SharedPreferences
         val savedFontSize = sharedPreferences.getFloat("fontSize", 12f)
         seekBarFontSize.progress = (savedFontSize - 12f).toInt()
-        updateTextSize(savedFontSize)
 
         seekBarFontSize.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 // Update text size dynamically
                 val newSize = 12f + progress.toFloat()
-                updateTextSize(newSize)
+                textSizeUtility.setTextSize(newSize)
+
+                // Apply the new text size to all text views in the app
+                textSizeUtility.applyTextSizeToView(window.decorView.rootView)
 
                 // Save the selected font size in SharedPreferences
                 with(sharedPreferences.edit()) {
@@ -66,7 +66,5 @@ class SettingsActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun updateTextSize(size: Float) {
-        textView.textSize = size
-    }
+
 }

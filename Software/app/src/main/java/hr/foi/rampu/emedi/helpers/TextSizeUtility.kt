@@ -1,3 +1,4 @@
+// TextSizeUtility.kt
 package hr.foi.rampu.emedi.helpers
 
 import android.content.Context
@@ -12,15 +13,32 @@ class TextSizeUtility(private val context: Context) {
     private val preferences: SharedPreferences =
         context.getSharedPreferences("TextSizePrefs", Context.MODE_PRIVATE)
 
+     private val viewsToApplyTextSize: MutableList<View> = mutableListOf()
+
     fun getTextSize(): Float {
         return preferences.getFloat("textSize", 12f)
     }
 
     fun setTextSize(size: Float) {
         preferences.edit().putFloat("textSize", size).apply()
+        applyTextSizeToViews()
     }
 
-    fun applyTextSizeToView(view: View) {
+    fun registerTextView(textView: TextView) {
+        viewsToApplyTextSize.add(textView)
+    }
+
+    fun unregisterTextView(textView: TextView) {
+        viewsToApplyTextSize.remove(textView)
+    }
+
+    fun applyTextSizeToViews() {
+        for (view in viewsToApplyTextSize) {
+            applyTextSizeToView(view)
+        }
+    }
+
+     fun applyTextSizeToView(view: View) {
         if (view is TextView) {
             val textSize = getTextSize()
             view.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
