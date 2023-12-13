@@ -46,6 +46,11 @@ class DoctorInformationActivity : AppCompatActivity() {
             checkReviews()
         }
 
+        val btnViewBookings: Button = findViewById(R.id.btn_view_bookings)
+        btnViewBookings.setOnClickListener {
+            viewBookings()
+        }
+
         val btnAddAppointment: Button = findViewById(R.id.btn_add_appointment)
         btnAddAppointment.setOnClickListener {
             showNewAppointmentDialog()
@@ -107,6 +112,13 @@ class DoctorInformationActivity : AppCompatActivity() {
     private fun checkReviews() {
         val receivedDoctor = intent.getParcelableExtra<Doctor>("doctor")
         val intent = Intent(this, AllReviewsActivity::class.java)
+        intent.putExtra("doctor", receivedDoctor)
+        startActivity(intent)
+    }
+
+    private fun viewBookings() {
+        val receivedDoctor = intent.getParcelableExtra<Doctor>("doctor")
+        val intent = Intent(this, BookingsActivity::class.java)
         intent.putExtra("doctor", receivedDoctor)
         startActivity(intent)
     }

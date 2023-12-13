@@ -17,6 +17,9 @@ interface BookingReasonsDAO {
     @Query("SELECT * FROM bookingReasons")
     fun getAllBookingReasons() : List<BookingReason>
 
+    @Query("SELECT * FROM bookingReasons WHERE doctor_id = :doctorId AND user_id = :userId")
+    fun getBookingsForDoctorAndUser(doctorId: Int, userId: Int): List<BookingReason>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertBookingReason(vararg bookingReason :BookingReason): List<Long>
 }

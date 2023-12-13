@@ -278,7 +278,16 @@
             android:id="@+id/btn_booking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Booking"
+            android:text="Book"
+            android:layout_gravity="center_horizontal"
+            app:backgroundTint="@color/medi_blue"
+            />
+
+        <Button
+            android:id="@+id/btn_view_bookings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View bookings"
             android:layout_gravity="center_horizontal"
             app:backgroundTint="@color/medi_blue"
             />
@@ -290,6 +299,7 @@
             android:text="Add appointment"
             android:layout_gravity="center_horizontal"
             app:backgroundTint="@color/medi_blue"
+            android:visibility="gone"
             />
     </LinearLayout>
 
