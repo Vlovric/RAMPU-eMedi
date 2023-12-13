@@ -20,6 +20,7 @@ import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.adapters.DoctorsAdapter
 import hr.foi.rampu.emedi.database.AppDatabase
 import hr.foi.rampu.emedi.entities.Doctor
+import hr.foi.rampu.emedi.entities.Review
 import hr.foi.rampu.emedi.helpers.MockDataCity
 import hr.foi.rampu.emedi.helpers.MockDataSpecialization
 
@@ -32,6 +33,7 @@ class DoctorsFragment : Fragment() {
     private lateinit var specializationSpinner : Spinner
     private lateinit var reviewSpinner : Spinner
     private lateinit var filterButton : Button
+    private lateinit var clearButton : Button
     private lateinit var filteredList : List<Doctor>
     private val doctorsDAO = AppDatabase.getInstance().getDoctorsDao()
     override fun onCreateView(
@@ -46,6 +48,7 @@ class DoctorsFragment : Fragment() {
         specializationSpinner = view.findViewById(R.id.spn_specialisation_filter)
         reviewSpinner = view.findViewById(R.id.spn_review_filter)
         filterButton = view.findViewById(R.id.btn_filter)
+        clearButton = view.findViewById(R.id.btn_clear_filter)
 
         errorMessage = view.findViewById(R.id.tv_error_message)
         recyclerView = view.findViewById(R.id.rv_doctors)
@@ -100,6 +103,17 @@ class DoctorsFragment : Fragment() {
             }
 
         }
+        clearButton.setOnClickListener {
+            recyclerView.adapter = DoctorsAdapter(MockDataDoctor.getDemoData()){
+                val intent = Intent(requireContext(), DoctorInformationActivity::class.java)
+                val whichDoctor = doctorsDAO.getDoctor(it.id)
+                intent.putExtra("doctor", whichDoctor)
+                startActivity(intent)
+            }
+            citySpinner.setSelection(0)
+            specializationSpinner.setSelection(0)
+            reviewSpinner.setSelection(0)
+        }
     }
     private fun getDoctorsByName(name: String) {
         val doctorsList = if (name.isNotBlank()) {
@@ -135,19 +149,12 @@ class DoctorsFragment : Fragment() {
         if (review == "Select item") {
             reviewFilter = null
         }
-
         val doctorsList = doctorsDAO.getAllDoctors()
         filteredList = doctorsList.filter {
             it.address.contains(cityFilter ?: "") &&
             it.specialization.contains(specializationFilter ?: "")
+//            (review!!.toFloat()..(review!!.toFloat() + 0.5).toFloat()).contains(Review.getAverageRatingForDoctor(it))
         }
-//        doctorsList.forEach{
-//            if(it.address == "Selected item" || it.specialization == "Selected item"){
-//                filteredList = doctorsDAO.getAllDoctors().toMutableList()
-//            }else if(it.address == city || it.specialization == specialization){
-//                filteredList.add(it)
-//            }
-//        }
         return filteredList
     }
 }
