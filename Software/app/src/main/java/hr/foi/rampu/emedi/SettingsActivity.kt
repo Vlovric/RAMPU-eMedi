@@ -1,38 +1,49 @@
 package hr.foi.rampu.emedi
 
 import android.os.Bundle
+import android.util.TypedValue
 import android.widget.SeekBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
+import hr.foi.rampu.emedi.helpers.TextSizeUtility
 
 class SettingsActivity : AppCompatActivity() {
 
-    lateinit var tabLayout: TabLayout
-    lateinit var viewPager2: ViewPager2
     lateinit var seekBarFontSize: SeekBar
+    private lateinit var textSizeUtility: TextSizeUtility
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_settings)
 
-        setTabLayoutAndViewpager()
+        textSizeUtility = TextSizeUtility(this)
+
+        val textView = findViewById<TextView>(R.id.probniid)
+        updateTextSize(textView, textSizeUtility.getTextSize())
 
         // Initialize SeekBar
         seekBarFontSize = findViewById(R.id.fontSizeSeekBar)
         seekBarFontSize.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                // Update text size in the custom application class
-                Application.textSize = 12f + progress.toFloat()
-
-                // Notify other components of the application about the text size change if needed
+                val newTextSize = 12f + progress.toFloat()
+                updateTextSize(textView, newTextSize)
             }
 
-            // onStartTrackingTouch and onStopTrackingTouch remain the same
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                // Not needed for this example
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                // Not needed for this example
+            }
         })
 
-
         // ... rest of your onCreate code
+    }
+
+    private fun updateTextSize(textView: TextView, textSize: Float) {
+        textView.textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, textSize, resources.displayMetrics)
+        textSizeUtility.updateTextSize(textSize) // Update preferences
     }
 
     // ... rest of your SettingsActivity code
