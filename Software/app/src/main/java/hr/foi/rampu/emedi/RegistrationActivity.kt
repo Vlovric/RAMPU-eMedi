@@ -170,6 +170,7 @@ class RegistrationActivity : AppCompatActivity() {
             if(errorMessage != ""){
                 passwordErr.visibility = View.VISIBLE
                 passwordErr.text = errorMessage
+                Log.i("PORUKA", errorMessage)
                 passwordValid = false
             }else{
                 passwordErr.visibility = View.INVISIBLE

@@ -8,11 +8,12 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.TextView
+import hr.foi.rampu.emedi.BookingsActivity
 import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.entities.BookingReason
 import hr.foi.rampu.emedi.entities.Doctor
 
-class BookingReasonAdapter(private val context: Context, private val bookingReasons: List<BookingReason>): BaseAdapter() {
+class BookingReasonAdapter(private val parentActivity: BookingsActivity, private val context: Context, private val bookingReasons: List<BookingReason>): BaseAdapter() {
     override fun getCount(): Int {
         return bookingReasons.size
     }
@@ -50,17 +51,9 @@ class BookingReasonAdapter(private val context: Context, private val bookingReas
 
         val btnAddAppointment = rowView.findViewById<Button>(R.id.btn_choose_date_and_time)
         btnAddAppointment.setOnClickListener {
-            showNewAppointmentDialog(bookingReason)
+            parentActivity.testMessage(bookingReason)
         }
 
         return rowView
-    }
-
-    private fun showNewAppointmentDialog(booking: BookingReason) {
-        addNewAppointment(booking)
-    }
-
-    private fun addNewAppointment(booking: BookingReason) {
-        Log.i("PRESSED", booking.id.toString() + " " + booking.symptoms)
     }
 }
