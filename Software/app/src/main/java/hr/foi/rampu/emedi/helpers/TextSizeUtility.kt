@@ -2,8 +2,10 @@ package hr.foi.rampu.emedi.helpers
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import android.util.TypedValue
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
 
 class TextSizeUtility(private val context: Context) {
 
@@ -11,14 +13,21 @@ class TextSizeUtility(private val context: Context) {
         context.getSharedPreferences("TextSizePrefs", Context.MODE_PRIVATE)
 
     fun getTextSize(): Float {
-        val textSize = preferences.getFloat("textSize", 12f)
-        Log.d("TextSizeUtility", "Retrieved text size: $textSize")
-        return textSize
+        return preferences.getFloat("textSize", 12f)
     }
 
-    fun updateTextSize(size: Float) {
+    fun setTextSize(size: Float) {
         preferences.edit().putFloat("textSize", size).apply()
-        Log.d("TextSizeUtility", "Updated text size: $size")
+    }
+
+    fun applyTextSizeToView(view: View) {
+        if (view is TextView) {
+            val textSize = getTextSize()
+            view.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
+        } else if (view is ViewGroup) {
+            for (i in 0 until view.childCount) {
+                applyTextSizeToView(view.getChildAt(i))
+            }
+        }
     }
 }
-

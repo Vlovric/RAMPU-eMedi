@@ -1,50 +1,72 @@
 package hr.foi.rampu.emedi
-
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.TypedValue
+import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import hr.foi.rampu.emedi.MainActivity
+import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.helpers.TextSizeUtility
 
 class SettingsActivity : AppCompatActivity() {
 
-    lateinit var seekBarFontSize: SeekBar
     private lateinit var textSizeUtility: TextSizeUtility
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var textView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_settings)
+        setContentView(R.layout.activity_settings)
 
         textSizeUtility = TextSizeUtility(this)
+        sharedPreferences = getPreferences(Context.MODE_PRIVATE)
 
-        val textView = findViewById<TextView>(R.id.probniid)
-        updateTextSize(textView, textSizeUtility.getTextSize())
+        val seekBarFontSize: SeekBar = findViewById(R.id.fontSizeSeekBar)
+        val btnBack: Button = findViewById(R.id.btnBack)
+        textView = findViewById(R.id.probniid)
 
-        // Initialize SeekBar
-        seekBarFontSize = findViewById(R.id.fontSizeSeekBar)
+        // Load the saved font size from SharedPreferences
+        val savedFontSize = sharedPreferences.getFloat("fontSize", 12f)
+        seekBarFontSize.progress = (savedFontSize - 12f).toInt()
+        updateTextSize(savedFontSize)
+
         seekBarFontSize.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val newTextSize = 12f + progress.toFloat()
-                updateTextSize(textView, newTextSize)
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                // Update text size dynamically
+                val newSize = 12f + progress.toFloat()
+                updateTextSize(newSize)
+
+                // Save the selected font size in SharedPreferences
+                with(sharedPreferences.edit()) {
+                    putFloat("fontSize", newSize)
+                    apply()
+                }
             }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
                 // Not needed for this example
             }
 
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
                 // Not needed for this example
             }
         })
 
-        // ... rest of your onCreate code
+        btnBack.setOnClickListener {
+            navigateToMainActivity()
+        }
     }
 
-    private fun updateTextSize(textView: TextView, textSize: Float) {
-        textView.textSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, textSize, resources.displayMetrics)
-        textSizeUtility.updateTextSize(textSize) // Update preferences
+    private fun navigateToMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
-    // ... rest of your SettingsActivity code
+    private fun updateTextSize(size: Float) {
+        textView.textSize = size
+    }
 }
