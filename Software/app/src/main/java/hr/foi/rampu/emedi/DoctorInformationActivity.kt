@@ -9,12 +9,38 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import hr.foi.rampu.emedi.database.AppDatabase
 import hr.foi.rampu.emedi.entities.Doctor
+import hr.foi.rampu.emedi.helpers.TextSizeUtility
 
 class DoctorInformationActivity : AppCompatActivity() {
 
+    lateinit var textSizeUtility: TextSizeUtility
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor_information)
+
+        textSizeUtility = TextSizeUtility.getInstance()
+        textSizeUtility.registerTextView(findViewById(R.id.tv_static_name))
+        textSizeUtility.registerTextView(findViewById(R.id.tv_static_surname))
+        textSizeUtility.registerTextView(findViewById(R.id.tv_static_specialization))
+        textSizeUtility.registerTextView(findViewById(R.id.tv_static_about))
+        textSizeUtility.registerTextView(findViewById(R.id.tv_static_years_employed))
+        textSizeUtility.registerTextView(findViewById(R.id.tv_static_job_description))
+        textSizeUtility.registerTextView(findViewById(R.id.tv_static_location))
+        textSizeUtility.registerTextView(findViewById(R.id.tv_static_clinic_name))
+        textSizeUtility.registerTextView(findViewById(R.id.tv_static_address))
+        textSizeUtility.registerTextView(findViewById(R.id.tv_static_contact))
+        textSizeUtility.registerTextView(findViewById(R.id.tv_static_email))
+        textSizeUtility.registerTextView(findViewById(R.id.tv_static_telephone))
+        textSizeUtility.registerTextView(findViewById(R.id.tv_dynamic_name))
+        textSizeUtility.registerTextView(findViewById(R.id.tv_dynamic_surname))
+        textSizeUtility.registerTextView(findViewById(R.id.tv_dynamic_specialization))
+        textSizeUtility.registerTextView(findViewById(R.id.tv_dynamic_years))
+        textSizeUtility.registerTextView(findViewById(R.id.tv_dynamic_job_description))
+        textSizeUtility.registerTextView(findViewById(R.id.tv_dynamic_clinic_name))
+        textSizeUtility.registerTextView(findViewById(R.id.tv_dynamic_address))
+        textSizeUtility.registerTextView(findViewById(R.id.tv_dynamic_email))
+        textSizeUtility.registerTextView(findViewById(R.id.tv_dynamic_telephone))
+
 
         val btnCheckReviews: Button = findViewById(R.id.btn_reviews)
         btnCheckReviews.setOnClickListener {

@@ -1,4 +1,6 @@
+// SettingsActivity.kt
 package hr.foi.rampu.emedi
+
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -13,18 +15,18 @@ class SettingsActivity : AppCompatActivity() {
 
     private lateinit var textSizeUtility: TextSizeUtility
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var textView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        textSizeUtility = TextSizeUtility(this)
+        TextSizeUtility.initialize(this) // Initialize the utility
+        textSizeUtility = TextSizeUtility.getInstance() // Get the instance
+
         sharedPreferences = getPreferences(Context.MODE_PRIVATE)
 
         val seekBarFontSize: SeekBar = findViewById(R.id.fontSizeSeekBar)
         val btnBack: Button = findViewById(R.id.btnBack)
-        textView = findViewById(R.id.probniid)
 
         // Load the saved font size from SharedPreferences
         val savedFontSize = sharedPreferences.getFloat("fontSize", 12f)
@@ -36,8 +38,9 @@ class SettingsActivity : AppCompatActivity() {
                 val newSize = 12f + progress.toFloat()
                 textSizeUtility.setTextSize(newSize)
 
-                // Apply the new text size to all text views in the app
-                textSizeUtility.applyTextSizeToView(window.decorView.rootView)
+                textSizeUtility.registerButton(findViewById(R.id.btnFontSize))
+                textSizeUtility.registerButton(findViewById(R.id.btnFontStyle))
+                textSizeUtility.registerButton(findViewById(R.id.btnAppColor))
 
                 // Save the selected font size in SharedPreferences
                 with(sharedPreferences.edit()) {
@@ -55,6 +58,8 @@ class SettingsActivity : AppCompatActivity() {
             }
         })
 
+
+
         btnBack.setOnClickListener {
             navigateToMainActivity()
         }
@@ -65,6 +70,4 @@ class SettingsActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-
-
 }
