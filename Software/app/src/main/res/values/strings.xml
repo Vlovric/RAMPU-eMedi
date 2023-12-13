@@ -29,7 +29,19 @@
     <string name="birth_date">Birth date</string>
     <string name="e_mail">E-mail</string>
     <string name="phone_number">Phone number</string>
-    <string name="adress">Adress</string>
+    <string name="adress">Address</string>
     <string name="register">Register</string>
     <string name="required">Required</string>
+    <string name="About">About</string>
+    <string name="specialization">Specialization:</string>
+    <string name="years_employed">Years employed:</string>
+    <string name="job_description">Job description:</string>
+    <string name="location">Location</string>
+    <string name="clinic_name">Clinic name:</string>
+    <string name="address1">Address:</string>
+    <string name="contact">Contact</string>
+    <string name="telephone">Telephone:</string>
+    <string name="reviews">Reviews</string>
+    <string name="booking">Booking</string>
+    <string name="email">Email:</string>
 </resources>

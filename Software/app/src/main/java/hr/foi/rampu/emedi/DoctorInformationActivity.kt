@@ -30,8 +30,7 @@ class DoctorInformationActivity : AppCompatActivity() {
         }
 
         // inicijaliziram textview-ove
-        val tvName = findViewById<TextView>(R.id.tv_dynamic_name)
-        val tvSurname = findViewById<TextView>(R.id.tv_dynamic_surname)
+        val tvNameSurname = findViewById<TextView>(R.id.tv_dynamic_name_surname)
         val tvSpecialization = findViewById<TextView>(R.id.tv_dynamic_specialization)
         val tvYearsEmployed = findViewById<TextView>(R.id.tv_dynamic_years)
         val tvJobDescription = findViewById<TextView>(R.id.tv_dynamic_job_description)
@@ -41,8 +40,7 @@ class DoctorInformationActivity : AppCompatActivity() {
         val tvTelephone = findViewById<TextView>(R.id.tv_dynamic_telephone)
 
         // učitavam u text-view
-        tvName.text = receivedDoctor?.name.orEmpty()
-        tvSurname.text = receivedDoctor?.surname.orEmpty()
+        tvNameSurname.text = receivedDoctor?.name.orEmpty() + " " + receivedDoctor?.surname.orEmpty()
         tvSpecialization.text = receivedDoctor?.specialization.orEmpty()
         tvYearsEmployed.text = "${receivedDoctor?.yearsEmployed ?: 0}"
         tvJobDescription.text = receivedDoctor?.jobDescription.orEmpty()
