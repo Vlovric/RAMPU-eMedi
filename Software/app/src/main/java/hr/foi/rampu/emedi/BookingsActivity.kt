@@ -13,11 +13,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import hr.foi.rampu.emedi.adapters.BookingReasonAdapter
 import hr.foi.rampu.emedi.database.AppDatabase
+import hr.foi.rampu.emedi.database.AppointmentsDAO
+import hr.foi.rampu.emedi.entities.Appointment
 import hr.foi.rampu.emedi.entities.BookingReason
 import hr.foi.rampu.emedi.entities.Doctor
 import hr.foi.rampu.emedi.helpers.UserSession
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 
 class BookingsActivity : AppCompatActivity() {
@@ -36,9 +39,12 @@ class BookingsActivity : AppCompatActivity() {
 
         currentDoctor = intent.getParcelableExtra<Doctor>("doctor")!!
 
-        val allBookings = AppDatabase.getInstance().getBookingReasonsDao().getBookingsForDoctorAndUser(currentDoctor.id, UserSession.loggedUser.id)
-        listBookings = findViewById(R.id.list_bookings)
+        updateBookingData()
+    }
 
+    private fun updateBookingData() {
+        listBookings = findViewById(R.id.list_bookings)
+        val allBookings = AppDatabase.getInstance().getBookingReasonsDao().getBookingsForDoctorAndUser(currentDoctor.id, UserSession.loggedUser.id)
         val adapter = BookingReasonAdapter(this, this,  allBookings)
         listBookings.adapter = adapter
     }
@@ -61,8 +67,7 @@ class BookingsActivity : AppCompatActivity() {
                 } else if (selectedStartTime == "00:00" || selectedEndTime == "00:00") {
                     Toast.makeText(this, getString(R.string.time_is_not_chosen), Toast.LENGTH_SHORT).show()
                 } else {
-                    Log.i("NOVO", "Ovo implementiraj!")
-                    // Implementirati dodavanje novog appointment u bazu!
+                    addNewAppointment(booking)
                 }
             }
             .setNegativeButton(getString(R.string.close)) { dialog, which ->
@@ -71,6 +76,37 @@ class BookingsActivity : AppCompatActivity() {
             .show()
 
         activateDateTimeListeners(newAppointmentDialog)
+    }
+
+    private fun addNewAppointment(booking: BookingReason) {
+        val appointmentsDAO = AppDatabase.getInstance().getAppointmentsDao()
+        val newId: Int = getNewAppointmentId(appointmentsDAO)
+
+        val newAppointment = Appointment(
+            newId,
+            selectedDate.time,
+            Date(0, 0, 0, getStringHour(selectedStartTime), getStringMinute(selectedStartTime)),
+            Date(0, 0, 0, getStringHour(selectedEndTime), getStringMinute(selectedEndTime)),
+            currentDoctor.id,
+            UserSession.loggedUser.id,
+            booking.id
+        )
+
+        appointmentsDAO.insertAppointment(newAppointment)
+        updateBookingData()
+    }
+
+    private fun getNewAppointmentId(appointmentsDAO: AppointmentsDAO): Int {
+        val allAppointments = appointmentsDAO.getAllAppointments()
+        var newId = allAppointments.count()
+
+        for (appointment in allAppointments) {
+            if (appointment.id > newId) {
+                newId = appointment.id
+            }
+        }
+
+        return ++newId
     }
 
     private fun activateDateTimeListeners(view: View) {

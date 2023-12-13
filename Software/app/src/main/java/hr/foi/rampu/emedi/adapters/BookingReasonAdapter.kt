@@ -11,10 +11,16 @@ import android.widget.TextView
 import hr.foi.rampu.emedi.BookingsActivity
 import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.database.AppDatabase
+import hr.foi.rampu.emedi.entities.Appointment
 import hr.foi.rampu.emedi.entities.BookingReason
 import hr.foi.rampu.emedi.entities.Doctor
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class BookingReasonAdapter(private val parentActivity: BookingsActivity, private val context: Context, private val bookingReasons: List<BookingReason>): BaseAdapter() {
+    private val sdfDate = SimpleDateFormat("dd.MM.yyyy.", Locale.US)
+    private val sdfTime = SimpleDateFormat("HH:mm", Locale.US)
+
     override fun getCount(): Int {
         return bookingReasons.size
     }
@@ -59,7 +65,11 @@ class BookingReasonAdapter(private val parentActivity: BookingsActivity, private
             rowView.findViewById<TextView>(R.id.tv_booking_message).visibility = View.GONE
             btnAddAppointment.visibility = View.GONE
 
-            // Ovdje staviti prikaz termina
+            val currentAppointment: Appointment = appointmentForBooking[0]
+            var appointmentText = "Appointment: " + sdfDate.format(currentAppointment.appointmentDate)
+            appointmentText += " at " + sdfTime.format(currentAppointment.appointmentStartTime)
+
+            rowView.findViewById<TextView>(R.id.tv_booking_appointment).text = appointmentText
         }
 
         btnAddAppointment.setOnClickListener {
