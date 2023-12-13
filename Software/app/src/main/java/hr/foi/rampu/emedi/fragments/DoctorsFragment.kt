@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
@@ -18,6 +19,7 @@ import hr.foi.rampu.emedi.DoctorInformationActivity
 import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.adapters.DoctorsAdapter
 import hr.foi.rampu.emedi.database.AppDatabase
+import hr.foi.rampu.emedi.entities.Doctor
 import hr.foi.rampu.emedi.helpers.MockDataCity
 import hr.foi.rampu.emedi.helpers.MockDataSpecialization
 
@@ -29,6 +31,8 @@ class DoctorsFragment : Fragment() {
     private lateinit var citySpinner : Spinner
     private lateinit var specializationSpinner : Spinner
     private lateinit var reviewSpinner : Spinner
+    private lateinit var filterButton : Button
+    private lateinit var filteredList : List<Doctor>
     private val doctorsDAO = AppDatabase.getInstance().getDoctorsDao()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +45,7 @@ class DoctorsFragment : Fragment() {
         citySpinner = view.findViewById(R.id.spn_city_filter)
         specializationSpinner = view.findViewById(R.id.spn_specialisation_filter)
         reviewSpinner = view.findViewById(R.id.spn_review_filter)
+        filterButton = view.findViewById(R.id.btn_filter)
 
         errorMessage = view.findViewById(R.id.tv_error_message)
         recyclerView = view.findViewById(R.id.rv_doctors)
@@ -82,6 +87,19 @@ class DoctorsFragment : Fragment() {
         citySpinner.adapter = citySpinnerAdapter
         specializationSpinner.adapter = specializationSpinnerAdapter
         reviewSpinner.adapter = reviewSpinnerAdapter
+
+        filterButton.setOnClickListener{
+            val city = citySpinner.selectedItem.toString()
+            val specialization = specializationSpinner.selectedItem.toString()
+            val review = reviewSpinner.selectedItem.toString()
+            val doctorsList = getDoctorsByFilter(city, specialization, review)
+            recyclerView.adapter = DoctorsAdapter(doctorsList) { doctor ->
+                val intent = Intent(requireContext(), DoctorInformationActivity::class.java)
+                intent.putExtra("doctor", doctor)
+                startActivity(intent)
+            }
+
+        }
     }
     private fun getDoctorsByName(name: String) {
         val doctorsList = if (name.isNotBlank()) {
@@ -102,5 +120,34 @@ class DoctorsFragment : Fragment() {
             errorMessage.visibility = View.VISIBLE
             errorMessage.text = "Nije pronađen niti jedan doktor s tim imenom!"
         }
+    }
+    private fun getDoctorsByFilter(city: String?, specialization: String?, review : String?) : List<Doctor>{
+        var cityFilter = city
+        var specializationFilter = specialization
+        var reviewFilter = review
+
+        if (city == "Select item") {
+            cityFilter = null
+        }
+        if (specialization == "Select item") {
+            specializationFilter = null
+        }
+        if (review == "Select item") {
+            reviewFilter = null
+        }
+
+        val doctorsList = doctorsDAO.getAllDoctors()
+        filteredList = doctorsList.filter {
+            it.address.contains(cityFilter ?: "") &&
+            it.specialization.contains(specializationFilter ?: "")
+        }
+//        doctorsList.forEach{
+//            if(it.address == "Selected item" || it.specialization == "Selected item"){
+//                filteredList = doctorsDAO.getAllDoctors().toMutableList()
+//            }else if(it.address == city || it.specialization == specialization){
+//                filteredList.add(it)
+//            }
+//        }
+        return filteredList
     }
 }
