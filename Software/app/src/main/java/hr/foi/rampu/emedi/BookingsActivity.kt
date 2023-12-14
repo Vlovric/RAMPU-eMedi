@@ -30,6 +30,8 @@ class BookingsActivity : AppCompatActivity() {
     private var selectedStartTime: String = "00:00"
     private var selectedEndTime: String = "00:00"
 
+    private var timesList: MutableList<List<String>> = mutableListOf()
+
     private val sdfDate = SimpleDateFormat("dd.MM.yyyy.", Locale.US)
 
     private lateinit var listBookings: ListView
@@ -59,6 +61,7 @@ class BookingsActivity : AppCompatActivity() {
         dateChosen = false
         selectedStartTime = "00:00"
         selectedEndTime = "00:00"
+        timesList = mutableListOf()
 
         AlertDialog.Builder(this)
             .setView(newAppointmentDialog)
@@ -68,7 +71,18 @@ class BookingsActivity : AppCompatActivity() {
                 } else if (selectedStartTime == "00:00" || selectedEndTime == "00:00") {
                     Toast.makeText(this, getString(R.string.time_is_not_chosen), Toast.LENGTH_SHORT).show()
                 } else {
-                    addNewAppointment(booking)
+                    var isOverlapping: Boolean = false
+                    timesList.forEach { time ->
+                        if (checkOverlap(selectedStartTime, selectedEndTime, time[0], time[1])) {
+                            isOverlapping = true
+                        }
+                    }
+
+                    if (isOverlapping) {
+                        Toast.makeText(this, "This time is overlapping.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        addNewAppointment(booking)
+                    }
                 }
             }
             .setNegativeButton(getString(R.string.close)) { dialog, which ->
@@ -209,7 +223,6 @@ class BookingsActivity : AppCompatActivity() {
                 && appointment.appointmentDate.month == date.get(Calendar.MONTH)
                 && appointment.appointmentDate.date == date.get(Calendar.DAY_OF_MONTH)) {
 
-
                 if (!first) appointmentMessage += "\n"
                 appointmentMessage += "- " + getTimeString(
                     appointment.appointmentStartTime.hours,
@@ -224,6 +237,11 @@ class BookingsActivity : AppCompatActivity() {
                 first = false
                 tvExistingAppointmentsMessage.visibility = View.VISIBLE
                 tvExistingAppointments.visibility = View.VISIBLE
+
+                timesList.add(listOf(
+                    String.format("%02d:%02d", appointment.appointmentStartTime.hours, appointment.appointmentStartTime.minutes),
+                    String.format("%02d:%02d", appointment.appointmentEndTime.hours, appointment.appointmentEndTime.minutes)
+                ))
             }
         }
 
@@ -254,7 +272,6 @@ class BookingsActivity : AppCompatActivity() {
                 && appointment.appointmentDate.month == date.get(Calendar.MONTH)
                 && appointment.appointmentDate.date == date.get(Calendar.DAY_OF_MONTH)) {
 
-
                 if (!first) appointmentMessage += "\n"
                 appointmentMessage += "- from " + getTimeString(
                     appointment.appointmentStartTime.hours,
@@ -268,6 +285,11 @@ class BookingsActivity : AppCompatActivity() {
                 first = false
                 tvExistingDoctorAppointmentsMessage.visibility = View.VISIBLE
                 tvExistingDoctorAppointments.visibility = View.VISIBLE
+
+                timesList.add(listOf(
+                    String.format("%02d:%02d", appointment.appointmentStartTime.hours, appointment.appointmentStartTime.minutes),
+                    String.format("%02d:%02d", appointment.appointmentEndTime.hours, appointment.appointmentEndTime.minutes)
+                ))
             }
         }
 
@@ -319,5 +341,14 @@ class BookingsActivity : AppCompatActivity() {
         }
 
         return 0
+    }
+
+    private fun checkOverlap(start1: String, end1: String, start2: String, end2: String): Boolean {
+        Log.i("TIME", "Start 1: " + start1)
+        Log.i("TIME", "End 1: " + end1)
+        Log.i("TIME", "Start 2: " + start2)
+        Log.i("TIME", "End 3: " + end2)
+
+        return (((compareTimes(start1, end2) == 1) && (compareTimes(end1, start2) == -1)) || ((compareTimes(start2, end1) == 1) && (compareTimes(end2, start1) == -1)))
     }
 }

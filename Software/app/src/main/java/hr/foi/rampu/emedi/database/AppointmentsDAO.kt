@@ -15,12 +15,12 @@ interface AppointmentsDAO {
     @Query("SELECT * FROM appointment")
     fun getAllAppointments(): List<Appointment>
 
-    @Query("SELECT * FROM appointment WHERE user_id = :userId")
+    @Query("SELECT * FROM appointment WHERE user_id = :userId ORDER BY appointment_date DESC, appointment_start_time DESC, appointment_end_time DESC")
     fun getAppointmentsForUser(userId: Int): List<Appointment>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAppointment(vararg appointment: Appointment): List<Long>
 
-    @Query("SELECT * FROM appointment WHERE doctor_id = :doctorId")
+    @Query("SELECT * FROM appointment WHERE doctor_id = :doctorId ORDER BY appointment_start_time, appointment_end_time")
     fun getAppointmentsForDoctor(doctorId: Int): List<Appointment>
 }
