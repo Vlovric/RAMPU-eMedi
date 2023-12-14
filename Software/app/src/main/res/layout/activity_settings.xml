@@ -1,54 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:padding="16dp">
 
-    <Button
-        android:id="@+id/btnFontSize"
+    <TextView
+        android:id="@+id/tv_FontSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/settings_background"
+        android:gravity="center"
         android:text="Veličina fonta"
-        android:layout_margin="10dp"
-        android:background="@drawable/settings_background"/>
+        android:textSize="20dp" />
 
-    <Button
-        android:id="@+id/btnFontStyle"
+    <Spinner
+        android:id="@+id/fontSpinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Izgled fonta"
-        android:layout_margin="10dp"
-        android:background="@drawable/settings_background"/>
+        android:layout_height="40dp"
+        android:layout_below="@+id/fontSizeSeekBar"
+        android:layout_marginTop="38dp"
+        android:layout_weight="1"
+        android:background="@drawable/settings_background"
+        android:entries="@array/font_options" />
 
     <Button
         android:id="@+id/btnAppColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Boja aplikacije"
-        android:layout_margin="10dp"
-        android:background="@drawable/settings_background"/>
+        android:layout_below="@+id/fontSpinner"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/medi_blue"
+        android:text="Boja aplikacije" />
+
+    <TextView
+        android:id="@+id/tv_smallA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_FontSize"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="-27dp"
+        android:layout_toStartOf="@+id/fontSizeSeekBar"
+        android:text="A"
+        android:textSize="20dp" />
 
     <SeekBar
         android:id="@+id/fontSizeSeekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_below="@+id/tv_FontSize"
+        android:layout_marginTop="6dp"
         android:layout_marginBottom="16dp"
-        android:min="1"
-        android:max="10"
-        android:progress="6" />
+        android:max="11"
+        android:min="3"/>
 
+    <TextView
+        android:id="@+id/tv_bigA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fontSizeSeekBar"
+        android:layout_marginStart="-38dp"
+        android:layout_marginTop="-30dp"
+        android:layout_toEndOf="@+id/fontSizeSeekBar"
+        android:text="A"
+        android:textSize="38dp" />
 
     <Button
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Back"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:onClick="navigateToMainActivity"/>
+        android:layout_below="@+id/btnAppColor"
+        android:layout_marginTop="17dp"
+        android:backgroundTint="@color/medi_blue"
+        android:onClick="navigateToMainActivity"
+        android:text="Back" />
 
-</LinearLayout>
+</RelativeLayout>

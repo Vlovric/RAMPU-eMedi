@@ -8,7 +8,6 @@ class ApplicationHelper : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        // Initialize any application-level settings or utilities here
         TextSizeUtility.initialize(this)
     }
 }
