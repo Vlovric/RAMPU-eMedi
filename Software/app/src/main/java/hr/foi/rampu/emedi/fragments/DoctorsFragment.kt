@@ -96,10 +96,18 @@ class DoctorsFragment : Fragment() {
             val specialization = specializationSpinner.selectedItem.toString()
             val review = reviewSpinner.selectedItem.toString()
             val doctorsList = getDoctorsByFilter(city, specialization, review)
-            recyclerView.adapter = DoctorsAdapter(doctorsList) { doctor ->
-                val intent = Intent(requireContext(), DoctorInformationActivity::class.java)
-                intent.putExtra("doctor", doctor)
-                startActivity(intent)
+            if (doctorsList.isNotEmpty()) {
+                recyclerView.adapter = DoctorsAdapter(doctorsList) { doctor ->
+                    val intent = Intent(requireContext(), DoctorInformationActivity::class.java)
+                    intent.putExtra("doctor", doctor)
+                    startActivity(intent)
+                }
+                errorMessage.visibility = View.GONE
+            } else {
+                recyclerView.adapter = DoctorsAdapter(emptyList()) {
+                }
+                errorMessage.visibility = View.VISIBLE
+                errorMessage.text = "Nije pronađen niti jedan doktor koji zadovolava uvjete!"
             }
 
         }

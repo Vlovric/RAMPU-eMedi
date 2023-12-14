@@ -28,9 +28,10 @@ class DoctorsAdapter(private val doctorsList : List<Doctor>, private val clickLi
             }
         }
         fun bind(doctor: Doctor){ //ovdje ide koji se podatci bindaju na element koji se prikazuje
+            var doctorsScore = Review.getAverageRatingForDoctor(doctor)
             doctorNameSurname.text = doctor.name + " " + doctor.surname
-            doctorSpecialisation.text = doctor.specialization
-            doctorYearsOfExpiriance.text = "Godine iskustva: " + doctor.yearsEmployed.toString()
+            doctorSpecialisation.text ="Specialization: " + doctor.specialization
+            doctorYearsOfExpiriance.text = "Years of expiriance: " + doctor.yearsEmployed.toString()
             doctorsReviewScore.text = String.format("%.2f", Review.getAverageRatingForDoctor(doctor))
 
         }
