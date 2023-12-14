@@ -57,4 +57,14 @@
             tools:text="glavobolja u koljenu"/>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_appointment_already_done"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="4dp"
+        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:textColor="@color/negative_red"
+        android:text="@string/this_appointment_is_already_done"/>
+
 </LinearLayout>

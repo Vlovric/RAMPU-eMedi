@@ -38,6 +38,7 @@ class AppointmentAdapter(private val context: Context, private val appointments:
         val tvDoctor = rowView.findViewById<TextView>(R.id.tv_appointment_doctor)
         val tvDateAndTime = rowView.findViewById<TextView>(R.id.tv_appointment_date_and_time)
         val tvSymptoms = rowView.findViewById<TextView>(R.id.tv_appointment_symptoms)
+        val tvAppointmentAlreadyDone = rowView.findViewById<TextView>(R.id.tv_appointment_already_done)
 
         val appointment = getItem(position) as Appointment
         val appDoctor = appointment.doctor
@@ -49,8 +50,11 @@ class AppointmentAdapter(private val context: Context, private val appointments:
             "${sdfDate.format(appointment.appointmentDate)} at ${sdfTime.format(appointment.appointmentStartTime)}"
         tvSymptoms.text = appBookingReason.symptoms
 
+        tvAppointmentAlreadyDone.visibility = View.GONE
+
         if (Date().time > appointment.appointmentDate.time) {
             rowView.background = ContextCompat.getDrawable(context, R.drawable.rounded_background_gray)
+            tvAppointmentAlreadyDone.visibility = View.VISIBLE
         }
 
         return rowView

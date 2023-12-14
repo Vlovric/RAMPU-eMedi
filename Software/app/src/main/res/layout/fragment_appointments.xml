@@ -14,13 +14,13 @@
         android:textSize="36sp"
         android:text="@string/appointments"
         android:padding="5dp"
-        android:textColor="@color/white"
+        android:divider="@android:color/transparent"
         android:background="@color/medi_blue"/>
 
     <ListView
         android:id="@+id/lv_all_appointments"
         android:layout_margin="16dp"
-        android:divider="@color/white"
+        android:divider="@android:color/transparent"
         android:dividerHeight="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

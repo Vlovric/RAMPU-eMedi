@@ -9,7 +9,7 @@
     <ListView
         android:id="@+id/list_bookings"
         android:layout_margin="16dp"
-        android:divider="@color/white"
+        android:divider="@android:color/transparent"
         android:dividerHeight="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
