@@ -3,6 +3,7 @@ package hr.foi.rampu.emedi
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -19,7 +20,7 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var textSizeUtility: TextSizeUtility
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var fontSpinner: Spinner
-    private lateinit var btnAppColor: Button  // Declare btnAppColor as a property
+    private lateinit var btnAppColor: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +28,7 @@ class SettingsActivity : AppCompatActivity() {
 
         TextSizeUtility.initialize(this)
         textSizeUtility = TextSizeUtility.getInstance()
+        var colorPalette = ColorPalette
 
         sharedPreferences = getPreferences(Context.MODE_PRIVATE)
 
@@ -46,7 +48,6 @@ class SettingsActivity : AppCompatActivity() {
                 textSizeUtility.registerButton(findViewById(R.id.btnAppColor))
                 textSizeUtility.registerButton(findViewById(R.id.btnBack))
 
-                // Save the selected font size in SharedPreferences
                 with(sharedPreferences.edit()) {
                     putFloat("fontSize", newSize)
                     apply()
@@ -94,21 +95,15 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun applyColorsToUI(colorPalette: ColorPalette) {
-        // Apply the selected colors to the UI elements in your activity
-        // For example, change the background color, text color, etc.
 
-        // Apply background color to the whole application
-        findViewById<View>(android.R.id.content).setBackgroundColor(
-            ContextCompat.getColor(this, android.R.color.background_dark)
-        )
+        val color1 = colorPalette.color1
+        val color2 = colorPalette.color2
+        val color3 = colorPalette.color3
+        val button1 = findViewById<Button>(R.id.btnAppColor)
+        findViewById<View>(android.R.id.content).setBackgroundColor(Color.parseColor(color1))
+        button1.setBackgroundColor(Color.parseColor(color2))
+        button1.setTextColor(Color.parseColor(color3))
 
-        // Apply button background color
-        btnAppColor.setBackgroundColor(android.graphics.Color.parseColor(colorPalette.buttonColor))
-
-        // Apply text color to other elements
-        // ...
-
-        // You may need to adjust this based on your actual UI structure
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

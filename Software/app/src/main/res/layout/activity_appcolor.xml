@@ -7,4 +7,16 @@
     android:layout_height="match_parent"
     android:columnCount="2"
     android:rowCount="2"
-    android:padding="16dp"/>
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/probniid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Button Text"
+        android:layout_gravity="center"
+        android:background="?android:attr/colorAccent"
+        android:textColor="?android:attr/textColorPrimary"/>
+
+</GridLayout>
+

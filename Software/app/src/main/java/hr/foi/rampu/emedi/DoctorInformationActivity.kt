@@ -13,7 +13,7 @@ import hr.foi.rampu.emedi.helpers.TextSizeUtility
 
 class DoctorInformationActivity : AppCompatActivity() {
 
-    lateinit var textSizeUtility: TextSizeUtility
+    private lateinit var textSizeUtility: TextSizeUtility
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor_information)
