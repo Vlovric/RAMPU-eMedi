@@ -11,7 +11,6 @@ import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.google.android.material.datepicker.MaterialDatePicker
 import hr.foi.rampu.emedi.adapters.BookingReasonAdapter
 import hr.foi.rampu.emedi.database.AppDatabase
 import hr.foi.rampu.emedi.database.AppointmentsDAO
@@ -117,7 +116,7 @@ class BookingsActivity : AppCompatActivity() {
 
         dateSelection.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
-                /*DatePickerDialog(
+                DatePickerDialog(
                     view.context,
                     { _, year, monthOfYear, dayOfMonth ->
                         selectedDate.set(year, monthOfYear, dayOfMonth)
@@ -128,21 +127,6 @@ class BookingsActivity : AppCompatActivity() {
                     selectedDate.get(Calendar.MONTH),
                     selectedDate.get(Calendar.DAY_OF_MONTH)
                 ).show()
-                view.clearFocus()*/
-
-                val datePicker = MaterialDatePicker.Builder.datePicker()
-                    .setTitleText("Choose a date")
-                    .setSelection(selectedDate.timeInMillis)
-                    .build()
-                datePicker.addOnPositiveButtonClickListener {
-                    val chosenDate = Date(datePicker.selection!!)
-
-                    selectedDate.set(chosenDate.year + 1900, chosenDate.month, chosenDate.date)
-                    dateSelection.setText(sdfDate.format(selectedDate.time))
-                    dateChosen = true
-                }
-
-                datePicker.show(supportFragmentManager, "material_date_picker")
                 view.clearFocus()
             }
         }
