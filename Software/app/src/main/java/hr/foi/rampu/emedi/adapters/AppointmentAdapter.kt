@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.entities.Appointment
 import hr.foi.rampu.emedi.entities.Review
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 class AppointmentAdapter(private val context: Context, private val appointments: List<Appointment>): BaseAdapter() {
@@ -46,6 +48,10 @@ class AppointmentAdapter(private val context: Context, private val appointments:
         tvDateAndTime.text =
             "${sdfDate.format(appointment.appointmentDate)} at ${sdfTime.format(appointment.appointmentStartTime)}"
         tvSymptoms.text = appBookingReason.symptoms
+
+        if (Date().time > appointment.appointmentDate.time) {
+            rowView.background = ContextCompat.getDrawable(context, R.drawable.rounded_background_gray)
+        }
 
         return rowView
     }

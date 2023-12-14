@@ -4,6 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="medi_blue">#2596be</color>
     <color name="medi_blue_light">#5BD8E3</color>
+    <color name="color_gray">#7D7D7D</color>
     <color name="positive_green">#00A000</color>
     <color name="negative_red">#850C0C</color>
 </resources>
