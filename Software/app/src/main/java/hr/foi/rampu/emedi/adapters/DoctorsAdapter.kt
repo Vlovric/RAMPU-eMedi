@@ -32,7 +32,13 @@ class DoctorsAdapter(private val doctorsList : List<Doctor>, private val clickLi
             doctorNameSurname.text = doctor.name + " " + doctor.surname
             doctorSpecialisation.text ="Specialization: " + doctor.specialization
             doctorYearsOfExpiriance.text = "Years of expiriance: " + doctor.yearsEmployed.toString()
-            doctorsReviewScore.text = String.format("%.2f", Review.getAverageRatingForDoctor(doctor))
+            if(doctorsScore != 0f){
+                doctorsReviewScore.text = String.format("%.2f", doctorsScore)
+                doctorsReviewScore.visibility = View.VISIBLE
+            }else{
+                doctorsReviewScore.visibility = View.INVISIBLE
+            }
+
 
         }
     }

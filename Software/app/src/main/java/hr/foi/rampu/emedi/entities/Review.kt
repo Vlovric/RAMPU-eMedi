@@ -65,8 +65,12 @@ data class Review(
             reviewsList.forEach {
                 sum += it.grade
             }
-            avg = sum / reviewsList.size
-            return avg
+
+            return if(reviewsList.isEmpty()){
+                0f
+            }else{
+                sum/reviewsList.size
+            }
         }
     }
 }
