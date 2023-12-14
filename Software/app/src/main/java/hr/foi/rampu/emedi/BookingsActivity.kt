@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import android.widget.ListView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import hr.foi.rampu.emedi.adapters.BookingReasonAdapter
@@ -114,19 +115,27 @@ class BookingsActivity : AppCompatActivity() {
         val startTimeSelection = view.findViewById<EditText>(R.id.et_appointment_start_time)
         val endTimeSelection = view.findViewById<EditText>(R.id.et_appointment_end_time)
 
+        val topView = view
+
+        checkDateAvalibility(view, selectedDate, true)
+
         dateSelection.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
-                DatePickerDialog(
+                val newDialog = DatePickerDialog(
                     view.context,
                     { _, year, monthOfYear, dayOfMonth ->
                         selectedDate.set(year, monthOfYear, dayOfMonth)
                         dateSelection.setText(sdfDate.format(selectedDate.time).toString())
                         dateChosen = true
+
+                        checkDateAvalibility(topView, selectedDate)
                     },
                     selectedDate.get(Calendar.YEAR),
                     selectedDate.get(Calendar.MONTH),
                     selectedDate.get(Calendar.DAY_OF_MONTH)
-                ).show()
+                )
+                newDialog.show()
+
                 view.clearFocus()
             }
         }
@@ -172,6 +181,51 @@ class BookingsActivity : AppCompatActivity() {
                 view.clearFocus()
             }
         }
+    }
+
+    private fun checkDateAvalibility(view: View, date: Calendar, firstSet: Boolean = false) {
+        val tvExistingAppointmentsMessage = view.findViewById<TextView>(R.id.tv_existing_appointments_message)
+        val tvExistingAppointments = view.findViewById<TextView>(R.id.tv_existing_appointments)
+
+        tvExistingAppointmentsMessage.visibility = View.GONE
+        tvExistingAppointments.visibility = View.GONE
+
+        if (firstSet) {
+            return
+        }
+
+        val allCurrentUserAppointments = AppDatabase.getInstance().getAppointmentsDao().getAppointmentsForUser(UserSession.loggedUser.id)
+        if (allCurrentUserAppointments.isEmpty()) {
+            return
+        }
+
+        var appointmentMessage: String = ""
+        var first: Boolean = true
+
+        for (appointment in allCurrentUserAppointments) {
+            if ((appointment.appointmentDate.year + 1900) == date.get(Calendar.YEAR)
+                && appointment.appointmentDate.month == date.get(Calendar.MONTH)
+                && appointment.appointmentDate.date == date.get(Calendar.DAY_OF_MONTH)) {
+
+
+                if (!first) appointmentMessage += "\n"
+                appointmentMessage += "- " + getTimeString(
+                    appointment.appointmentStartTime.hours,
+                    appointment.appointmentStartTime.minutes
+                )
+                appointmentMessage += " to " + getTimeString(
+                    appointment.appointmentEndTime.hours,
+                    appointment.appointmentEndTime.minutes
+                )
+                appointmentMessage += " with " + appointment.doctor.name + " " + appointment.doctor.surname
+
+                first = false
+                tvExistingAppointmentsMessage.visibility = View.VISIBLE
+                tvExistingAppointments.visibility = View.VISIBLE
+            }
+        }
+
+        tvExistingAppointments.text = appointmentMessage
     }
 
     private fun getTimeString(hour: Int, minute: Int): String {

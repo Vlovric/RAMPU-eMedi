@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -32,6 +33,24 @@
         android:layout_height="wrap_content"
         android:importantForAutofill="no"
         android:inputType="date" />
+
+    <TextView
+        android:id="@+id/tv_existing_appointments_message"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/negative_red"
+        android:text="@string/you_have_appointments_already_on_that_date" />
+    <TextView
+        android:id="@+id/tv_existing_appointments"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/negative_red"
+        tools:text="- Appointment 1\n- Appointment 2" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

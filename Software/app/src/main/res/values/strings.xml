@@ -42,4 +42,5 @@
     <string name="end_time_must_be_after_start_time">End time must be after start time!</string>
     <string name="date_is_not_chosen">Date is not chosen!</string>
     <string name="time_is_not_chosen">Time is not chosen!</string>
+    <string name="you_have_appointments_already_on_that_date">You have appointments already on that date:</string>
 </resources>
