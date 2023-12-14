@@ -291,6 +291,12 @@
             android:layout_gravity="center_horizontal"
             app:backgroundTint="@color/medi_blue"
             />
+        <ImageButton
+            android:id="@+id/btn_share_information"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@color/medi_blue"
+            android:src="@drawable/ic_baseline_share_24"/>
     </LinearLayout>
 
 
