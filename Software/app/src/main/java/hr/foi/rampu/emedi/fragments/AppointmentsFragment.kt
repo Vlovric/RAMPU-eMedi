@@ -14,6 +14,8 @@ import hr.foi.rampu.emedi.helpers.UserSession
 class AppointmentsFragment : Fragment() {
     private lateinit var listViewAppointments: ListView
 
+    private lateinit var myView: View
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -23,11 +25,21 @@ class AppointmentsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        myView = view
+        updateAppointmentData()
+    }
+
+    override fun onResume() {
+        updateAppointmentData()
+        super.onResume()
+    }
+
+    private fun updateAppointmentData() {
         var appointmentList = AppDatabase.getInstance().getAppointmentsDao().getAppointmentsForUser(
             UserSession.loggedUser.id)
-        listViewAppointments = view.findViewById(R.id.lv_all_appointments)
+        listViewAppointments = myView.findViewById(R.id.lv_all_appointments)
 
-        val adapter = AppointmentAdapter(view.context, appointmentList)
+        val adapter = AppointmentAdapter(myView.context, appointmentList)
         listViewAppointments.adapter = adapter
     }
 }
