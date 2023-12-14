@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -49,6 +50,19 @@ class DoctorInformationActivity : AppCompatActivity() {
         val btnAddAppointment: Button = findViewById(R.id.btn_add_appointment)
         btnAddAppointment.setOnClickListener {
             showNewAppointmentDialog()
+        }
+        val btnShareDoctorsInformation: ImageButton = findViewById(R.id.btn_share_information)
+        btnShareDoctorsInformation.setOnClickListener{
+            val shareIntent = Intent(Intent.ACTION_SEND)
+            shareIntent.type = "text/plain"
+
+            val textToShare = "${receivedDoctor?.name} ${receivedDoctor?.surname}\n" +
+                    "Specialisation: ${receivedDoctor?.specialization}\n" +
+                    "Years of expiriance: ${receivedDoctor?.yearsEmployed}\n" +
+                    "E-mail:${receivedDoctor?.email}\n" +
+                    "Phone Number: ${receivedDoctor?.telephone}"
+            shareIntent.putExtra(Intent.EXTRA_TEXT, textToShare)
+            startActivity(Intent.createChooser(shareIntent, "Share doctors information"))
         }
 
         // inicijaliziram textview-ove
