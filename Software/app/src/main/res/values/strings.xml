@@ -43,4 +43,5 @@
     <string name="date_is_not_chosen">Date is not chosen!</string>
     <string name="time_is_not_chosen">Time is not chosen!</string>
     <string name="you_have_appointments_already_on_that_date">You have appointments already on that date:</string>
+    <string name="doctor_is_unavalible">Doctor is unavalible:</string>
 </resources>

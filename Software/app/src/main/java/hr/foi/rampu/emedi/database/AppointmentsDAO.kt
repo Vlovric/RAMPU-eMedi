@@ -20,4 +20,7 @@ interface AppointmentsDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAppointment(vararg appointment: Appointment): List<Long>
+
+    @Query("SELECT * FROM appointment WHERE doctor_id = :doctorId")
+    fun getAppointmentsForDoctor(doctorId: Int): List<Appointment>
 }

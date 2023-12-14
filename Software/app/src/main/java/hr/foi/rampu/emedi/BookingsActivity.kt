@@ -118,6 +118,7 @@ class BookingsActivity : AppCompatActivity() {
         val topView = view
 
         checkDateAvalibility(view, selectedDate, true)
+        checkDoctorAvalibility(view, selectedDate, true)
 
         dateSelection.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
@@ -129,6 +130,7 @@ class BookingsActivity : AppCompatActivity() {
                         dateChosen = true
 
                         checkDateAvalibility(topView, selectedDate)
+                        checkDoctorAvalibility(topView, selectedDate)
                     },
                     selectedDate.get(Calendar.YEAR),
                     selectedDate.get(Calendar.MONTH),
@@ -226,6 +228,50 @@ class BookingsActivity : AppCompatActivity() {
         }
 
         tvExistingAppointments.text = appointmentMessage
+    }
+
+    private fun checkDoctorAvalibility(view: View, date: Calendar, firstSet: Boolean = false) {
+        val tvExistingDoctorAppointmentsMessage = view.findViewById<TextView>(R.id.tv_existing_doctor_appointments_message)
+        val tvExistingDoctorAppointments = view.findViewById<TextView>(R.id.tv_existing_doctor_appointments)
+
+        tvExistingDoctorAppointmentsMessage.visibility = View.GONE
+        tvExistingDoctorAppointments.visibility = View.GONE
+
+        if (firstSet) {
+            return
+        }
+
+        val allDoctorAppointments = AppDatabase.getInstance().getAppointmentsDao().getAppointmentsForDoctor(currentDoctor.id)
+        if (allDoctorAppointments.isEmpty()) {
+            return
+        }
+
+        var appointmentMessage: String = ""
+        var first: Boolean = true
+
+        for (appointment in allDoctorAppointments) {
+            if ((appointment.appointmentDate.year + 1900) == date.get(Calendar.YEAR)
+                && appointment.appointmentDate.month == date.get(Calendar.MONTH)
+                && appointment.appointmentDate.date == date.get(Calendar.DAY_OF_MONTH)) {
+
+
+                if (!first) appointmentMessage += "\n"
+                appointmentMessage += "- from " + getTimeString(
+                    appointment.appointmentStartTime.hours,
+                    appointment.appointmentStartTime.minutes
+                )
+                appointmentMessage += " to " + getTimeString(
+                    appointment.appointmentEndTime.hours,
+                    appointment.appointmentEndTime.minutes
+                )
+
+                first = false
+                tvExistingDoctorAppointmentsMessage.visibility = View.VISIBLE
+                tvExistingDoctorAppointments.visibility = View.VISIBLE
+            }
+        }
+
+        tvExistingDoctorAppointments.text = appointmentMessage
     }
 
     private fun getTimeString(hour: Int, minute: Int): String {
