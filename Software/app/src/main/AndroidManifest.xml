@@ -17,6 +17,12 @@
             android:name=".SettingsActivity"
             android:exported="false" />
         <activity
+            android:name=".SingleReviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AppColorActivity"
+            android:exported="false" />
+        <activity
             android:name=".AllReviewsActivity"
             android:exported="false" />
         <activity
