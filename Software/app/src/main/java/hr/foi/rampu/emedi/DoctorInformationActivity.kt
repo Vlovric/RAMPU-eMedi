@@ -17,15 +17,21 @@ import androidx.appcompat.app.AppCompatActivity
 import hr.foi.rampu.emedi.database.AppDatabase
 import hr.foi.rampu.emedi.entities.Doctor
 import hr.foi.rampu.emedi.entities.User
+import hr.foi.rampu.emedi.helpers.TextSizeUtility
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
 class DoctorInformationActivity : AppCompatActivity() {
+
+    private lateinit var textSizeUtility: TextSizeUtility
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor_information)
 
+        TextSizeUtility.initialize(this)
+        textSizeUtility = TextSizeUtility.getInstance()
+        textSizeUtility.registerTextView(findViewById<TextView>(R.id.tv_static_specialization))
         val receivedDoctor = intent.getParcelableExtra<Doctor>("doctor")
 
         val btnBooking: Button = findViewById(R.id.btn_booking)
