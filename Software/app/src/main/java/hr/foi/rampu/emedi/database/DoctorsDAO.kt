@@ -11,6 +11,8 @@ import hr.foi.rampu.emedi.entities.User
 interface DoctorsDAO {
     @Query("SELECT * FROM doctors WHERE id = :id")
     fun getDoctor(id: Int): Doctor
+    @Query("SELECT * FROM doctors WHERE name LIKE '%' || :name || '%' OR surname LIKE '%' || :name || '%'")
+    fun getDoctorByName(name: String): List<Doctor>
 
     @Query("SELECT * FROM doctors")
     fun getAllDoctors(): List<Doctor>
