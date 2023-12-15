@@ -8,16 +8,20 @@ import android.widget.RatingBar
 import androidx.appcompat.app.AppCompatActivity
 import hr.foi.rampu.emedi.entities.Doctor
 import hr.foi.rampu.emedi.entities.Review
+import hr.foi.rampu.emedi.helpers.TextSizeUtility
 
 class AddReviewActivity : AppCompatActivity() {
     private lateinit var ratingBar: RatingBar
     private lateinit var editTextReview: EditText
     private lateinit var submitButton: Button
     private lateinit var currentDoctor: Doctor
-
+    private lateinit var textSizeUtility : TextSizeUtility
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_review)
+
+        textSizeUtility = TextSizeUtility.getInstance()
+        textSizeUtility.registerButton(findViewById(R.id.submitButton))
 
         ratingBar = findViewById(R.id.ratingBar)
         editTextReview = findViewById(R.id.editTextReview)
