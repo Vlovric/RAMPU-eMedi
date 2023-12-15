@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import hr.foi.rampu.emedi.LoginActivity
 import hr.foi.rampu.emedi.MainActivity
 import hr.foi.rampu.emedi.R
+import hr.foi.rampu.emedi.database.AppDatabase
 import hr.foi.rampu.emedi.entities.User
 import hr.foi.rampu.emedi.helpers.ProfileChangeHelper
 import hr.foi.rampu.emedi.helpers.UserSession
@@ -43,8 +44,20 @@ class ProfileFragment : Fragment() {
         val logoutButton: Button = view.findViewById(R.id.btn_logout)
         logoutButton.setOnClickListener {
             if (profileState == ProfileState.Editing) {
-                Toast.makeText(view.context, "Please, save changes first!", Toast.LENGTH_LONG).show()
+                Toast.makeText(view.context, "Please, save changes first!", Toast.LENGTH_LONG)
+                    .show()
             } else {
+                val intent = Intent(activity, LoginActivity::class.java)
+                activity?.startActivity(intent)
+            }
+        }
+        val deleteButton: Button = view.findViewById(R.id.btn_delete)
+        deleteButton.setOnClickListener {
+            if (profileState == ProfileState.Editing) {
+                Toast.makeText(view.context, "Please, save changes first!", Toast.LENGTH_LONG)
+                    .show()
+            } else {
+                AppDatabase.getInstance().getUsersDao().deleteUser(UserSession.loggedUser)
                 val intent = Intent(activity, LoginActivity::class.java)
                 activity?.startActivity(intent)
             }

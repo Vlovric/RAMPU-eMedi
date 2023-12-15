@@ -1,5 +1,14 @@
 package hr.foi.rampu.emedi
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.graphics.Color
+import android.os.Build
+import androidx.core.app.NotificationCompat
+import android.os.Handler
+import android.os.Looper
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,17 +17,18 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import hr.foi.rampu.emedi.database.AppDatabase
-import hr.foi.rampu.emedi.database.BookingReasonsDAO
 import hr.foi.rampu.emedi.entities.BookingReason
 import hr.foi.rampu.emedi.entities.Doctor
 import hr.foi.rampu.emedi.helpers.UserSession
-import org.w3c.dom.Text
 
 class BookingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking)
         val warning = findViewById<TextView>(R.id.tv_warning)
+        val doctorName = intent.getParcelableExtra<Doctor>("doctor")?.name
+        val doctorSurname = intent.getParcelableExtra<Doctor>("doctor")?.surname
+
 
         val btnSendBooking: Button = findViewById(R.id.btn_sendBooking)
         btnSendBooking.setOnClickListener {
@@ -51,21 +61,56 @@ class BookingActivity : AppCompatActivity() {
                         .insertBookingReason(newBookingReason)
                 }
                 Log.i("COUNT", "$newBookingReason")
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    showNotification(this, "$doctorName $doctorSurname has accepted the reason for you visit.")
+                }, 5000)
+
                 finish()
             }else{
                 warning.visibility = View.VISIBLE
             }
         }
-
-
         //AppDatabase.getInstance().getBookingReasonsDao().deleteAllBookingReasons()
 
         val count = AppDatabase.getInstance().getBookingReasonsDao().getBookingReasonCount()
         Log.i("COUNT", "$count")
 
-        var list = AppDatabase.getInstance().getBookingReasonsDao().getAllBookingReasons()
+        val list = AppDatabase.getInstance().getBookingReasonsDao().getAllBookingReasons()
         for(l in list){
             Log.i("COUNT", "$l")
         }
     }
+    fun showNotification(context: Context, message: String) {
+        val channelId = "default_channel_id"
+        val channelName = "Default Channel"
+        val notificationId = 1
+
+        val notificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                channelId,
+                channelName,
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            channel.lightColor = Color.BLUE
+            channel.lockscreenVisibility = NotificationCompat.VISIBILITY_PRIVATE
+            notificationManager.createNotificationChannel(channel)
+        }
+
+
+        val builder = NotificationCompat.Builder(context, channelId)
+            .setContentTitle("Accepted!")
+            .setContentText(message)
+            .setSmallIcon(R.drawable.ic_checkmark)
+            .setAutoCancel(true)
+
+
+        notificationManager.notify(notificationId, builder.build())
+    }
+
+
 }

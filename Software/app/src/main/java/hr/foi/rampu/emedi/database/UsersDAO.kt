@@ -1,6 +1,7 @@
 package hr.foi.rampu.emedi.database
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
@@ -19,4 +20,7 @@ interface UsersDAO {
 
     @Insert(onConflict = REPLACE)
     fun insertUser(vararg user: User): List<Long>
+
+    @Delete
+    fun deleteUser(vararg user: User)
 }

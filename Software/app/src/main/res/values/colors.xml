@@ -7,4 +7,5 @@
     <color name="color_gray">#7D7D7D</color>
     <color name="positive_green">#00A000</color>
     <color name="negative_red">#850C0C</color>
+    <color name="not_found_grey">#808080</color>
 </resources>

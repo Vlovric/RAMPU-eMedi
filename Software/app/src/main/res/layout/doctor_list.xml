@@ -12,13 +12,46 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp">
+
         <TextView
             android:id="@+id/tv_doctor_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:text="Name of doctor"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="55dp">
+
+            <TextView
+                android:id="@+id/tv_dynamic_specialization"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="specialisation"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_dynamic_years"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_below="@id/tv_dynamic_specialization"
+                android:text="years of experience"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_dynamic_review_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:text="review"
+                android:textStyle="bold" />
+        </RelativeLayout>
     </LinearLayout>
+
 
 
 </androidx.cardview.widget.CardView>
