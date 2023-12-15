@@ -107,7 +107,7 @@ class DoctorsFragment : Fragment() {
                 recyclerView.adapter = DoctorsAdapter(emptyList()) {
                 }
                 errorMessage.visibility = View.VISIBLE
-                errorMessage.text = "Nije pronađen niti jedan doktor koji zadovolava uvjete!"
+                errorMessage.text = "Not a single doctor was found that meets the conditions!"
             }
 
         }
@@ -140,7 +140,7 @@ class DoctorsFragment : Fragment() {
             recyclerView.adapter = DoctorsAdapter(emptyList()) {
             }
             errorMessage.visibility = View.VISIBLE
-            errorMessage.text = "Nije pronađen niti jedan doktor s tim imenom!"
+            errorMessage.text = "No doctor with that name was found!"
         }
     }
     private fun getDoctorsByFilter(city: String?, specialization: String?, review : String?) : List<Doctor>{
