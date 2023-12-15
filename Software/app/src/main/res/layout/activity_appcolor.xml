@@ -5,15 +5,16 @@
     android:id="@+id/colorPaletteGrid"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:columnCount="2"
-    android:rowCount="2"
+    android:columnCount="1"
+    android:rowCount="4"
     android:padding="16dp">
 
+
     <Button
-        android:id="@+id/probniid"
+        android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your Button Text"
+        android:text="Back"
         android:layout_gravity="center"
         android:background="?android:attr/colorAccent"
         android:textColor="?android:attr/textColorPrimary"/>

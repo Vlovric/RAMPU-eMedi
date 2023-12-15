@@ -3,6 +3,7 @@ package hr.foi.rampu.emedi
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.GridLayout
 import androidx.appcompat.app.AppCompatActivity
 import hr.foi.rampu.emedi.entities.ColorPalette
@@ -15,6 +16,12 @@ class AppColorActivity : AppCompatActivity() {
 
         val colorPalettes = createColorPalettes()
         setupColorPaletteGrid(colorPalettes)
+        val btnBack = findViewById<Button>(R.id.btnBack)
+        btnBack.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun setupColorPaletteGrid(colorPalettes: List<ColorPalette>) {
@@ -35,11 +42,7 @@ class AppColorActivity : AppCompatActivity() {
 
             gridLayout.addView(paletteView)
 
-            if (rowIndex == 1) {
-                val params = paletteView.layoutParams as GridLayout.LayoutParams
-                params.topMargin = resources.getDimensionPixelSize(R.dimen.palette_margin_top)
-                paletteView.layoutParams = params
-            }
+
         }
     }
 
