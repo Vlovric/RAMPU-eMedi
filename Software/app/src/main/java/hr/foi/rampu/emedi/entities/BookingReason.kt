@@ -20,7 +20,7 @@ import hr.foi.rampu.emedi.database.AppDatabase
         entity = User::class,
         parentColumns = ["id"],
         childColumns = ["user_id"],
-        onDelete = ForeignKey.RESTRICT
+        onDelete = ForeignKey.CASCADE
     )
     ])
 data class BookingReason(
