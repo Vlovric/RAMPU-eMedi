@@ -314,6 +314,12 @@
             app:layout_constraintStart_toEndOf="@id/btn_booking"
             app:layout_constraintTop_toTopOf="parent"
             />
+        <ImageButton
+            android:id="@+id/btn_share_information"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@color/medi_blue"
+            android:src="@drawable/ic_baseline_share_24"/>
     </LinearLayout>
 </LinearLayout> <!-- Glavni-->
 
