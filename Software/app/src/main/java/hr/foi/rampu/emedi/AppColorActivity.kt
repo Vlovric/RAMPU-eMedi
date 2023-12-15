@@ -49,10 +49,10 @@ class AppColorActivity : AppCompatActivity() {
 
     private fun createColorPalettes(): List<ColorPalette> {
         return listOf(
-            ColorPalette("#FF5733", "#3498DB", "#2E2E2E"),
-            ColorPalette("#27AE60", "#E74C3C", "#F8F9FA"),
-            ColorPalette("#3498DB", "#FFC300", "#34495E"),
-            ColorPalette("#9B59B6", "#1ABC9C", "#E74C3C")
+            ColorPalette("#000000", "#777777", "#FFFFFF"),
+            ColorPalette("#FFFFFF", "#34495e", "#FFFFFF"),
+            ColorPalette("#F5F5DC", "#789E2B", "#000000"),
+            ColorPalette("#FAF0E6", "#A35519", "#FFFFFF")
         )
     }
 
