@@ -28,7 +28,6 @@ class AllReviewsActivity : AppCompatActivity() {
         }
 
         textSizeUtility = TextSizeUtility.getInstance()
-        textSizeUtility.registerButton(findViewById(R.id.addReviewButton))
 
         val allReviews = Review.getReviewsForDoctor(currentDoctor)
 

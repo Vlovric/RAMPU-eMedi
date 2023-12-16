@@ -31,7 +31,6 @@ class DoctorInformationActivity : AppCompatActivity() {
 
         TextSizeUtility.initialize(this)
         textSizeUtility = TextSizeUtility.getInstance()
-        textSizeUtility.registerTextView(findViewById<TextView>(R.id.tv_static_specialization))
         val receivedDoctor = intent.getParcelableExtra<Doctor>("doctor")
 
         val btnBooking: Button = findViewById(R.id.btn_booking)

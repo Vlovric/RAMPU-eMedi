@@ -38,6 +38,9 @@ class SettingsFragment : Fragment() {
         TextSizeUtility.initialize(requireContext())
         textSizeUtility = TextSizeUtility.getInstance()
 
+        textSizeUtility.registerAllTextViews(view.findViewById(R.id.tv_FontSize))
+
+
         sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
 
         val seekBarFontSize: SeekBar = view.findViewById(R.id.fontSizeSeekBar)
@@ -51,10 +54,6 @@ class SettingsFragment : Fragment() {
 
                 val newSize = 12f + progress.toFloat()
                 textSizeUtility.setTextSize(newSize)
-
-                textSizeUtility.registerTextView(view.findViewById(R.id.tv_FontSize))
-                textSizeUtility.registerButton(view.findViewById(R.id.btnAppColor))
-                textSizeUtility.registerButton(view.findViewById(R.id.btnBack))
 
                 with(sharedPreferences.edit()) {
                     putFloat("fontSize", newSize)

@@ -15,7 +15,6 @@ class SingleReviewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.single_review)
         textSizeUtility = TextSizeUtility.getInstance()
-        textSizeUtility.registerTextView(findViewById(R.id.textViewDescription))
     }
 
 }

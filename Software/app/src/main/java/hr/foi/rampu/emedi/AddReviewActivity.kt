@@ -21,7 +21,6 @@ class AddReviewActivity : AppCompatActivity() {
         setContentView(R.layout.add_review)
 
         textSizeUtility = TextSizeUtility.getInstance()
-        textSizeUtility.registerButton(findViewById(R.id.submitButton))
 
         ratingBar = findViewById(R.id.ratingBar)
         editTextReview = findViewById(R.id.editTextReview)
