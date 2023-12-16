@@ -1,6 +1,8 @@
 package hr.foi.rampu.emedi
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -16,6 +18,7 @@ class AddReviewActivity : AppCompatActivity() {
     private lateinit var submitButton: Button
     private lateinit var currentDoctor: Doctor
     private lateinit var textSizeUtility : TextSizeUtility
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_review)
@@ -31,6 +34,8 @@ class AddReviewActivity : AppCompatActivity() {
         submitButton.setOnClickListener {
             addReviewAndDisplayAllReviews()
         }
+        sharedPreferences = getSharedPreferences("Prefs", Context.MODE_PRIVATE)
+        changeTextSize()
     }
 
     private fun addReviewAndDisplayAllReviews() {
@@ -43,5 +48,16 @@ class AddReviewActivity : AppCompatActivity() {
         val intent = Intent(this, AllReviewsActivity::class.java)
         intent.putExtra("doctor", currentDoctor)
         startActivity(intent)
+    }
+
+    private fun changeTextSize() {
+        val position = sharedPreferences.getInt("selectedPosition", 1)
+        TextSizeUtility.initialize(this)
+        textSizeUtility = TextSizeUtility.getInstance()
+
+
+        textSizeUtility.registerAllButtons(findViewById(R.id.submitButton))
+        textSizeUtility.registerButtonStyle(this, findViewById(R.id.submitButton), position)
+
     }
 }

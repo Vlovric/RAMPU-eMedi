@@ -4,7 +4,6 @@ import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,7 +25,6 @@ class SettingsFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var fontSpinner: Spinner
     private lateinit var btnAppColor: Button
-
     private var selectedColorPalette: ColorPalette? = null
 
     override fun onCreateView(
@@ -41,7 +39,7 @@ class SettingsFragment : Fragment() {
         textSizeUtility.registerAllTextViews(view.findViewById(R.id.tv_FontSize))
 
 
-        sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
+        sharedPreferences = requireActivity().getSharedPreferences("Prefs", Context.MODE_PRIVATE)
 
         val seekBarFontSize: SeekBar = view.findViewById(R.id.fontSizeSeekBar)
         val btnBack: Button = view.findViewById(R.id.btnBack)
@@ -71,7 +69,7 @@ class SettingsFragment : Fragment() {
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
         })
 
-        btnAppColor = view.findViewById(R.id.btnAppColor) // Initialize btnAppColor
+        btnAppColor = view.findViewById(R.id.btnAppColor)
 
         btnAppColor.setOnClickListener {
             startColorSelectionActivity()
@@ -86,6 +84,10 @@ class SettingsFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
+                with(sharedPreferences.edit()) {
+                    putInt("selectedPosition", position)
+                    apply()
+                }
                 textSizeUtility.registerTextViewStyle(requireActivity(), view.findViewById(R.id.tv_FontSize), position)
                 textSizeUtility.registerButtonStyle(requireActivity(), view.findViewById(R.id.btnBack), position)
                 textSizeUtility.registerButtonStyle(requireActivity(), btnAppColor, position) // Use btnAppColor

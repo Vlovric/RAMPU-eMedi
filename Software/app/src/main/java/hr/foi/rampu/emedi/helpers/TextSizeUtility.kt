@@ -18,6 +18,8 @@ class TextSizeUtility private constructor(private val context: Context) {
     private val allTextViews: MutableList<TextView> = mutableListOf()
     private val allButtons: MutableList<Button> = mutableListOf()
 
+    // -------------------------- SIZE EDITOR --------------------------
+
     fun setTextSize(size: Float) {
         preferences.edit().putFloat("textSize", size).apply()
         applyTextSizeToViews()
@@ -48,21 +50,13 @@ class TextSizeUtility private constructor(private val context: Context) {
             view.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
         }
     }
-
+// -------------------------- STYLE EDITOR --------------------------
     fun registerTextViewStyle(context: Context, textView: TextView, position: Int) {
         applyFont(context, textView, position)
     }
 
     fun registerButtonStyle(context: Context, button: Button, position: Int) {
         applyFont(context, button, position)
-    }
-
-    fun unregisterTextViewStyle(textView: TextView) {
-        // Implementation for unregistering TextView style if needed
-    }
-
-    fun unregisterButtonStyle(button: Button) {
-        // Implementation for unregistering Button style if needed
     }
 
     private fun applyFont(context: Context, textView: TextView, position: Int) {

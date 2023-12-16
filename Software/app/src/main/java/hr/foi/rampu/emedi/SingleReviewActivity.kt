@@ -10,11 +10,23 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import hr.foi.rampu.emedi.helpers.TextSizeUtility
 class SingleReviewActivity : AppCompatActivity() {
-    lateinit var textSizeUtility: TextSizeUtility
+    private lateinit var textSizeUtility: TextSizeUtility
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.single_review)
-        textSizeUtility = TextSizeUtility.getInstance()
+        sharedPreferences = getSharedPreferences("Prefs", Context.MODE_PRIVATE)
+        changeTextSize()
     }
 
+    private fun changeTextSize() {
+        val position = sharedPreferences.getInt("selectedPosition", 1)
+        TextSizeUtility.initialize(this)
+        textSizeUtility = TextSizeUtility.getInstance()
+
+
+        textSizeUtility.registerAllTextViews(findViewById(R.id.textViewDescription))
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.textViewDescription), position)
+
+    }
 }

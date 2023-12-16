@@ -2,6 +2,7 @@ package hr.foi.rampu.emedi
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -9,9 +10,12 @@ import android.widget.GridLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import hr.foi.rampu.emedi.entities.ColorPalette
+import hr.foi.rampu.emedi.helpers.TextSizeUtility
 
 class AppColorActivity : AppCompatActivity() {
 
+    private lateinit var textSizeUtility: TextSizeUtility
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_appcolor)
@@ -24,6 +28,8 @@ class AppColorActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+        sharedPreferences = getSharedPreferences("Prefs", Context.MODE_PRIVATE)
+        changeTextSize()
     }
 
     private fun setupColorPaletteGrid(colorPalettes: List<ColorPalette>) {
@@ -63,6 +69,16 @@ class AppColorActivity : AppCompatActivity() {
         resultIntent.putExtra(SELECTED_COLORS, colorPalette)
         setResult(RESULT_OK, resultIntent)
         finish()
+    }
+    private fun changeTextSize() {
+        val position = sharedPreferences.getInt("selectedPosition", 1)
+        TextSizeUtility.initialize(this)
+        textSizeUtility = TextSizeUtility.getInstance()
+
+
+        textSizeUtility.registerAllButtons(findViewById(R.id.btnBack))
+        textSizeUtility.registerButtonStyle(this, findViewById(R.id.btnBack), position)
+
     }
 
     companion object {
