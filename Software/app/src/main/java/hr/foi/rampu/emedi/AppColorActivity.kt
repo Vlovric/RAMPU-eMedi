@@ -1,11 +1,13 @@
 package hr.foi.rampu.emedi
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.GridLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import hr.foi.rampu.emedi.entities.ColorPalette
 
 class AppColorActivity : AppCompatActivity() {
@@ -14,7 +16,7 @@ class AppColorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_appcolor)
 
-        val colorPalettes = createColorPalettes()
+        val colorPalettes = createColorPalettes(this)
         setupColorPaletteGrid(colorPalettes)
         val btnBack = findViewById<Button>(R.id.btnBack)
         btnBack.setOnClickListener {
@@ -34,9 +36,9 @@ class AppColorActivity : AppCompatActivity() {
             val color2View = paletteView.findViewById<View>(R.id.color2)
             val color3View = paletteView.findViewById<View>(R.id.color3)
 
-            color1View.setBackgroundColor(android.graphics.Color.parseColor(palette.color1))
-            color2View.setBackgroundColor(android.graphics.Color.parseColor(palette.color2))
-            color3View.setBackgroundColor(android.graphics.Color.parseColor(palette.color3))
+            color1View.setBackgroundColor(palette.color1)
+            color2View.setBackgroundColor(palette.color2)
+            color3View.setBackgroundColor(palette.color3)
 
             paletteView.setOnClickListener { returnResult(palette) }
 
@@ -47,12 +49,12 @@ class AppColorActivity : AppCompatActivity() {
     }
 
 
-    private fun createColorPalettes(): List<ColorPalette> {
+    private fun createColorPalettes(context: Context): List<ColorPalette> {
         return listOf(
-            ColorPalette("#000000", "#777777", "#FFFFFF"),
-            ColorPalette("#FFFFFF", "#34495e", "#FFFFFF"),
-            ColorPalette("#F5F5DC", "#789E2B", "#000000"),
-            ColorPalette("#FAF0E6", "#A35519", "#FFFFFF")
+            ColorPalette(ContextCompat.getColor(context, R.color.black), ContextCompat.getColor(context, R.color.gray), ContextCompat.getColor(context, R.color.white)),
+            ColorPalette(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.steel_blue), ContextCompat.getColor(context, R.color.white)),
+            ColorPalette(ContextCompat.getColor(context, R.color.beige), ContextCompat.getColor(context, R.color.olive_green), ContextCompat.getColor(context, R.color.black)),
+            ColorPalette(ContextCompat.getColor(context, R.color.linen), ContextCompat.getColor(context, R.color.sienna), ContextCompat.getColor(context, R.color.white))
         )
     }
 

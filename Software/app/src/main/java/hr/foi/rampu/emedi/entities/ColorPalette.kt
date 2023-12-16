@@ -4,20 +4,21 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class ColorPalette(
-    val color1: String,
-    val color2: String,
-    val color3: String
+    val color1: Int,
+    val color2: Int,
+    val color3: Int
 ) : Parcelable {
+
     constructor(parcel: Parcel) : this(
-        parcel.readString() ?: "",
-        parcel.readString() ?: "",
-        parcel.readString() ?: ""
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readInt()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(color1)
-        parcel.writeString(color2)
-        parcel.writeString(color3)
+        parcel.writeInt(color1)
+        parcel.writeInt(color2)
+        parcel.writeInt(color3)
     }
 
     override fun describeContents(): Int {

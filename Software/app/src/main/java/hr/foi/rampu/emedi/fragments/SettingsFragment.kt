@@ -27,6 +27,8 @@ class SettingsFragment : Fragment() {
     private lateinit var fontSpinner: Spinner
     private lateinit var btnAppColor: Button
 
+    private var selectedColorPalette: ColorPalette? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,7 +37,6 @@ class SettingsFragment : Fragment() {
 
         TextSizeUtility.initialize(requireContext())
         textSizeUtility = TextSizeUtility.getInstance()
-        var colorPalette = ColorPalette
 
         sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
 
@@ -57,6 +58,11 @@ class SettingsFragment : Fragment() {
 
                 with(sharedPreferences.edit()) {
                     putFloat("fontSize", newSize)
+                    selectedColorPalette?.let {
+                        putInt("color1", it.color1)
+                        putInt("color2", it.color2)
+                        putInt("color3", it.color3)
+                    }
                     apply()
                 }
             }
@@ -109,20 +115,37 @@ class SettingsFragment : Fragment() {
         val color2 = colorPalette.color2
         val color3 = colorPalette.color3
         val button1 = view?.findViewById<Button>(R.id.btnAppColor)
-        view?.findViewById<View>(android.R.id.content)?.setBackgroundColor(Color.parseColor(color1))
-        button1?.setBackgroundColor(Color.parseColor(color2))
-        button1?.setTextColor(Color.parseColor(color3))
+        view?.findViewById<View>(android.R.id.content)?.setBackgroundColor(color1)
+        button1?.setBackgroundColor(color2)
+        button1?.setTextColor(color3)
 
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == COLOR_SELECTION_REQUEST_CODE && resultCode == RESULT_OK) {
-            val selectedPalette =
+            selectedColorPalette =
                 data?.getParcelableExtra<ColorPalette>(AppColorActivity.SELECTED_COLORS)
-            selectedPalette?.let {
+            selectedColorPalette?.let {
                 applyColorsToUI(it)
             }
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        // Save the selected color palette to the bundle
+        outState.putParcelable("selectedColorPalette", selectedColorPalette)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        // Restore the selected color palette from the bundle
+        selectedColorPalette = savedInstanceState?.getParcelable("selectedColorPalette")
+        selectedColorPalette?.let {
+            applyColorsToUI(it)
         }
     }
 

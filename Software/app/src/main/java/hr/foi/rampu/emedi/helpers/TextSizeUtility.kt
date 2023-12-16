@@ -83,6 +83,7 @@ class TextSizeUtility private constructor(private val context: Context) {
         fun getInstance(): TextSizeUtility {
             return instance
         }
+
         private fun applyFont(context: Context, textView: TextView, position: Int) {
 
             val fontResourceId = getFontResourceId(position)
@@ -103,5 +104,8 @@ class TextSizeUtility private constructor(private val context: Context) {
                 else -> R.font.robotomono
             }
         }
+
     }
+
 }
+
