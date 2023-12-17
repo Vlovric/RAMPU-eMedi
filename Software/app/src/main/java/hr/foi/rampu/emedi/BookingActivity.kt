@@ -45,7 +45,7 @@ class BookingActivity : AppCompatActivity() {
             ) {
                 val newBookingReason = intent.getParcelableExtra<Doctor>("doctor")?.let {
                     BookingReason(
-                        id = 0,
+                        id = getNewBookingReasonId(),
                         symptoms = symptoms,
                         duration = duration,
                         history = history,
@@ -81,6 +81,21 @@ class BookingActivity : AppCompatActivity() {
             Log.i("COUNT", "$l")
         }
     }
+
+    fun getNewBookingReasonId(): Int {
+        val bookingReasonsDAO = AppDatabase.getInstance().getBookingReasonsDao()
+        val allBookingReasons = bookingReasonsDAO.getAllBookingReasons()
+        var newId = allBookingReasons.count()
+
+        for (bookingReason in allBookingReasons) {
+            if (bookingReason.id > newId) {
+                newId = bookingReason.id
+            }
+        }
+
+        return ++newId
+    }
+
     fun showNotification(context: Context, message: String) {
         val channelId = "default_channel_id"
         val channelName = "Default Channel"

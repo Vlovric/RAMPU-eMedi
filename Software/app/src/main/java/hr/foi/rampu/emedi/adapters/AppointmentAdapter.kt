@@ -9,6 +9,7 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import hr.foi.rampu.emedi.R
+import hr.foi.rampu.emedi.database.AppDatabase
 import hr.foi.rampu.emedi.entities.Appointment
 import hr.foi.rampu.emedi.entities.Review
 import java.text.SimpleDateFormat
@@ -42,13 +43,15 @@ class AppointmentAdapter(private val context: Context, private val appointments:
 
         val appointment = getItem(position) as Appointment
         val appDoctor = appointment.doctor
-        val appBookingReason = appointment.bookingReason
+        var appBookingReason = appointment.bookingReason
 
         tvDoctor.text =
             "Appointment with ${appDoctor.name} ${appDoctor.surname} (${appDoctor.specialization})"
         tvDateAndTime.text =
             "${sdfDate.format(appointment.appointmentDate)} at ${sdfTime.format(appointment.appointmentStartTime)}"
-        tvSymptoms.text = appBookingReason.symptoms
+        if (appBookingReason != null) {
+            tvSymptoms.text = appBookingReason.symptoms
+        }
 
         tvAppointmentAlreadyDone.visibility = View.GONE
 
