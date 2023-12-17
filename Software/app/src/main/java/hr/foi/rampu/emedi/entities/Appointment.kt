@@ -18,6 +18,18 @@ import java.util.Date
             parentColumns = ["id"],
             childColumns = ["doctor_id"],
             onDelete = ForeignKey.CASCADE
+        ),
+        ForeignKey(
+            entity = User::class,
+            parentColumns = ["id"],
+            childColumns = ["user_id"],
+            onDelete = ForeignKey.CASCADE
+        ),
+        ForeignKey(
+            entity = BookingReason::class,
+            parentColumns = ["id"],
+            childColumns = ["booking_reason_id"],
+            onDelete = ForeignKey.CASCADE
         )
     ]
 )

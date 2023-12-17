@@ -16,12 +16,12 @@ import hr.foi.rampu.emedi.database.AppDatabase
             childColumns = ["doctor_id"],
             onDelete = ForeignKey.RESTRICT
         ),
-    ForeignKey(
-        entity = User::class,
-        parentColumns = ["id"],
-        childColumns = ["user_id"],
-        onDelete = ForeignKey.CASCADE
-    )
+        ForeignKey(
+            entity = User::class,
+            parentColumns = ["id"],
+            childColumns = ["user_id"],
+            onDelete = ForeignKey.CASCADE
+        )
     ])
 data class BookingReason(
     @PrimaryKey(autoGenerate = true) val id: Int,
