@@ -11,8 +11,8 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="20sp"
-        android:background="@drawable/rounded_background"
         android:textColor="@color/black"
+        android:layout_marginBottom="10dp"
         android:text="@string/appointment_time"
         />
     <TextView
