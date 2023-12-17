@@ -53,12 +53,8 @@ class DoctorsFragment : Fragment() {
         errorMessage = view.findViewById(R.id.tv_error_message)
         recyclerView = view.findViewById(R.id.rv_doctors)
         searchTextBox = view.findViewById(R.id.tv_search_doctor)
-        recyclerView.adapter = DoctorsAdapter(MockDataDoctor.getDemoData()){
-            val intent = Intent(requireContext(), DoctorInformationActivity::class.java)
-            val whichDoctor = doctorsDAO.getDoctor(it.id)
-            intent.putExtra("doctor", whichDoctor)
-            startActivity(intent)
-        }
+        listAllDoctors()
+
         recyclerView.layoutManager = LinearLayoutManager(view.context)
 
         searchTextBox.addTextChangedListener(object : TextWatcher {
@@ -112,12 +108,7 @@ class DoctorsFragment : Fragment() {
 
         }
         clearButton.setOnClickListener {
-            recyclerView.adapter = DoctorsAdapter(MockDataDoctor.getDemoData()){
-                val intent = Intent(requireContext(), DoctorInformationActivity::class.java)
-                val whichDoctor = doctorsDAO.getDoctor(it.id)
-                intent.putExtra("doctor", whichDoctor)
-                startActivity(intent)
-            }
+            listAllDoctors()
             citySpinner.setSelection(0)
             specializationSpinner.setSelection(0)
             reviewSpinner.setSelection(0)
@@ -166,5 +157,17 @@ class DoctorsFragment : Fragment() {
             (if (reviewFilter == null) true else (doctorsRating >= reviewFilter.toFloat() - 0.5f && doctorsRating <= reviewFilter.toFloat() + 0.5f))
         }
         return filteredList
+    }
+    fun listAllDoctors(){
+        recyclerView.adapter = DoctorsAdapter(MockDataDoctor.getDemoData()){
+            val intent = Intent(requireContext(), DoctorInformationActivity::class.java)
+            val whichDoctor = doctorsDAO.getDoctor(it.id)
+            intent.putExtra("doctor", whichDoctor)
+            startActivity(intent)
+        }
+    }
+    override fun onResume() {
+        listAllDoctors()
+        super.onResume()
     }
 }
