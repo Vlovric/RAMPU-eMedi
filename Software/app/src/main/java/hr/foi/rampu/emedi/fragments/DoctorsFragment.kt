@@ -1,59 +1,55 @@
 package hr.foi.rampu.emedi.fragments
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import hr.foi.rampu.emedi.DoctorInformationActivity
 import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.adapters.DoctorsAdapter
 import hr.foi.rampu.emedi.database.AppDatabase
+import hr.foi.rampu.emedi.entities.ColorPalette
 import hr.foi.rampu.emedi.entities.Doctor
 import hr.foi.rampu.emedi.entities.Review
-import hr.foi.rampu.emedi.helpers.MockDataCity
-import hr.foi.rampu.emedi.helpers.MockDataSpecialization
+import hr.foi.rampu.emedi.helpers.TextSizeUtility
 
 class DoctorsFragment : Fragment() {
-//    private val mockDoctors = MockDataDoctor.getDemoData()
+
     private lateinit var recyclerView: RecyclerView
-    private lateinit var searchTextBox : EditText
-    private lateinit var errorMessage : TextView
-    private lateinit var citySpinner : Spinner
-    private lateinit var specializationSpinner : Spinner
-    private lateinit var reviewSpinner : Spinner
-    private lateinit var filterButton : Button
-    private lateinit var clearButton : Button
-    private lateinit var filteredList : List<Doctor>
+    private lateinit var errorMessage: TextView
+    private lateinit var filterButton: Button
+    private lateinit var clearButton: Button
+    private lateinit var filteredList: List<Doctor>
     private val doctorsDAO = AppDatabase.getInstance().getDoctorsDao()
+
+    private lateinit var textSizeUtility: TextSizeUtility
+    private lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_doctors, container, false)
+        val view = inflater.inflate(R.layout.fragment_doctors, container, false)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        citySpinner = view.findViewById(R.id.spn_city_filter)
-        specializationSpinner = view.findViewById(R.id.spn_specialisation_filter)
-        reviewSpinner = view.findViewById(R.id.spn_review_filter)
         filterButton = view.findViewById(R.id.btn_filter)
         clearButton = view.findViewById(R.id.btn_clear_filter)
 
         errorMessage = view.findViewById(R.id.tv_error_message)
         recyclerView = view.findViewById(R.id.rv_doctors)
-        searchTextBox = view.findViewById(R.id.tv_search_doctor)
-        recyclerView.adapter = DoctorsAdapter(MockDataDoctor.getDemoData()){
+        recyclerView.adapter = DoctorsAdapter(emptyList()) {
             val intent = Intent(requireContext(), DoctorInformationActivity::class.java)
             val whichDoctor = doctorsDAO.getDoctor(it.id)
             intent.putExtra("doctor", whichDoctor)
@@ -61,110 +57,50 @@ class DoctorsFragment : Fragment() {
         }
         recyclerView.layoutManager = LinearLayoutManager(view.context)
 
-        searchTextBox.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                val searchText = s.toString().trim()
-                getDoctorsByName(searchText)
-            }
-        })
-        val citySpinnerAdapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_item,
-            MockDataCity.cityList
-        )
-        val specializationSpinnerAdapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_item,
-            MockDataSpecialization.specializationList
-        )
-        val reviewSpinnerAdapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_item,
-            arrayOf<String>("Select item", "5", "4", "3", "2", "1")
-        )
-
-        citySpinner.adapter = citySpinnerAdapter
-        specializationSpinner.adapter = specializationSpinnerAdapter
-        reviewSpinner.adapter = reviewSpinnerAdapter
-
-        filterButton.setOnClickListener{
-            val city = citySpinner.selectedItem.toString()
-            val specialization = specializationSpinner.selectedItem.toString()
-            val review = reviewSpinner.selectedItem.toString()
-            val doctorsList = getDoctorsByFilter(city, specialization, review)
-            if (doctorsList.isNotEmpty()) {
-                recyclerView.adapter = DoctorsAdapter(doctorsList) { doctor ->
-                    val intent = Intent(requireContext(), DoctorInformationActivity::class.java)
-                    intent.putExtra("doctor", doctor)
-                    startActivity(intent)
-                }
-                errorMessage.visibility = View.GONE
-            } else {
-                recyclerView.adapter = DoctorsAdapter(emptyList()) {
-                }
-                errorMessage.visibility = View.VISIBLE
-                errorMessage.text = "Not a single doctor was found that meets the conditions!"
-            }
-
+        filterButton.setOnClickListener {
+            // Your filter logic
         }
+
         clearButton.setOnClickListener {
-            recyclerView.adapter = DoctorsAdapter(MockDataDoctor.getDemoData()){
+            recyclerView.adapter = DoctorsAdapter(emptyList()) {
                 val intent = Intent(requireContext(), DoctorInformationActivity::class.java)
                 val whichDoctor = doctorsDAO.getDoctor(it.id)
                 intent.putExtra("doctor", whichDoctor)
                 startActivity(intent)
             }
-            citySpinner.setSelection(0)
-            specializationSpinner.setSelection(0)
-            reviewSpinner.setSelection(0)
+        }
+
+        view?.post {
+            applyColorsToUI()
         }
     }
-    private fun getDoctorsByName(name: String) {
-        val doctorsList = if (name.isNotBlank()) {
-            doctorsDAO.getDoctorByName("$name%")
-        } else {
-            doctorsDAO.getAllDoctors()
-        }
-        if (doctorsList.isNotEmpty()) {
-            recyclerView.adapter = DoctorsAdapter(doctorsList) { doctor ->
-                val intent = Intent(requireContext(), DoctorInformationActivity::class.java)
-                intent.putExtra("doctor", doctor)
-                startActivity(intent)
-            }
-            errorMessage.visibility = View.GONE
-        } else {
-            recyclerView.adapter = DoctorsAdapter(emptyList()) {
-            }
-            errorMessage.visibility = View.VISIBLE
-            errorMessage.text = "No doctor with that name was found!"
-        }
+
+    private fun applyColorsToUI() {
+        sharedPreferences = requireContext().applicationContext.getSharedPreferences("Prefs", Context.MODE_PRIVATE)
+        val color1 = sharedPreferences.getInt("color1", DEFAULT_1)
+        val color2 = sharedPreferences.getInt("color2", DEFAULT_2)
+        val color3 = sharedPreferences.getInt("color3", DEFAULT_3)
+
+        Log.d("DoctorsFragment", "Color1: $color1")
+        Log.d("DoctorsFragment", "Color2: $color2")
+        Log.d("DoctorsFragment", "Color3: $color3")
+        Log.d("DoctorFragment", "TheView: $view")
+
+        val button1 = view?.findViewById<Button>(R.id.btn_clear_filter)
+        val button2 = view?.findViewById<Button>(R.id.btn_filter)
+        val rootLayout = view?.findViewById<LinearLayout>(R.id.root_layout)
+
+        rootLayout?.setBackgroundColor(color1)
+        button1?.setBackgroundColor(color2)
+        button2?.setBackgroundColor(color2)
+        button1?.setTextColor(color3)
+        button2?.setTextColor(color3)
     }
-    private fun getDoctorsByFilter(city: String?, specialization: String?, review : String?) : List<Doctor>{
-        var cityFilter = city
-        var specializationFilter = specialization
-        var reviewFilter = review
 
-        if (city == "Select item") {
-            cityFilter = null
-        }
-        if (specialization == "Select item") {
-            specializationFilter = null
-        }
-        if (review == "Select item") {
-            reviewFilter = null
-        }
-        val doctorsList = doctorsDAO.getAllDoctors()
-        filteredList = doctorsList.filter {
-            val doctorsRating = Review.getAverageRatingForDoctor(it)
 
-            it.address.contains(cityFilter ?: "") &&
-            it.specialization.contains(specializationFilter ?: "") &&
-            (if (reviewFilter == null) true else (doctorsRating >= reviewFilter.toFloat() - 0.5f && doctorsRating <= reviewFilter.toFloat() + 0.5f))
-        }
-        return filteredList
+    companion object{
+        val DEFAULT_1 = android.graphics.Color.BLACK
+        val DEFAULT_2 = android.graphics.Color.BLACK
+        val DEFAULT_3 = android.graphics.Color.BLACK
     }
 }

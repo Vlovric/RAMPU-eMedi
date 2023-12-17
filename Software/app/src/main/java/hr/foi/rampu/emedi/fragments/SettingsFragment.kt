@@ -10,8 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Button
+import android.widget.RelativeLayout
 import android.widget.SeekBar
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import hr.foi.rampu.emedi.AppColorActivity
 import hr.foi.rampu.emedi.MainActivity
@@ -35,10 +37,6 @@ class SettingsFragment : Fragment() {
 
         TextSizeUtility.initialize(requireContext())
         textSizeUtility = TextSizeUtility.getInstance()
-
-        textSizeUtility.registerAllTextViews(view.findViewById(R.id.tv_FontSize))
-
-
         sharedPreferences = requireActivity().getSharedPreferences("Prefs", Context.MODE_PRIVATE)
 
         val seekBarFontSize: SeekBar = view.findViewById(R.id.fontSizeSeekBar)
@@ -88,9 +86,6 @@ class SettingsFragment : Fragment() {
                     putInt("selectedPosition", position)
                     apply()
                 }
-                textSizeUtility.registerTextViewStyle(requireActivity(), view.findViewById(R.id.tv_FontSize), position)
-                textSizeUtility.registerButtonStyle(requireActivity(), view.findViewById(R.id.btnBack), position)
-                textSizeUtility.registerButtonStyle(requireActivity(), btnAppColor, position) // Use btnAppColor
             }
 
             override fun onNothingSelected(parentView: AdapterView<*>?) {}
@@ -101,8 +96,26 @@ class SettingsFragment : Fragment() {
             startActivity(intent)
             requireActivity().finish()
         }
-
+        changeTextSize(view)
         return view
+    }
+
+    private fun changeTextSize(view: View) {
+        val position = sharedPreferences.getInt("selectedPosition", 1)
+        TextSizeUtility.initialize(requireContext())
+        textSizeUtility = TextSizeUtility.getInstance()
+
+        textSizeUtility.registerAllTextViews(view.findViewById(R.id.tv_FontSize))
+
+        textSizeUtility.registerTextViewStyle(requireContext(), view.findViewById(R.id.tv_FontSize), position)
+
+        textSizeUtility.registerAllButtons(
+            view.findViewById(R.id.btnBack),
+            view.findViewById(R.id.btnAppColor)
+        )
+
+        textSizeUtility.registerButtonStyle(requireContext(), view.findViewById(R.id.btnBack), position)
+        textSizeUtility.registerButtonStyle(requireContext(), view.findViewById(R.id.btnAppColor), position)
     }
 
     private fun startColorSelectionActivity() {
@@ -116,9 +129,18 @@ class SettingsFragment : Fragment() {
         val color2 = colorPalette.color2
         val color3 = colorPalette.color3
         val button1 = view?.findViewById<Button>(R.id.btnAppColor)
-        view?.findViewById<View>(android.R.id.content)?.setBackgroundColor(color1)
+        val button2 = view?.findViewById<Button>(R.id.btnBack)
+        val textView1 = view?.findViewById<TextView>(R.id.tv_FontSize)
+
+        val rootLayout = view?.findViewById<RelativeLayout>(R.id.root_layout)
+        rootLayout?.setBackgroundColor(color1)
+
         button1?.setBackgroundColor(color2)
+        button2?.setBackgroundColor(color2)
+        textView1?.setBackgroundColor(color2)
         button1?.setTextColor(color3)
+        button2?.setTextColor(color3)
+        textView1?.setTextColor(color3)
 
     }
 

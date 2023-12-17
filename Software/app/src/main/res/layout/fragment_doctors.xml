@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:id="@+id/root_layout"
     tools:context=".fragments.DoctorsFragment">
 
     <LinearLayout
@@ -28,6 +29,7 @@
         android:padding="10dp"
         android:gravity="center">
     <TextView
+        android:id="@+id/tv_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:labelFor="@id/spn_city_filter"
@@ -38,6 +40,7 @@
         android:layout_height="wrap_content"
         android:padding="6dp"/>
     <TextView
+        android:id="@+id/tv_specialization"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:labelFor="@id/spn_specialisation_filter"
@@ -49,6 +52,7 @@
         android:layout_height="wrap_content"
         android:padding="6dp"/>
     <TextView
+        android:id="@+id/tv_rate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:labelFor="@id/spn_review_filter"
