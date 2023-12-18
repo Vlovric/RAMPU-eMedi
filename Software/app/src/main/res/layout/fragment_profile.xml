@@ -241,7 +241,8 @@
             android:layout_marginBottom="16dp"
             android:layout_gravity="center_horizontal"
             android:id="@+id/btn_logout"
-            android:backgroundTint="@color/medi_blue"
+            android:background="@drawable/buttons_shape"
+            app:backgroundTint="@color/medi_blue"
             android:text="@string/log_out" />
 
         <!-- Space between buttons -->
@@ -255,8 +256,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Delete"
+            android:background="@drawable/buttons_shape"
             android:layout_gravity="center_horizontal"
-            android:backgroundTint="@color/medi_blue"/>
+            app:backgroundTint="@color/medi_blue"/>
 
     </LinearLayout>
 

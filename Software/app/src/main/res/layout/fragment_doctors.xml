@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".fragments.DoctorsFragment">
 
@@ -67,14 +68,16 @@
             android:layout_width="100dp"
             android:layout_height="48dp"
             android:text="Filter"
-            android:backgroundTint="@color/medi_blue"/>
+            android:background="@drawable/buttons_shape"
+            app:backgroundTint="@color/medi_blue"/>
         <Button
             android:id="@+id/btn_clear_filter"
             android:layout_width="100dp"
             android:layout_height="48dp"
             android:text="Clear"
+            android:background="@drawable/buttons_shape"
             android:layout_alignParentEnd="true"
-            android:backgroundTint="@color/medi_blue"/>
+            app:backgroundTint="@color/medi_blue"/>
     </RelativeLayout>
 
     </LinearLayout>
