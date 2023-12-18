@@ -56,8 +56,8 @@ class DoctorInformationActivity : AppCompatActivity() {
             shareIntent.type = "text/plain"
 
             val textToShare = "${receivedDoctor?.name} ${receivedDoctor?.surname}\n" +
-                    "Specialisation: ${receivedDoctor?.specialization}\n" +
-                    "Years of expiriance: ${receivedDoctor?.yearsEmployed}\n" +
+                    "Specialization: ${receivedDoctor?.specialization}\n" +
+                    "Years of experience: ${receivedDoctor?.yearsEmployed}\n" +
                     "E-mail:${receivedDoctor?.email}\n" +
                     "Phone Number: ${receivedDoctor?.telephone}"
             shareIntent.putExtra(Intent.EXTRA_TEXT, textToShare)
