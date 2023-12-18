@@ -179,9 +179,10 @@
         android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/buttons_shape"
         android:layout_below="@+id/et_register_password_edit"
         android:layout_marginTop="48dp"
-        android:backgroundTint="@color/medi_blue"
+        app:backgroundTint="@color/medi_blue"
         android:text="@string/register" />
 
 </RelativeLayout>

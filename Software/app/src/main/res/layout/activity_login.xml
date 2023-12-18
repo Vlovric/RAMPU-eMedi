@@ -48,8 +48,9 @@
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/buttons_shape"
         android:text="@string/log_in"
-        android:backgroundTint="@color/medi_blue"
+        app:backgroundTint="@color/medi_blue"
         android:layout_below="@+id/et_password_edit"
         android:layout_marginTop="32dp" />
 
