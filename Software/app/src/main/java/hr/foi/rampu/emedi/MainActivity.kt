@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        window.statusBarColor = getColor(R.color.medi_blue)
 
         setTabLayoutAndViewpager()
         if(UserSession.loggedIn == false){

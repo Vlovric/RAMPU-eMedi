@@ -16,8 +16,6 @@ class SingleReviewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.single_review)
 
-        window.statusBarColor = getColor(R.color.medi_blue)
-
         sharedPreferences = getSharedPreferences("Prefs", Context.MODE_PRIVATE)
         changeTextSize()
     }

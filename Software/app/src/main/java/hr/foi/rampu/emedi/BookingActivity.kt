@@ -31,8 +31,6 @@ class BookingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking)
 
-        window.statusBarColor = getColor(R.color.medi_blue)
-
         val warning = findViewById<TextView>(R.id.tv_warning)
         val doctorName = intent.getParcelableExtra<Doctor>("doctor")?.name
         val doctorSurname = intent.getParcelableExtra<Doctor>("doctor")?.surname

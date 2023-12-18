@@ -26,8 +26,6 @@ class RegistrationActivity : AppCompatActivity() {
         registrationHelper = RegistrationActivityHelper(this)
         setContentView(R.layout.activity_registration)
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
         // Support za Toolbar
         val toolBar = findViewById<Toolbar>(R.id.toolbar_login)
         setSupportActionBar(toolBar)

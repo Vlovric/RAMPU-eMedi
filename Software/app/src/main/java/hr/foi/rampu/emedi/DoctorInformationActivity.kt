@@ -32,8 +32,6 @@ class DoctorInformationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor_information)
 
-        window.statusBarColor = getColor(R.color.medi_blue)
-
         val receivedDoctor = intent.getParcelableExtra<Doctor>("doctor")
 
         val btnBooking: Button = findViewById(R.id.btn_booking)

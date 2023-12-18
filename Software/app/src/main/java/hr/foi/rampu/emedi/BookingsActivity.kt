@@ -40,8 +40,6 @@ class BookingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bookings)
 
-        window.statusBarColor = getColor(R.color.medi_blue)
-
         currentDoctor = intent.getParcelableExtra<Doctor>("doctor")!!
 
         updateBookingData()
