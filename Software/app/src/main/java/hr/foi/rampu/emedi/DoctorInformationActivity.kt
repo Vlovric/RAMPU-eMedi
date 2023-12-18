@@ -127,6 +127,14 @@ class DoctorInformationActivity : AppCompatActivity() {
         textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_static_contact), position)
         textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_static_telephone), position)
         textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_static_specialization), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_dynamic_telephone), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_dynamic_email), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_dynamic_address), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_dynamic_years), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_dynamic_clinic_name), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_dynamic_job_description), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_dynamic_name_surname), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_dynamic_specialization), position)
 
 
         textSizeUtility.registerAllButtons(

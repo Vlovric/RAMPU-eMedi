@@ -101,10 +101,28 @@ class SettingsFragment : Fragment() {
             startActivity(intent)
             requireActivity().finish()
         }
-
+        changeTextSize(view)
         return view
     }
 
+    private fun changeTextSize(view : View) {
+        val position = sharedPreferences.getInt("selectedPosition", 1)
+        TextSizeUtility.initialize(requireContext())
+        textSizeUtility = TextSizeUtility.getInstance()
+
+
+        textSizeUtility.registerAllTextViews(view.findViewById(R.id.tv_FontSize))
+        textSizeUtility.registerTextViewStyle(requireContext(), view.findViewById(R.id.tv_FontSize), position)
+
+
+        textSizeUtility.registerAllButtons(
+            view.findViewById(R.id.btnBack),
+            view.findViewById(R.id.btnAppColor)
+            )
+        textSizeUtility.registerButtonStyle(requireContext(), view.findViewById(R.id.btnBack), position)
+        textSizeUtility.registerButtonStyle(requireContext(), view.findViewById(R.id.btnAppColor), position)
+
+    }
     private fun startColorSelectionActivity() {
         val intent = Intent(requireContext(), AppColorActivity::class.java)
         startActivityForResult(intent, COLOR_SELECTION_REQUEST_CODE)
