@@ -69,15 +69,15 @@
         android:layout_height="wrap_content">
         <Button
             android:id="@+id/btn_filter"
-            android:layout_width="100dp"
-            android:layout_height="48dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Filter"
             android:background="@drawable/buttons_shape"
             app:backgroundTint="@color/medi_blue"/>
         <Button
             android:id="@+id/btn_clear_filter"
-            android:layout_width="100dp"
-            android:layout_height="48dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Clear"
             android:background="@drawable/buttons_shape"
             android:layout_alignParentEnd="true"

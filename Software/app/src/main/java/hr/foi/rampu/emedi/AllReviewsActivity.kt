@@ -8,8 +8,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.webkit.WebSettings.TextSize
+import android.widget.Button
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import hr.foi.rampu.emedi.entities.Doctor
 import hr.foi.rampu.emedi.entities.Review
 import hr.foi.rampu.emedi.helpers.TextSizeUtility
@@ -31,7 +33,6 @@ class AllReviewsActivity : AppCompatActivity() {
         }
 
         textSizeUtility = TextSizeUtility.getInstance()
-
         val allReviews = Review.getReviewsForDoctor(currentDoctor)
 
         listViewReviews = findViewById(R.id.listViewReviews)
@@ -40,6 +41,13 @@ class AllReviewsActivity : AppCompatActivity() {
         listViewReviews.adapter = adapter
         sharedPreferences = getSharedPreferences("Prefs", Context.MODE_PRIVATE)
         changeTextSize()
+
+        val btnBack = findViewById<Button>(R.id.btnBack)
+        btnBack.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     fun addReviewBtnClicked(view: View) {
@@ -57,5 +65,9 @@ class AllReviewsActivity : AppCompatActivity() {
         textSizeUtility.registerAllButtons(findViewById(R.id.addReviewButton))
         textSizeUtility.registerButtonStyle(this, findViewById(R.id.addReviewButton), position)
 
+        textSizeUtility.registerAllButtons(findViewById(R.id.btnBack))
+        textSizeUtility.registerButtonStyle(this, findViewById(R.id.btnBack), position)
+
     }
+
 }
