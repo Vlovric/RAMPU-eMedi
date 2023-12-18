@@ -1,7 +1,9 @@
 package hr.foi.rampu.emedi
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +16,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.addCallback
 import hr.foi.rampu.emedi.helpers.MockDataUser
+import hr.foi.rampu.emedi.helpers.TextSizeUtility
 import hr.foi.rampu.emedi.helpers.UserSession
 
 class LoginActivity : AppCompatActivity() {
@@ -21,6 +24,10 @@ class LoginActivity : AppCompatActivity() {
         override fun handleOnBackPressed() {
         }
     }
+
+
+    private lateinit var textSizeUtility: TextSizeUtility
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,5 +76,21 @@ class LoginActivity : AppCompatActivity() {
         }
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+        sharedPreferences = getSharedPreferences("Prefs", Context.MODE_PRIVATE)
+        changeTextSize()
+    }
+    private fun changeTextSize() {
+        val position = sharedPreferences.getInt("selectedPosition", 1)
+        TextSizeUtility.initialize(this)
+        textSizeUtility = TextSizeUtility.getInstance()
+
+        textSizeUtility.registerAllTextViews(findViewById(R.id.link_register),findViewById(R.id.tv_account))
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.link_register), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_account), position)
+
+
+        textSizeUtility.registerAllButtons(findViewById(R.id.btn_login))
+        textSizeUtility.registerButtonStyle(this, findViewById(R.id.btn_login), position)
+
     }
 }

@@ -1,7 +1,9 @@
 package hr.foi.rampu.emedi
 
 import ReviewAdapter
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -17,6 +19,7 @@ class AllReviewsActivity : AppCompatActivity() {
     private lateinit var listViewReviews: ListView
     private lateinit var currentDoctor: Doctor
     private lateinit var textSizeUtility: TextSizeUtility
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.all_reviews)
@@ -28,7 +31,6 @@ class AllReviewsActivity : AppCompatActivity() {
         }
 
         textSizeUtility = TextSizeUtility.getInstance()
-        textSizeUtility.registerButton(findViewById(R.id.addReviewButton))
 
         val allReviews = Review.getReviewsForDoctor(currentDoctor)
 
@@ -36,11 +38,24 @@ class AllReviewsActivity : AppCompatActivity() {
 
         val adapter = ReviewAdapter(this, allReviews)
         listViewReviews.adapter = adapter
+        sharedPreferences = getSharedPreferences("Prefs", Context.MODE_PRIVATE)
+        changeTextSize()
     }
 
     fun addReviewBtnClicked(view: View) {
         val intent = Intent(this, AddReviewActivity::class.java)
         intent.putExtra("doctor", currentDoctor)
         startActivity(intent)
+    }
+
+    private fun changeTextSize() {
+        val position = sharedPreferences.getInt("selectedPosition", 1)
+        TextSizeUtility.initialize(this)
+        textSizeUtility = TextSizeUtility.getInstance()
+
+
+        textSizeUtility.registerAllButtons(findViewById(R.id.addReviewButton))
+        textSizeUtility.registerButtonStyle(this, findViewById(R.id.addReviewButton), position)
+
     }
 }

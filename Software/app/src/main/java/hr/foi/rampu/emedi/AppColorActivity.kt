@@ -1,20 +1,26 @@
 package hr.foi.rampu.emedi
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.GridLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import hr.foi.rampu.emedi.entities.ColorPalette
+import hr.foi.rampu.emedi.helpers.TextSizeUtility
 
 class AppColorActivity : AppCompatActivity() {
 
+    private lateinit var textSizeUtility: TextSizeUtility
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_appcolor)
 
-        val colorPalettes = createColorPalettes()
+        val colorPalettes = createColorPalettes(this)
         setupColorPaletteGrid(colorPalettes)
         val btnBack = findViewById<Button>(R.id.btnBack)
         btnBack.setOnClickListener {
@@ -22,6 +28,8 @@ class AppColorActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+        sharedPreferences = getSharedPreferences("Prefs", Context.MODE_PRIVATE)
+        changeTextSize()
     }
 
     private fun setupColorPaletteGrid(colorPalettes: List<ColorPalette>) {
@@ -34,9 +42,9 @@ class AppColorActivity : AppCompatActivity() {
             val color2View = paletteView.findViewById<View>(R.id.color2)
             val color3View = paletteView.findViewById<View>(R.id.color3)
 
-            color1View.setBackgroundColor(android.graphics.Color.parseColor(palette.color1))
-            color2View.setBackgroundColor(android.graphics.Color.parseColor(palette.color2))
-            color3View.setBackgroundColor(android.graphics.Color.parseColor(palette.color3))
+            color1View.setBackgroundColor(palette.color1)
+            color2View.setBackgroundColor(palette.color2)
+            color3View.setBackgroundColor(palette.color3)
 
             paletteView.setOnClickListener { returnResult(palette) }
 
@@ -47,12 +55,12 @@ class AppColorActivity : AppCompatActivity() {
     }
 
 
-    private fun createColorPalettes(): List<ColorPalette> {
+    private fun createColorPalettes(context: Context): List<ColorPalette> {
         return listOf(
-            ColorPalette("#FF5733", "#3498DB", "#2E2E2E"),
-            ColorPalette("#27AE60", "#E74C3C", "#F8F9FA"),
-            ColorPalette("#3498DB", "#FFC300", "#34495E"),
-            ColorPalette("#9B59B6", "#1ABC9C", "#E74C3C")
+            ColorPalette(ContextCompat.getColor(context, R.color.black), ContextCompat.getColor(context, R.color.gray), ContextCompat.getColor(context, R.color.white)),
+            ColorPalette(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.steel_blue), ContextCompat.getColor(context, R.color.white)),
+            ColorPalette(ContextCompat.getColor(context, R.color.beige), ContextCompat.getColor(context, R.color.olive_green), ContextCompat.getColor(context, R.color.black)),
+            ColorPalette(ContextCompat.getColor(context, R.color.linen), ContextCompat.getColor(context, R.color.sienna), ContextCompat.getColor(context, R.color.white))
         )
     }
 
@@ -61,6 +69,16 @@ class AppColorActivity : AppCompatActivity() {
         resultIntent.putExtra(SELECTED_COLORS, colorPalette)
         setResult(RESULT_OK, resultIntent)
         finish()
+    }
+    private fun changeTextSize() {
+        val position = sharedPreferences.getInt("selectedPosition", 1)
+        TextSizeUtility.initialize(this)
+        textSizeUtility = TextSizeUtility.getInstance()
+
+
+        textSizeUtility.registerAllButtons(findViewById(R.id.btnBack))
+        textSizeUtility.registerButtonStyle(this, findViewById(R.id.btnBack), position)
+
     }
 
     companion object {

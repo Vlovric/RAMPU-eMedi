@@ -1,6 +1,8 @@
 package hr.foi.rampu.emedi.fragments
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -23,6 +25,7 @@ import hr.foi.rampu.emedi.entities.Doctor
 import hr.foi.rampu.emedi.entities.Review
 import hr.foi.rampu.emedi.helpers.MockDataCity
 import hr.foi.rampu.emedi.helpers.MockDataSpecialization
+import hr.foi.rampu.emedi.helpers.TextSizeUtility
 
 class DoctorsFragment : Fragment() {
 //    private val mockDoctors = MockDataDoctor.getDemoData()
@@ -36,6 +39,8 @@ class DoctorsFragment : Fragment() {
     private lateinit var clearButton : Button
     private lateinit var filteredList : List<Doctor>
     private val doctorsDAO = AppDatabase.getInstance().getDoctorsDao()
+    private lateinit var textSizeUtility: TextSizeUtility
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -113,6 +118,8 @@ class DoctorsFragment : Fragment() {
             specializationSpinner.setSelection(0)
             reviewSpinner.setSelection(0)
         }
+        changeTextSize(view)
+
     }
     private fun getDoctorsByName(name: String) {
         val doctorsList = if (name.isNotBlank()) {
@@ -169,5 +176,32 @@ class DoctorsFragment : Fragment() {
     override fun onResume() {
         listAllDoctors()
         super.onResume()
+    }
+
+    private fun changeTextSize(view : View) {
+
+        sharedPreferences = requireActivity().getSharedPreferences("Prefs", Context.MODE_PRIVATE)
+        val position = sharedPreferences.getInt("selectedPosition", 1)
+        TextSizeUtility.initialize(requireContext())
+        textSizeUtility = TextSizeUtility.getInstance()
+
+
+        textSizeUtility.registerAllTextViews(
+            view.findViewById(R.id.tv_city),
+            view.findViewById(R.id.tv_specialization),
+            view.findViewById(R.id.tv_rate),
+            )
+        textSizeUtility.registerTextViewStyle(requireContext(), view.findViewById(R.id.tv_city), position)
+        textSizeUtility.registerTextViewStyle(requireContext(), view.findViewById(R.id.tv_specialization), position)
+        textSizeUtility.registerTextViewStyle(requireContext(), view.findViewById(R.id.tv_rate), position)
+
+
+        textSizeUtility.registerAllButtons(
+            view.findViewById(R.id.btn_filter),
+            view.findViewById(R.id.btn_clear_filter)
+        )
+        textSizeUtility.registerButtonStyle(requireContext(), view.findViewById(R.id.btn_filter), position)
+        textSizeUtility.registerButtonStyle(requireContext(), view.findViewById(R.id.btn_clear_filter), position)
+
     }
 }

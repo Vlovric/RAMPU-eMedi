@@ -3,6 +3,7 @@ package hr.foi.rampu.emedi
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
@@ -19,9 +20,13 @@ import android.widget.TextView
 import hr.foi.rampu.emedi.database.AppDatabase
 import hr.foi.rampu.emedi.entities.BookingReason
 import hr.foi.rampu.emedi.entities.Doctor
+import hr.foi.rampu.emedi.helpers.TextSizeUtility
 import hr.foi.rampu.emedi.helpers.UserSession
 
 class BookingActivity : AppCompatActivity() {
+
+    private lateinit var textSizeUtility: TextSizeUtility
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking)
@@ -125,6 +130,22 @@ class BookingActivity : AppCompatActivity() {
 
 
         notificationManager.notify(notificationId, builder.build())
+        sharedPreferences = getSharedPreferences("Prefs", Context.MODE_PRIVATE)
+        changeTextSize()
+    }
+
+    private fun changeTextSize() {
+        val position = sharedPreferences.getInt("selectedPosition", 1)
+        TextSizeUtility.initialize(this)
+        textSizeUtility = TextSizeUtility.getInstance()
+
+        textSizeUtility.registerAllTextViews(findViewById(R.id.tv_warning),)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_warning), position)
+
+
+        textSizeUtility.registerAllButtons(findViewById(R.id.btn_sendBooking))
+        textSizeUtility.registerButtonStyle(this, findViewById(R.id.btn_sendBooking), position)
+
     }
 
 

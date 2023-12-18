@@ -2,7 +2,9 @@ package hr.foi.rampu.emedi
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -25,13 +27,12 @@ import java.util.Locale
 class DoctorInformationActivity : AppCompatActivity() {
 
     private lateinit var textSizeUtility: TextSizeUtility
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor_information)
 
-        TextSizeUtility.initialize(this)
-        textSizeUtility = TextSizeUtility.getInstance()
-        textSizeUtility.registerTextView(findViewById<TextView>(R.id.tv_static_specialization))
+
         val receivedDoctor = intent.getParcelableExtra<Doctor>("doctor")
 
         val btnBooking: Button = findViewById(R.id.btn_booking)
@@ -83,6 +84,70 @@ class DoctorInformationActivity : AppCompatActivity() {
         tvAddress.text = receivedDoctor?.address.orEmpty()
         tvEmail.text = receivedDoctor?.email.orEmpty()
         tvTelephone.text = receivedDoctor?.telephone.orEmpty()
+
+
+        sharedPreferences = getSharedPreferences("Prefs", Context.MODE_PRIVATE)
+        changeTextSize()
+    }
+
+    private fun changeTextSize() {
+        val position = sharedPreferences.getInt("selectedPosition", 1)
+        TextSizeUtility.initialize(this)
+        textSizeUtility = TextSizeUtility.getInstance()
+
+        textSizeUtility.registerAllTextViews(
+            findViewById(R.id.tv_static_specialization),
+            findViewById(R.id.tv_static_telephone),
+            findViewById(R.id.tv_static_about),
+            findViewById(R.id.tv_static_address),
+            findViewById(R.id.tv_static_contact),
+            findViewById(R.id.tv_static_clinic_name),
+            findViewById(R.id.tv_static_email),
+            findViewById(R.id.tv_static_job_description),
+            findViewById(R.id.tv_static_location),
+            findViewById(R.id.tv_static_years_employed),
+            findViewById(R.id.tv_dynamic_name_surname),
+            findViewById(R.id.tv_dynamic_specialization),
+            findViewById(R.id.tv_dynamic_years),
+            findViewById(R.id.tv_dynamic_address),
+            findViewById(R.id.tv_dynamic_job_description),
+            findViewById(R.id.tv_dynamic_clinic_name),
+            findViewById(R.id.tv_dynamic_email),
+            findViewById(R.id.tv_dynamic_telephone),
+        )
+
+
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_static_years_employed), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_static_email), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_static_location), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_static_about), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_static_address), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_static_job_description), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_static_clinic_name), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_static_contact), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_static_telephone), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_static_specialization), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_dynamic_telephone), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_dynamic_email), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_dynamic_address), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_dynamic_years), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_dynamic_clinic_name), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_dynamic_job_description), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_dynamic_name_surname), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_dynamic_specialization), position)
+
+
+        textSizeUtility.registerAllButtons(
+            findViewById(R.id.btn_booking),
+            findViewById(R.id.btn_reviews),
+            findViewById(R.id.btn_view_bookings)
+        )
+
+
+        textSizeUtility.registerButtonStyle(this, findViewById(R.id.btn_booking), position)
+        textSizeUtility.registerButtonStyle(this, findViewById(R.id.btn_reviews), position)
+        textSizeUtility.registerButtonStyle(this, findViewById(R.id.btn_view_bookings), position)
+
     }
 
     private fun checkReviews() {
@@ -98,4 +163,5 @@ class DoctorInformationActivity : AppCompatActivity() {
         intent.putExtra("doctor", receivedDoctor)
         startActivity(intent)
     }
+
 }

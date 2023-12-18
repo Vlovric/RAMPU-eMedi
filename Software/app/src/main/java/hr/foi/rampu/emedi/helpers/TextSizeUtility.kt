@@ -4,6 +4,7 @@ package hr.foi.rampu.emedi.helpers
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.TypedValue
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
@@ -14,64 +15,66 @@ class TextSizeUtility private constructor(private val context: Context) {
     private val preferences: SharedPreferences =
         context.getSharedPreferences("TextSizePrefs", Context.MODE_PRIVATE)
 
-    private val viewsToApplyTextSize: MutableList<TextView> = mutableListOf()
-    private val buttonsToApplyTextSize: MutableList<Button> = mutableListOf()
-    private val viewsToApplyStyle: MutableList<TextView> = mutableListOf()
-    private val buttonsToApplyStyle: MutableList<Button> = mutableListOf()
-    private fun getTextSize(): Float {
-        return preferences.getFloat("textSize", 12f)
-    }
+    private val allTextViews: MutableList<TextView> = mutableListOf()
+    private val allButtons: MutableList<Button> = mutableListOf()
+
+    // -------------------------- SIZE EDITOR --------------------------
 
     fun setTextSize(size: Float) {
         preferences.edit().putFloat("textSize", size).apply()
         applyTextSizeToViews()
     }
 
-    fun registerTextView(textView: TextView) {
-        viewsToApplyTextSize.add(textView)
-        applyTextSizeToView(textView)
+    fun registerAllTextViews(vararg textViews: TextView) {
+        allTextViews.addAll(textViews)
+        applyTextSizeToViews()
     }
 
-    fun unregisterTextView(textView: TextView) {
-        viewsToApplyTextSize.remove(textView)
-    }
-
-
-    fun registerButton(button: Button) {
-        buttonsToApplyTextSize.add(button)
-        applyTextSizeToView(button)
-    }
-
-    fun unregisterButton(button: Button) {
-        buttonsToApplyTextSize.remove(button)
+    fun registerAllButtons(vararg buttons: Button) {
+        allButtons.addAll(buttons)
+        applyTextSizeToViews()
     }
 
     private fun applyTextSizeToViews() {
-        for (textView in viewsToApplyTextSize) {
+        for (textView in allTextViews) {
             applyTextSizeToView(textView)
+        }
+        for (button in allButtons) {
+            applyTextSizeToView(button)
         }
     }
 
-    private fun applyTextSizeToView(textView: TextView) {
-        val textSize = getTextSize()
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
+    private fun applyTextSizeToView(view: View) {
+        if (view is TextView) {
+            val textSize = preferences.getFloat("textSize", 12f)
+            view.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
+        }
     }
-    fun registerTextViewStyle(context: Context, textView: TextView, position: Int){
-        viewsToApplyStyle.add(textView)
+// -------------------------- STYLE EDITOR --------------------------
+    fun registerTextViewStyle(context: Context, textView: TextView, position: Int) {
         applyFont(context, textView, position)
     }
 
     fun registerButtonStyle(context: Context, button: Button, position: Int) {
-        buttonsToApplyStyle.add(button)
         applyFont(context, button, position)
     }
-    fun unregisterTextViewStyle(textView: TextView) {
-        viewsToApplyStyle.remove(textView)
-    }
-    fun unregisterButtonStyle(button: Button) {
-        viewsToApplyStyle.remove(button)
+
+    private fun applyFont(context: Context, textView: TextView, position: Int) {
+        val fontResourceId = getFontResourceId(position)
+        val typeface = ResourcesCompat.getFont(context, fontResourceId)
+        textView.typeface = typeface
     }
 
+    private fun getFontResourceId(position: Int): Int {
+        return when (position) {
+            0 -> R.font.jetbrainsmono
+            1 -> R.font.dyslexie
+            2 -> R.font.robotomono
+            3 -> R.font.slabo
+            4 -> R.font.titilliumweb
+            else -> R.font.robotomono
+        }
+    }
 
     companion object {
         private lateinit var instance: TextSizeUtility
@@ -82,26 +85,6 @@ class TextSizeUtility private constructor(private val context: Context) {
 
         fun getInstance(): TextSizeUtility {
             return instance
-        }
-        private fun applyFont(context: Context, textView: TextView, position: Int) {
-
-            val fontResourceId = getFontResourceId(position)
-
-            val typeface = ResourcesCompat.getFont(context, fontResourceId)
-            textView.typeface = typeface
-        }
-
-        private fun getFontResourceId(position: Int): Int {
-
-            return when (position) {
-                0 -> R.font.jetbrainsmono
-                1 -> R.font.dyslexie
-                2 -> R.font.robotomono
-                3 -> R.font.slabo
-                4 -> R.font.titilliumweb
-
-                else -> R.font.robotomono
-            }
         }
     }
 }
