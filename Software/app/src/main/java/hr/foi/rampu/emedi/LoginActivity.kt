@@ -43,9 +43,6 @@ class LoginActivity : AppCompatActivity() {
         loginButton.setOnClickListener {
             val username = findViewById<EditText>(R.id.et_username_edit).text.toString()
             val password = findViewById<EditText>(R.id.et_password_edit).text.toString()
-            // Ovom iteracijom kroz listu korisnika provjeravam nalaze li se ti korisnički podatci u klasi MockDataUser
-            //val loggedInUser =
-                //MockDataUser.getUsers().find { it.username == username && it.password == password }
             val loggedInUser = MockDataUser.findUserByCredentials(username, password)
 
             if (loggedInUser != null) {
@@ -56,15 +53,11 @@ class LoginActivity : AppCompatActivity() {
                 finish()
             } else {
                 if (username.isEmpty() && password.isEmpty())
-                    Toast.makeText(this, "Pogrešno korisničko ime ili lozinka", Toast.LENGTH_SHORT)
+                    Toast.makeText(this, "Incorrect username or password!", Toast.LENGTH_SHORT)
                         .show()
                 else {
-                    Toast.makeText(this, "Unesite sve podatke za prijavu!", Toast.LENGTH_SHORT)
+                    Toast.makeText(this, "Enter all login information!", Toast.LENGTH_SHORT)
                         .show()
-                    Log.e("LOGINFAILURE", "$username $password failed")
-                    MockDataUser.getUsers().forEach {
-                        Log.i("USER", "${it.username} ${it.password}")
-                    }
                 }
             }
         }
