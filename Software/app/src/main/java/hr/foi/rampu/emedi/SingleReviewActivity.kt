@@ -15,6 +15,7 @@ class SingleReviewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.single_review)
+
         sharedPreferences = getSharedPreferences("Prefs", Context.MODE_PRIVATE)
         changeTextSize()
     }

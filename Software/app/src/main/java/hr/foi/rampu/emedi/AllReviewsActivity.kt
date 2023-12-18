@@ -26,7 +26,6 @@ class AllReviewsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.all_reviews)
 
-
         currentDoctor = intent.getParcelableExtra<Doctor>("doctor")!!
         if (currentDoctor != null) {
             Log.i("DOBIVEN DOKTOR", currentDoctor.id.toString())

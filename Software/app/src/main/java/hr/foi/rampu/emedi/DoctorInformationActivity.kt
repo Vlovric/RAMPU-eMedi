@@ -32,7 +32,6 @@ class DoctorInformationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor_information)
 
-
         val receivedDoctor = intent.getParcelableExtra<Doctor>("doctor")
 
         val btnBooking: Button = findViewById(R.id.btn_booking)
