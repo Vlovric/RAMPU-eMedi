@@ -23,6 +23,8 @@ class AddReviewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_review)
 
+        window.statusBarColor = getColor(R.color.medi_blue)
+
         textSizeUtility = TextSizeUtility.getInstance()
 
         ratingBar = findViewById(R.id.ratingBar)
