@@ -292,13 +292,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="16dp"
         android:gravity="center">
         <Button
             android:id="@+id/btn_reviews"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:onClick="checkReviews"
             android:text="@string/reviews"
             android:layout_marginRight="10dp"
@@ -310,6 +311,7 @@
             android:id="@+id/btn_booking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="@string/booking"
             android:layout_marginRight="10dp"
             android:background="@drawable/buttons_shape"
@@ -321,6 +323,7 @@
             android:id="@+id/btn_view_bookings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="View bookings"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/buttons_shape"

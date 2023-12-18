@@ -30,7 +30,6 @@ enum class ProfileState {
 }
 
 class ProfileFragment : Fragment() {
-    val testString: String = "ide gas 1 2 3"
 
     private lateinit var textSizeUtility: TextSizeUtility
     private lateinit var sharedPreferences: SharedPreferences
