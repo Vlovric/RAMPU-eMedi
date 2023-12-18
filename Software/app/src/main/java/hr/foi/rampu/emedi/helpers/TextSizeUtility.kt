@@ -67,12 +67,13 @@ class TextSizeUtility private constructor(private val context: Context) {
 
     private fun getFontResourceId(position: Int): Int {
         return when (position) {
-            0 -> R.font.jetbrainsmono
-            1 -> R.font.dyslexie
-            2 -> R.font.robotomono
-            3 -> R.font.slabo
-            4 -> R.font.titilliumweb
-            else -> R.font.robotomono
+            0 -> R.font.default_font
+            1 -> R.font.jetbrainsmono
+            2 -> R.font.dyslexie
+            3 -> R.font.robotomono
+            4 -> R.font.slabo
+            5 -> R.font.titilliumweb
+            else -> R.font.default_font
         }
     }
 
