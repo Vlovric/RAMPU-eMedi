@@ -20,6 +20,8 @@ class AppColorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_appcolor)
 
+        window.statusBarColor = getColor(R.color.medi_blue)
+
         val colorPalettes = createColorPalettes(this)
         setupColorPaletteGrid(colorPalettes)
         val btnBack = findViewById<Button>(R.id.btnBack)
