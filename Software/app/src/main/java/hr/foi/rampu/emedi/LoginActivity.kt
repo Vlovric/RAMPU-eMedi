@@ -1,7 +1,9 @@
 package hr.foi.rampu.emedi
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +16,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.addCallback
 import hr.foi.rampu.emedi.helpers.MockDataUser
+import hr.foi.rampu.emedi.helpers.TextSizeUtility
 import hr.foi.rampu.emedi.helpers.UserSession
 
 class LoginActivity : AppCompatActivity() {
@@ -21,6 +24,10 @@ class LoginActivity : AppCompatActivity() {
         override fun handleOnBackPressed() {
         }
     }
+
+
+    private lateinit var textSizeUtility: TextSizeUtility
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,12 +39,11 @@ class LoginActivity : AppCompatActivity() {
         val linkRegistration = findViewById<TextView>(R.id.link_register)
         val loginButton = findViewById<Button>(R.id.btn_login)
 
+
         loginButton.setOnClickListener {
             val username = findViewById<EditText>(R.id.et_username_edit).text.toString()
             val password = findViewById<EditText>(R.id.et_password_edit).text.toString()
-            // Ovom iteracijom kroz listu korisnika provjeravam nalaze li se ti korisnički podatci u klasi MockDataUser
-            val loggedInUser =
-                MockDataUser.userList.find { it.username == username && it.password == password }
+            val loggedInUser = MockDataUser.findUserByCredentials(username, password)
 
             if (loggedInUser != null) {
                 UserSession.loggedIn = true
@@ -47,15 +53,11 @@ class LoginActivity : AppCompatActivity() {
                 finish()
             } else {
                 if (username.isEmpty() && password.isEmpty())
-                    Toast.makeText(this, "Pogrešno korisničko ime ili lozinka", Toast.LENGTH_SHORT)
+                    Toast.makeText(this, "Incorrect username or password!", Toast.LENGTH_SHORT)
                         .show()
                 else {
-                    Toast.makeText(this, "Unesite sve podatke za prijavu!", Toast.LENGTH_SHORT)
+                    Toast.makeText(this, "Enter all login information!", Toast.LENGTH_SHORT)
                         .show()
-                    Log.e("LOGINFAILURE", "$username $password failed")
-                    MockDataUser.userList.forEach {
-                        Log.i("USER", "${it.username} ${it.password}")
-                    }
                 }
             }
         }
@@ -67,5 +69,21 @@ class LoginActivity : AppCompatActivity() {
         }
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+        sharedPreferences = getSharedPreferences("Prefs", Context.MODE_PRIVATE)
+        changeTextSize()
+    }
+    private fun changeTextSize() {
+        val position = sharedPreferences.getInt("selectedPosition", 1)
+        TextSizeUtility.initialize(this)
+        textSizeUtility = TextSizeUtility.getInstance()
+
+        textSizeUtility.registerAllTextViews(findViewById(R.id.link_register),findViewById(R.id.tv_account))
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.link_register), position)
+        textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_account), position)
+
+
+        textSizeUtility.registerAllButtons(findViewById(R.id.btn_login))
+        textSizeUtility.registerButtonStyle(this, findViewById(R.id.btn_login), position)
+
     }
 }

@@ -6,11 +6,16 @@ import android.widget.BaseAdapter
 import android.widget.RatingBar
 import android.widget.TextView
 import hr.foi.rampu.emedi.R
+import hr.foi.rampu.emedi.entities.Review
+import hr.foi.rampu.emedi.helpers.TextSizeUtility
+import org.w3c.dom.Text
 
 class ReviewAdapter(private val context: Context, private val reviews: List<Review>) : BaseAdapter() {
 
+
     override fun getCount(): Int {
         return reviews.size
+
     }
 
     override fun getItem(position: Int): Any {

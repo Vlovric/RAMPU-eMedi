@@ -21,7 +21,8 @@
         android:maxLength="50"
         android:hint="@string/first_name"
         android:layout_marginTop="84dp"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:maxLines="1"/>
 
     <TextView
         android:id="@+id/tv_firstname"
@@ -32,7 +33,7 @@
         android:layout_marginLeft="20dp"
         android:visibility="invisible"
         android:text="@string/required"
-        android:textColor="#C00000" />
+        android:textColor="@color/negative_red"/>
 
     <EditText
         android:id="@+id/et_lastname_edit"
@@ -41,7 +42,8 @@
         android:layout_below="@+id/et_firstname_edit"
         android:layout_marginTop="20dp"
         android:hint="@string/last_name"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:maxLines="1"/>
     <TextView
         android:id="@+id/tv_lastname"
         android:layout_width="wrap_content"
@@ -51,7 +53,7 @@
         android:layout_marginLeft="20dp"
         android:visibility="invisible"
         android:text="@string/required"
-        android:textColor="#C00000" />
+        android:textColor="@color/negative_red" />
 
     <EditText
         android:id="@+id/et_birthdate_edit"
@@ -60,7 +62,7 @@
         android:layout_below="@+id/et_lastname_edit"
         android:layout_marginTop="20dp"
         android:hint="@string/birth_date"
-        android:padding="10dp" />
+        android:padding="10dp"/>
     <TextView
         android:id="@+id/tv_birthdate"
         android:layout_width="wrap_content"
@@ -70,7 +72,7 @@
         android:layout_marginLeft="20dp"
         android:visibility="invisible"
         android:text="@string/required"
-        android:textColor="#C00000" />
+        android:textColor="@color/negative_red" />
 
     <EditText
         android:id="@+id/et_email_edit"
@@ -79,7 +81,8 @@
         android:hint="@string/e_mail"
         android:layout_below="@+id/et_birthdate_edit"
         android:layout_marginTop="20dp"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:maxLines="1"/>
     <TextView
         android:id="@+id/tv_email"
         android:layout_width="wrap_content"
@@ -89,7 +92,7 @@
         android:layout_marginLeft="20dp"
         android:visibility="invisible"
         android:text="@string/required"
-        android:textColor="#C00000" />
+        android:textColor="@color/negative_red" />
 
     <EditText
         android:id="@+id/et_phone_edit"
@@ -98,7 +101,8 @@
         android:hint="@string/phone_number"
         android:layout_below="@+id/et_email_edit"
         android:layout_marginTop="20dp"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:maxLines="1"/>
     <TextView
         android:id="@+id/tv_phone"
         android:layout_width="wrap_content"
@@ -108,7 +112,7 @@
         android:layout_marginLeft="20dp"
         android:visibility="invisible"
         android:text="@string/required"
-        android:textColor="#C00000" />
+        android:textColor="@color/negative_red" />
 
     <EditText
         android:id="@+id/et_address_edit"
@@ -117,7 +121,8 @@
         android:hint="@string/adress"
         android:layout_below="@+id/et_phone_edit"
         android:layout_marginTop="20dp"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:maxLines="2"/>
     <TextView
         android:id="@+id/tv_adrress"
         android:layout_width="wrap_content"
@@ -127,7 +132,7 @@
         android:layout_marginLeft="20dp"
         android:visibility="invisible"
         android:text="@string/required"
-        android:textColor="#C00000" />
+        android:textColor="@color/negative_red" />
 
     <EditText
         android:id="@+id/et_register_username_edit"
@@ -136,7 +141,8 @@
         android:hint="@string/username"
         android:layout_below="@+id/et_address_edit"
         android:layout_marginTop="20dp"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:maxLines="1"/>
     <TextView
         android:id="@+id/tv_username"
         android:layout_width="wrap_content"
@@ -146,7 +152,7 @@
         android:layout_marginLeft="20dp"
         android:visibility="invisible"
         android:text="@string/required"
-        android:textColor="#C00000" />
+        android:textColor="@color/negative_red" />
 
     <EditText
         android:id="@+id/et_register_password_edit"
@@ -156,7 +162,8 @@
         android:layout_marginTop="20dp"
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:maxLines="1"/>
     <TextView
         android:id="@+id/tv_password_edit"
         android:layout_width="wrap_content"
@@ -166,15 +173,16 @@
         android:layout_marginLeft="20dp"
         android:visibility="invisible"
         android:text="@string/required"
-        android:textColor="#C00000" />
+        android:textColor="@color/negative_red" />
 
     <Button
         android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/buttons_shape"
         android:layout_below="@+id/et_register_password_edit"
         android:layout_marginTop="48dp"
-        android:backgroundTint="@color/medi_blue"
+        app:backgroundTint="@color/medi_blue"
         android:text="@string/register" />
 
 </RelativeLayout>

@@ -1,7 +1,14 @@
+package hr.foi.rampu.emedi.entities
+
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity(tableName="doctors")
 data class Doctor(
+    @PrimaryKey(autoGenerate=true) val id: Int,
     val name : String,
     val surname : String,
     val specialization : String,
@@ -11,10 +18,11 @@ data class Doctor(
     val address : String,
     val email : String,
     val telephone : String,
-    val review : MutableList<Review> = mutableListOf()
+    //val review : MutableList<Review> = mutableListOf()
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
+        parcel.readInt(),
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
@@ -24,12 +32,13 @@ data class Doctor(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
-        mutableListOf<Review>().apply {
+        /*mutableListOf<Review>().apply {
             parcel.readList(this, Review::class.java.classLoader)
-        }
+        }*/
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
         parcel.writeString(name)
         parcel.writeString(surname)
         parcel.writeString(specialization)
@@ -39,7 +48,7 @@ data class Doctor(
         parcel.writeString(address)
         parcel.writeString(email)
         parcel.writeString(telephone)
-        parcel.writeList(review)
+        //parcel.writeList(review)
     }
 
     override fun describeContents(): Int {

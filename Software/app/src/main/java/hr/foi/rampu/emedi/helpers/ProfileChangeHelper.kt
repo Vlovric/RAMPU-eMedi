@@ -31,7 +31,7 @@ import kotlinx.coroutines.Dispatchers.Main
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class ProfileChangeHelper(private val view: View, private val user: User) {
+class ProfileChangeHelper(private val view: View, private val loggedUser: User) {
     private val nameAndSurname: TextView = view.findViewById(R.id.tv_name_and_surname)
     private val editingMessage: TextView = view.findViewById(R.id.tv_editing_text)
     private val allowEditingButton: ImageView = view.findViewById(R.id.iv_edit_profile)
@@ -50,13 +50,17 @@ class ProfileChangeHelper(private val view: View, private val user: User) {
     private val defaultTextColor: Int = addressText.currentTextColor
     private val sdfDate = SimpleDateFormat("dd.MM.yyyy.", Locale.US)
 
+    private var user = loggedUser
+
     var profileState: ProfileState = ProfileState.Viewing
 
     init {
         adjustElementsByState(profileState)
         writeUserDataToTextViews()
+        loadUser()
 
         allowEditingButton.setOnClickListener {
+            loadUser()
             profileState = ProfileState.Editing
             adjustElementsByState(profileState)
             writeUserDataToTextViews()
@@ -65,6 +69,7 @@ class ProfileChangeHelper(private val view: View, private val user: User) {
             profileState = ProfileState.Viewing
             adjustElementsByState(profileState)
             writeUserDataToTextViews()
+            saveUser()
         }
 
         emailAddressChangeText.setOnClickListener {
@@ -187,5 +192,12 @@ class ProfileChangeHelper(private val view: View, private val user: User) {
         })
     }
 
+    private fun loadUser(): User {
+        return MockDataUser.findUserByCredentials(user.username, user.password)
+    }
 
+    private fun saveUser() {
+        MockDataUser.insertUser(user)
+        UserSession.loggedUser = MockDataUser.getUserById(user.id)
+    }
 }
