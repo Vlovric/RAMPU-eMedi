@@ -23,4 +23,7 @@ interface AppointmentsDAO {
 
     @Query("SELECT * FROM appointment WHERE doctor_id = :doctorId ORDER BY appointment_start_time, appointment_end_time")
     fun getAppointmentsForDoctor(doctorId: Int): List<Appointment>
+
+    @Query("SELECT * FROM appointment WHERE appointment_start_time <= :notificationTimeMillis AND appointment_start_time > :currentTimeMillis")
+    fun getAppointmentsForNotification(notificationTimeMillis: Long, currentTimeMillis: Long): List<Appointment>
 }
