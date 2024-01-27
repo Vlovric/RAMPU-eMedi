@@ -58,4 +58,11 @@
     <string name="doctor_is_unavalible">Doctor is unavalible:</string>
     <string name="this_appointment_is_already_done">This appointment is already done.</string>
     <string name="view_details">View details</string>
+    <string name="appointment_date">Appointment date</string>
+    <string name="description">Description</string>
+    <string name="doctor">Doctor</string>
+    <string name="symptoms">Symptoms</string>
+    <string name="diagnosis">Diagnosis</string>
+    <string name="next_steps">Next steps</string>
+    <string name="medications">Medications</string>
 </resources>

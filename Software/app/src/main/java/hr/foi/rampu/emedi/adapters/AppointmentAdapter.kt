@@ -1,6 +1,7 @@
 package hr.foi.rampu.emedi.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +12,8 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
+import hr.foi.rampu.emedi.AppointmentDetailsActivity
 import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.database.AppDatabase
 import hr.foi.rampu.emedi.entities.Appointment
@@ -66,7 +69,9 @@ class AppointmentAdapter(private val context: Context, private val appointments:
             btnViewDetails.visibility = View.VISIBLE
 
             btnViewDetails.setOnClickListener {
-                Log.i("TEST", "Ja sam pritisnut!")
+                val intent = Intent(context, AppointmentDetailsActivity::class.java)
+                intent.putExtra("AppointmentId", appointment.id)
+                context.startActivity(intent)
             }
         }
 
