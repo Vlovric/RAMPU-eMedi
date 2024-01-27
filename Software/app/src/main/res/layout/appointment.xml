@@ -69,4 +69,12 @@
         android:textColor="@color/negative_red"
         android:text="@string/this_appointment_is_already_done"/>
 
+    <Button
+        android:id="@+id/btn_appt_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/medi_blue"
+        android:text="@string/view_details"/>
+
 </LinearLayout>
