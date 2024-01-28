@@ -24,11 +24,7 @@ class AppointmentDetailsActivity : AppCompatActivity() {
         val appDatabaseInst = AppDatabase.getInstance()
 
         val appointment = appDatabaseInst.getAppointmentsDao().getAppointmentById(appointmentId)
-        val appointmentDetail = appDatabaseInst.getAppointmentDetailsDAO().getAppointmentDetailsForAppointment(appointmentId)
-
-        if (appointmentDetail.isEmpty()) {
-            AppointmentDetailHelper.saveNewAppointmentDetail(appointmentId, appDatabaseInst.getAppointmentDetailsDAO())
-        }
+        var appointmentDetail = appDatabaseInst.getAppointmentDetailsDAO().getAppointmentDetailsForAppointment(appointmentId)
 
         val tbAppointmentDate = findViewById<TextView>(R.id.tv_appointment_date)
         val tbAppointmentDoctor = findViewById<TextView>(R.id.tv_appointment_doctor)
@@ -38,15 +34,17 @@ class AppointmentDetailsActivity : AppCompatActivity() {
         val tbAppointmentNextSteps = findViewById<TextView>(R.id.tv_appointment_next_steps)
         val tbAppointmentMedications = findViewById<TextView>(R.id.tv_appointment_medications)
 
+        if (appointmentDetail.isEmpty()) {
+            appointmentDetail = AppointmentDetailHelper.saveNewAppointmentDetail(appointmentId, appDatabaseInst.getAppointmentDetailsDAO())
+        }
+
         tbAppointmentDate.text = appointment.appointmentDate.toString()
         tbAppointmentDoctor.text = appointment.doctor.name + " " + appointment.doctor.surname + " (" + appointment.doctor.specialization + ")"
         tbAppointmentSymptoms.text = "${sdfDate.format(appointment.appointmentDate)} at ${sdfTime.format(appointment.appointmentStartTime)}"
 
-        if (!appointmentDetail.isEmpty()) {
-            tbAppointmentDescription.text = appointmentDetail[0].description
-            tbAppointmentDiagnosis.text = appointmentDetail[0].diagnosis
-            tbAppointmentNextSteps.text = appointmentDetail[0].nextSteps
-            tbAppointmentMedications.text = appointmentDetail[0].medications
-        }
+        tbAppointmentDescription.text = appointmentDetail[0].description
+        tbAppointmentDiagnosis.text = appointmentDetail[0].diagnosis
+        tbAppointmentNextSteps.text = appointmentDetail[0].nextSteps
+        tbAppointmentMedications.text = appointmentDetail[0].medications
     }
 }

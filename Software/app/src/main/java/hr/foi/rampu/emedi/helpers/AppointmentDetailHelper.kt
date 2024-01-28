@@ -60,12 +60,13 @@ object AppointmentDetailHelper {
         return AppointmentDetails(newId, description, diagnosis, nextSteps, medications, appointmentId)
     }
 
-    fun saveNewAppointmentDetail(appointmentId: Int, dao: AppointmentDetailsDAO) {
+    fun saveNewAppointmentDetail(appointmentId: Int, dao: AppointmentDetailsDAO): List<AppointmentDetails> {
         val newId = getNewAppointmentDetailId(dao)
 
         var newAppointmentDetail = generateAppointmentDetails(newId, appointmentId)
 
         dao.insertAppointmentDetails(newAppointmentDetail)
+        return listOf(newAppointmentDetail)
     }
 
     private fun getNewAppointmentDetailId(appointmentDetailsDAO: AppointmentDetailsDAO): Int {
