@@ -6,35 +6,39 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Build
-import androidx.core.app.NotificationCompat
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.core.app.NotificationCompat
+import androidx.appcompat.app.AppCompatActivity
 import hr.foi.rampu.emedi.database.AppDatabase
+import hr.foi.rampu.emedi.entities.Appointment
 import hr.foi.rampu.emedi.entities.BookingReason
 import hr.foi.rampu.emedi.entities.Doctor
+import hr.foi.rampu.emedi.helpers.NotificationHelper
 import hr.foi.rampu.emedi.helpers.TextSizeUtility
 import hr.foi.rampu.emedi.helpers.UserSession
 
 class BookingActivity : AppCompatActivity() {
-
     private lateinit var textSizeUtility: TextSizeUtility
     private lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking)
 
+        sharedPreferences = getSharedPreferences("Prefs", Context.MODE_PRIVATE)
+        changeTextSize()
+
         val warning = findViewById<TextView>(R.id.tv_warning)
         val doctorName = intent.getParcelableExtra<Doctor>("doctor")?.name
         val doctorSurname = intent.getParcelableExtra<Doctor>("doctor")?.surname
-
 
         val btnSendBooking: Button = findViewById(R.id.btn_sendBooking)
         btnSendBooking.setOnClickListener {
@@ -43,8 +47,6 @@ class BookingActivity : AppCompatActivity() {
             val history = findViewById<EditText>(R.id.et_history).text.toString()
             val urgency = findViewById<EditText>(R.id.et_urgency).text.toString()
             val additional = findViewById<EditText>(R.id.et_additional_info).text.toString()
-
-            val warning = findViewById<TextView>(R.id.tv_warning)
 
             if (symptoms.isNotEmpty() && duration.isNotEmpty() && history.isNotEmpty()
                 && urgency.isNotEmpty()
@@ -61,93 +63,47 @@ class BookingActivity : AppCompatActivity() {
                         userId = UserSession.loggedUser.id
                     )
                 }
+
                 if (newBookingReason != null) {
-                    Log.i("COUNT", "Stvorio")
                     AppDatabase.getInstance().getBookingReasonsDao()
                         .insertBookingReason(newBookingReason)
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        NotificationHelper.showNotification(
+                            this,
+                            "$doctorName $doctorSurname has accepted the reason for your visit."
+                        )
+
+                    }, 5000)
+
+                    finish()
+                } else {
+                    warning.visibility = View.VISIBLE
                 }
-                Log.i("COUNT", "$newBookingReason")
-
-                Handler(Looper.getMainLooper()).postDelayed({
-                    showNotification(this, "$doctorName $doctorSurname has accepted the reason for you visit.")
-                }, 5000)
-
-                finish()
-            }else{
+            } else {
                 warning.visibility = View.VISIBLE
             }
         }
-        //AppDatabase.getInstance().getBookingReasonsDao().deleteAllBookingReasons()
 
-        val count = AppDatabase.getInstance().getBookingReasonsDao().getBookingReasonCount()
-        Log.i("COUNT", "$count")
-
-        val list = AppDatabase.getInstance().getBookingReasonsDao().getAllBookingReasons()
-        for(l in list){
-            Log.i("COUNT", "$l")
-        }
+        // Your existing code...
     }
 
-    fun getNewBookingReasonId(): Int {
+    private fun getNewBookingReasonId(): Int {
         val bookingReasonsDAO = AppDatabase.getInstance().getBookingReasonsDao()
         val allBookingReasons = bookingReasonsDAO.getAllBookingReasons()
-        var newId = allBookingReasons.count()
-
-        for (bookingReason in allBookingReasons) {
-            if (bookingReason.id > newId) {
-                newId = bookingReason.id
-            }
-        }
-
-        return ++newId
+        return allBookingReasons.size + 1
     }
 
-    fun showNotification(context: Context, message: String) {
-        val channelId = "default_channel_id"
-        val channelName = "Default Channel"
-        val notificationId = 1
-
-        val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                channelId,
-                channelName,
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
-            channel.lightColor = Color.BLUE
-            channel.lockscreenVisibility = NotificationCompat.VISIBILITY_PRIVATE
-            notificationManager.createNotificationChannel(channel)
-        }
-
-
-        val builder = NotificationCompat.Builder(context, channelId)
-            .setContentTitle("Accepted!")
-            .setContentText(message)
-            .setSmallIcon(R.drawable.ic_checkmark)
-            .setAutoCancel(true)
-
-
-        notificationManager.notify(notificationId, builder.build())
-        sharedPreferences = getSharedPreferences("Prefs", Context.MODE_PRIVATE)
-        changeTextSize()
-    }
 
     private fun changeTextSize() {
         val position = sharedPreferences.getInt("selectedPosition", 1)
         TextSizeUtility.initialize(this)
         textSizeUtility = TextSizeUtility.getInstance()
 
-        textSizeUtility.registerAllTextViews(findViewById(R.id.tv_warning),)
+        textSizeUtility.registerAllTextViews(findViewById(R.id.tv_warning))
         textSizeUtility.registerTextViewStyle(this, findViewById(R.id.tv_warning), position)
-
 
         textSizeUtility.registerAllButtons(findViewById(R.id.btn_sendBooking))
         textSizeUtility.registerButtonStyle(this, findViewById(R.id.btn_sendBooking), position)
-
     }
-
-
 }

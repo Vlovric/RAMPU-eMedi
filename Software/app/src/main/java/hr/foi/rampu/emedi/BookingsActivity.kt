@@ -1,9 +1,14 @@
 package hr.foi.rampu.emedi
 
+import android.app.AlarmManager
 import android.app.DatePickerDialog
+import android.app.PendingIntent
 import android.app.TimePickerDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +23,8 @@ import hr.foi.rampu.emedi.database.AppointmentsDAO
 import hr.foi.rampu.emedi.entities.Appointment
 import hr.foi.rampu.emedi.entities.BookingReason
 import hr.foi.rampu.emedi.entities.Doctor
+import hr.foi.rampu.emedi.entities.NotificationReceiver
+import hr.foi.rampu.emedi.helpers.NotificationHelper
 import hr.foi.rampu.emedi.helpers.UserSession
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -82,6 +89,8 @@ class BookingsActivity : AppCompatActivity() {
                         Toast.makeText(this, "This time is overlapping.", Toast.LENGTH_SHORT).show()
                     } else {
                         addNewAppointment(booking)
+                        scheduleNotificationsForAppointments(selectedStartTime)
+
                     }
                 }
             }
@@ -342,6 +351,37 @@ class BookingsActivity : AppCompatActivity() {
 
         return 0
     }
+
+    private fun scheduleNotificationsForAppointments(appointmentStartTime: String) {
+        val notificationTimeMillis = convertTimeStringToMillis(selectedDate, appointmentStartTime) - 3600000
+
+        scheduleNotification(notificationTimeMillis)
+    }
+
+    private fun scheduleNotification(notificationTimeMillis: Long) {
+        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, NotificationReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, notificationTimeMillis, pendingIntent)
+    }
+
+
+    private fun convertTimeStringToMillis(date: Calendar, timeString: String): Long {
+        val parsedTime = SimpleDateFormat("HH:mm", Locale.GERMANY).parse(timeString) ?: Date()
+        val timeCalendar = Calendar.getInstance().apply {
+            time = parsedTime
+            set(Calendar.YEAR, date.get(Calendar.YEAR))
+            set(Calendar.MONTH, date.get(Calendar.MONTH))
+            set(Calendar.DAY_OF_MONTH, date.get(Calendar.DAY_OF_MONTH))
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }
+        return timeCalendar.timeInMillis
+    }
+
+
+
 
     private fun checkOverlap(start1: String, end1: String, start2: String, end2: String): Boolean {
         Log.i("TIME", "Start 1: " + start1)
