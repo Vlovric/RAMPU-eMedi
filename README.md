@@ -30,7 +30,7 @@ F06 | Rezervacija termina pregleda | Kada je pacijent prijavljen kod doktora, im
 F07 | Pregled povijesti posjeta | Korisnik može pregledavati svoju povijest posjeta liječniku i vidjeti kakve lijekove je u tom posjetu dobio na recept. | David Matijanić
 F08 | Uređivanje podataka o korisniku | Korisnik može mijenjati svoje osobne podatke u aplikaciji. | David Matijanić
 F09 | Pisanje i pregled recenzija | Korisnici mogu pregledavati i ostavljati recenzije doktorima kod kojih su bili na pregledu. Recenzije sadrže ocjenu od 1 do 5 sa opcionalnim komentarom.| Domagoj Hegedušić
-F10 | Obavještavanje korisnika | Korisnik će od aplikacije zaprimiti obavijest fiksno vrijeme koje odabere u postavkama aplikacije prije rezerviranog termina kod doktora. Korisnik će također dobivati obavijesti kada mu je prijava kod doktora odobrena. | Domagoj Hegedušić
+F10 | Obavještavanje korisnika | Korisnik će od aplikacije zaprimiti obavijest sta vremena prije rezerviranog termina kod doktora. Korisnik će također dobivati obavijesti kada mu je prijava kod doktora odobrena. | Domagoj Hegedušić
 F11 | Pristupačni način za slabovidne osobe | Aplikacija omogućava niz funkcija koje će osobama sa slabijim ili oštećenim vidom pomoći pri upotrebi. Funkcije se odnose na povećanje slova, promjenu fonta za osobe sa poteškoćom u čitanju i promjenu boje aplikacije. | Domagoj Hegedušić
 F12 | Odjava i brisanje računa | Korisnik ima mogućnost odjave iz aplikacije i mogućnost brisanje svog korisničkog računa. | Viktor Lovrić
 
