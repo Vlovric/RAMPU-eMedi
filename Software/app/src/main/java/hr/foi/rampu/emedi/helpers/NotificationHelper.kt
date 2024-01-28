@@ -15,7 +15,6 @@ class NotificationHelper {
             val channelId = "default_channel_id"
             val channelName = "Default Channel"
             val notificationId = 1
-            Log.d("Notification", "Sending notification for appointment")
             val notificationManager =
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -31,7 +30,7 @@ class NotificationHelper {
             }
 
             val builder = NotificationCompat.Builder(context, channelId)
-                .setContentTitle("Accepted!")
+                .setContentTitle("eMedi Notification!")
                 .setContentText(message)
                 .setSmallIcon(R.drawable.ic_checkmark)
                 .setAutoCancel(true)

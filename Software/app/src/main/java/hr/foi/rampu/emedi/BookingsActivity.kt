@@ -1,7 +1,10 @@
 package hr.foi.rampu.emedi
 
+import android.app.AlarmManager
 import android.app.DatePickerDialog
+import android.app.PendingIntent
 import android.app.TimePickerDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -20,6 +23,7 @@ import hr.foi.rampu.emedi.database.AppointmentsDAO
 import hr.foi.rampu.emedi.entities.Appointment
 import hr.foi.rampu.emedi.entities.BookingReason
 import hr.foi.rampu.emedi.entities.Doctor
+import hr.foi.rampu.emedi.entities.NotificationReceiver
 import hr.foi.rampu.emedi.helpers.NotificationHelper
 import hr.foi.rampu.emedi.helpers.UserSession
 import java.text.SimpleDateFormat
@@ -349,17 +353,19 @@ class BookingsActivity : AppCompatActivity() {
     }
 
     private fun scheduleNotificationsForAppointments(appointmentStartTime: String) {
-        val notificationTimeMillis = convertTimeStringToMillis(selectedDate, appointmentStartTime) // 1 hour in milliseconds
-        Log.i("NOTIFICATION", "Appointment Start Time: $appointmentStartTime")
-        Log.i("NOTIFICATION", "Notification Time: $notificationTimeMillis")
+        val notificationTimeMillis = convertTimeStringToMillis(selectedDate, appointmentStartTime) - 3600000
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            NotificationHelper.showNotification(
-                this,
-                "Appointment Reminder"
-            )
-        }, notificationTimeMillis)
+        scheduleNotification(notificationTimeMillis)
     }
+
+    private fun scheduleNotification(notificationTimeMillis: Long) {
+        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, NotificationReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, notificationTimeMillis, pendingIntent)
+    }
+
 
     private fun convertTimeStringToMillis(date: Calendar, timeString: String): Long {
         val parsedTime = SimpleDateFormat("HH:mm", Locale.GERMANY).parse(timeString) ?: Date()
