@@ -1,11 +1,13 @@
 package hr.foi.rampu.emedi.database
 
+import android.util.Log
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import hr.foi.rampu.emedi.entities.Appointment
 import hr.foi.rampu.emedi.entities.Doctor
+import hr.foi.rampu.emedi.database.AppDatabase
 
 @Dao
 interface AppointmentsDAO {
@@ -23,7 +25,8 @@ interface AppointmentsDAO {
 
     @Query("SELECT * FROM appointment WHERE doctor_id = :doctorId ORDER BY appointment_start_time, appointment_end_time")
     fun getAppointmentsForDoctor(doctorId: Int): List<Appointment>
-
     @Query("SELECT * FROM appointment WHERE appointment_start_time <= :notificationTimeMillis AND appointment_start_time > :currentTimeMillis")
     fun getAppointmentsForNotification(notificationTimeMillis: Long, currentTimeMillis: Long): List<Appointment>
+
+
 }

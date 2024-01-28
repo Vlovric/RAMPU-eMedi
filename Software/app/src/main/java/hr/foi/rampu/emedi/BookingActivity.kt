@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.Parcelable
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -17,8 +18,10 @@ import android.widget.TextView
 import androidx.core.app.NotificationCompat
 import androidx.appcompat.app.AppCompatActivity
 import hr.foi.rampu.emedi.database.AppDatabase
+import hr.foi.rampu.emedi.entities.Appointment
 import hr.foi.rampu.emedi.entities.BookingReason
 import hr.foi.rampu.emedi.entities.Doctor
+import hr.foi.rampu.emedi.helpers.NotificationHelper
 import hr.foi.rampu.emedi.helpers.TextSizeUtility
 import hr.foi.rampu.emedi.helpers.UserSession
 
@@ -29,6 +32,9 @@ class BookingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking)
+
+        sharedPreferences = getSharedPreferences("Prefs", Context.MODE_PRIVATE)
+        changeTextSize()
 
         val warning = findViewById<TextView>(R.id.tv_warning)
         val doctorName = intent.getParcelableExtra<Doctor>("doctor")?.name
@@ -62,17 +68,12 @@ class BookingActivity : AppCompatActivity() {
                     AppDatabase.getInstance().getBookingReasonsDao()
                         .insertBookingReason(newBookingReason)
 
-                    // Get the appointment start time
-                    val appointmentStartTime = newBookingReason.appointmentStartTime.time
-
                     Handler(Looper.getMainLooper()).postDelayed({
-                        showNotification(
+                        NotificationHelper.showNotification(
                             this,
                             "$doctorName $doctorSurname has accepted the reason for your visit."
                         )
 
-                        // Schedule notification 1 hour before the appointment_start_time
-                        scheduleNotificationsForAppointments(appointmentStartTime)
                     }, 5000)
 
                     finish()
@@ -93,78 +94,6 @@ class BookingActivity : AppCompatActivity() {
         return allBookingReasons.size + 1
     }
 
-    private fun showNotification(context: Context, message: String) {
-        val channelId = "default_channel_id"
-        val channelName = "Default Channel"
-        val notificationId = 1
-
-        val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                channelId,
-                channelName,
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
-            channel.lightColor = Color.BLUE
-            channel.lockscreenVisibility = NotificationCompat.VISIBILITY_PRIVATE
-            notificationManager.createNotificationChannel(channel)
-        }
-
-        val builder = NotificationCompat.Builder(context, channelId)
-            .setContentTitle("Accepted!")
-            .setContentText(message)
-            .setSmallIcon(R.drawable.ic_checkmark)
-            .setAutoCancel(true)
-
-        notificationManager.notify(notificationId, builder.build())
-        sharedPreferences = getSharedPreferences("Prefs", Context.MODE_PRIVATE)
-        changeTextSize()
-    }
-
-    private fun scheduleNotificationsForAppointments(appointmentStartTime: Long) {
-        val currentTimeMillis = System.currentTimeMillis()
-        val notificationTimeMillis = appointmentStartTime - 3600000 // 1 hour in milliseconds
-
-        if (notificationTimeMillis > currentTimeMillis) {
-            Handler(Looper.getMainLooper()).postDelayed({
-                sendCustomNotification(
-                    this,
-                    "Appointment Reminder",
-                    "Your appointment is in 1 hour."
-                )
-            }, notificationTimeMillis - currentTimeMillis)
-        }
-    }
-
-    private fun sendCustomNotification(context: Context, title: String, message: String) {
-        val channelId = "custom_channel_id"
-        val channelName = "Custom Channel"
-        val notificationId = 2 // Use a unique ID for each notification
-
-        val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                channelId,
-                channelName,
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
-            channel.lightColor = Color.GREEN
-            channel.lockscreenVisibility = NotificationCompat.VISIBILITY_PRIVATE
-            notificationManager.createNotificationChannel(channel)
-        }
-
-        val builder = NotificationCompat.Builder(context, channelId)
-            .setContentTitle(title)
-            .setContentText(message)
-            .setSmallIcon(R.drawable.ic_checkmark)
-            .setAutoCancel(true)
-
-        notificationManager.notify(notificationId, builder.build())
-    }
 
     private fun changeTextSize() {
         val position = sharedPreferences.getInt("selectedPosition", 1)
