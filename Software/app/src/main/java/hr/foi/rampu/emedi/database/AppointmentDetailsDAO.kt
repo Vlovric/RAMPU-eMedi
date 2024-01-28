@@ -8,6 +8,9 @@ import hr.foi.rampu.emedi.entities.AppointmentDetails
 
 @Dao
 interface AppointmentDetailsDAO {
+    @Query("SELECT * FROM appointment_details")
+    fun getAllAppointmentDetails(): List<AppointmentDetails>
+
     @Query("SELECT * FROM appointment_details WHERE appointment_id = :appointmentId")
     fun getAppointmentDetailsForAppointment(appointmentId: Int): List<AppointmentDetails>
 
