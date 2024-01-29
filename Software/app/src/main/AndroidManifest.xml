@@ -27,9 +27,6 @@
             android:name=".SingleReviewActivity"
             android:exported="false" />
         <activity
-            android:name=".AppColorActivity"
-            android:exported="false" />
-        <activity
             android:name=".AllReviewsActivity"
             android:exported="false" />
         <activity
@@ -40,6 +37,9 @@
             android:exported="false" />
         <activity
             android:name=".AddReviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AppointmentDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".DoctorInformationActivity"
