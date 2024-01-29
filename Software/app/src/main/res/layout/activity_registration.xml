@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLength="50"
+        android:inputType="text"
         android:hint="@string/first_name"
         android:layout_marginTop="84dp"
         android:padding="10dp"
@@ -43,6 +44,7 @@
         android:layout_marginTop="20dp"
         android:hint="@string/last_name"
         android:padding="10dp"
+        android:inputType="text"
         android:maxLines="1"/>
     <TextView
         android:id="@+id/tv_lastname"
@@ -82,6 +84,7 @@
         android:layout_below="@+id/et_birthdate_edit"
         android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:inputType="text"
         android:maxLines="1"/>
     <TextView
         android:id="@+id/tv_email"
@@ -102,6 +105,7 @@
         android:layout_below="@+id/et_email_edit"
         android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:inputType="text"
         android:maxLines="1"/>
     <TextView
         android:id="@+id/tv_phone"
@@ -122,6 +126,7 @@
         android:layout_below="@+id/et_phone_edit"
         android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:inputType="text"
         android:maxLines="2"/>
     <TextView
         android:id="@+id/tv_adrress"
@@ -142,6 +147,7 @@
         android:layout_below="@+id/et_address_edit"
         android:layout_marginTop="20dp"
         android:padding="10dp"
+        android:inputType="text"
         android:maxLines="1"/>
     <TextView
         android:id="@+id/tv_username"
