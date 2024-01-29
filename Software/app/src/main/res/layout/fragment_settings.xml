@@ -12,8 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:background="@drawable/settings_background"
+        android:textColor="@color/white"
         android:gravity="center"
-        android:text="Veličina fonta"
+        android:text="Font size"
         android:textSize="20dp" />
 
     <Spinner
@@ -24,16 +25,10 @@
         android:layout_marginTop="38dp"
         android:layout_weight="1"
         android:background="@drawable/settings_background"
+        android:textColor="@color/white"
         android:entries="@array/font_options" />
 
-    <Button
-        android:id="@+id/btnAppColor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/fontSpinner"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/medi_blue"
-        android:text="Boja aplikacije" />
+
 
     <TextView
         android:id="@+id/tv_smallA"
@@ -67,13 +62,25 @@
         android:text="A"
         android:textSize="38dp" />
 
+    <CheckBox
+        android:id="@+id/cbdarkTheme"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fontSpinner"
+        android:layout_marginTop="20dp"
+        android:checked="false"
+        android:background="@drawable/settings_background"
+        android:textColor="@color/white"
+        android:text="Dark theme" />
+
     <Button
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnAppColor"
-        android:layout_marginTop="17dp"
+        android:layout_below="@+id/cbdarkTheme"
+        android:layout_marginTop="25dp"
         android:backgroundTint="@color/medi_blue"
+        android:textColor="@color/white"
         android:onClick="navigateToMainActivity"
         android:text="Back" />
 

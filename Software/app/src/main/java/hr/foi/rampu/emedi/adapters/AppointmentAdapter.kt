@@ -1,13 +1,19 @@
 package hr.foi.rampu.emedi.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
+import hr.foi.rampu.emedi.AppointmentDetailsActivity
 import hr.foi.rampu.emedi.R
 import hr.foi.rampu.emedi.database.AppDatabase
 import hr.foi.rampu.emedi.entities.Appointment
@@ -40,6 +46,7 @@ class AppointmentAdapter(private val context: Context, private val appointments:
         val tvDateAndTime = rowView.findViewById<TextView>(R.id.tv_appointment_date_and_time)
         val tvSymptoms = rowView.findViewById<TextView>(R.id.tv_appointment_symptoms)
         val tvAppointmentAlreadyDone = rowView.findViewById<TextView>(R.id.tv_appointment_already_done)
+        val btnViewDetails = rowView.findViewById<Button>(R.id.btn_appt_details)
 
         val appointment = getItem(position) as Appointment
         val appDoctor = appointment.doctor
@@ -54,10 +61,18 @@ class AppointmentAdapter(private val context: Context, private val appointments:
         }
 
         tvAppointmentAlreadyDone.visibility = View.GONE
+        btnViewDetails.visibility = View.GONE
 
         if (Date().time > appointment.appointmentDate.time) {
             rowView.background = ContextCompat.getDrawable(context, R.drawable.rounded_background_gray)
             tvAppointmentAlreadyDone.visibility = View.VISIBLE
+            btnViewDetails.visibility = View.VISIBLE
+
+            btnViewDetails.setOnClickListener {
+                val intent = Intent(context, AppointmentDetailsActivity::class.java)
+                intent.putExtra("AppointmentId", appointment.id)
+                context.startActivity(intent)
+            }
         }
 
         return rowView

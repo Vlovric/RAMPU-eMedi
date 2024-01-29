@@ -15,6 +15,7 @@
         android:text="@string/appointments"
         android:padding="5dp"
         android:divider="@android:color/transparent"
+        android:textColor="@color/white"
         android:background="@color/medi_blue"/>
 
     <ListView

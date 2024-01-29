@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
@@ -40,11 +41,14 @@ class LoginActivity : AppCompatActivity() {
         val linkRegistration = findViewById<TextView>(R.id.link_register)
         val loginButton = findViewById<Button>(R.id.btn_login)
 
+        val usernameField = findViewById<EditText>(R.id.et_username_edit)
+        val passwordField = findViewById<EditText>(R.id.et_password_edit)
 
         loginButton.setOnClickListener {
-            val username = findViewById<EditText>(R.id.et_username_edit).text.toString()
-            val password = findViewById<EditText>(R.id.et_password_edit).text.toString()
+            val username = usernameField.text.toString()
+            val password = passwordField.text.toString()
             val loggedInUser = MockDataUser.findUserByCredentials(username, password)
+
 
             if (loggedInUser != null) {
                 UserSession.loggedIn = true
